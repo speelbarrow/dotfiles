@@ -8,7 +8,8 @@ for scope, object in pairs({
 		shiftwidth	= 4,
 	},
 	g = {
-		autochdir = true,
+		autochdir 	= true,
+		showmode	= false,
 	}
 }) do
 	for option, value in pairs(object) do

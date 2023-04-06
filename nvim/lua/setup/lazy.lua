@@ -15,6 +15,33 @@ vim.opt.rtp:append(lazypath)
 
 -- Plugin configurations
 require'lazy'.setup {
+	-- 	  					   --
+	-- QUALITY OF LIFE PLUGINS --
+	-- 	  					   --
+
+	-- Cute little status line thing
+	{
+		'nvim-lualine/lualine.nvim',
+		config = function() require'setup.lualine' end
+	},
+
+	--								   --
+	-- LANGUAGE SERVER RELATED PLUGINS --
+	--								   --
+
+	-- GitHub Copilot
+	{
+		'github/copilot.vim',
+		config = function()
+			-- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
+			vim.g.copilot_no_tab_map = true
+			vim.g.copilot_assume_mapped = true
+			vim.g.copilot_tab_fallback = ""
+			vim.api.nvim_set_keymap('i', '<S-Tab>', vim.fn["copilot#Dismiss"](), { noremap = true, silent = true, script = true })
+		end
+	},
+
+	-- LSP configs
 	'neovim/nvim-lspconfig',
 
 	-- Provides autocompletion
@@ -50,18 +77,6 @@ require'lazy'.setup {
 		event = "User cmp",
 		-- Run config on load
 		config = function() require'setup.nvim-cmp' end
-	},
-
-	-- GitHub Copilot
-	{
-		'github/copilot.vim',
-		config = function()
-			-- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
-			vim.g.copilot_no_tab_map = true
-			vim.g.copilot_assume_mapped = true
-			vim.g.copilot_tab_fallback = ""
-			vim.api.nvim_set_keymap('i', '<S-Tab>', vim.fn["copilot#Dismiss"](), { noremap = true, silent = true, script = true })
-		end
 	},
 
 	-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
