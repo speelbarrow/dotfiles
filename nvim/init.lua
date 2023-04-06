@@ -18,8 +18,8 @@ for scope, object in pairs({
 	end
 end
 
--- Run 'lazy.nvim' setup
-require'setup-lazy_nvim'
+-- Configure plugin manager
+require'setup.lazy'
 
--- Configure the available language servers
-require'setup-lspconfig'
+-- Configure lspconfig
+require'setup.lspconfig'
