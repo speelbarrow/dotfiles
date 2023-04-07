@@ -15,9 +15,9 @@ vim.opt.rtp:append(lazypath)
 
 -- Plugin configurations
 require'lazy'.setup {
-	-- 	  					   --
-	-- QUALITY OF LIFE PLUGINS --
-	-- 	  					   --
+	-- 	  			   --
+	-- QUALITY OF LIFE --
+	-- 	  			   --
 
 	-- Cute little status line thing
 	{
@@ -25,9 +25,24 @@ require'lazy'.setup {
 		config = function() require'setup.lualine' end
 	},
 
-	--								   --
-	-- LANGUAGE SERVER RELATED PLUGINS --
-	--								   --
+	-- Git diff line indicators
+	{
+		'lewis6991/gitsigns.nvim',
+		config = function()
+			require'gitsigns'.setup {}
+
+			-- Set colours	
+			vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
+			vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
+			vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
+			vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
+		end,
+	},
+
+
+	--				   --
+	-- LANGUAGE SERVER --
+	--				   --
 
 	-- GitHub Copilot
 	{

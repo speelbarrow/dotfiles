@@ -1,15 +1,15 @@
 -- Editor settings (`:set` commands)
 for scope, object in pairs({
 	w = {
-		number 		= true,
+		number 		= true,		-- show line numbers	
 	},
 	b = {
-		tabstop		= 4,
-		shiftwidth	= 4,
+		tabstop		= 4,		-- number of spaces that a <Tab> in the file counts for
+		shiftwidth	= 4,		-- number of spaces to use for each step of (auto)indent
 	},
 	g = {
-		autochdir 	= true,
-		showmode	= false,
+		autochdir 	= true,		-- change working directory to that of the current file
+		showmode	= false,	-- don't show mode (e.g. -- INSERT --) because it's shown by Lualine
 	}
 }) do
 	for option, value in pairs(object) do
