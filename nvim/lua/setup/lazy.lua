@@ -22,7 +22,7 @@ require'lazy'.setup {
 	-- Cute little status line thing
 	{
 		'nvim-lualine/lualine.nvim',
-		config = function() require'setup.lualine' end
+		config = function() require'setup.lualine' end,
 	},
 
 	-- Git diff line indicators
@@ -39,6 +39,16 @@ require'lazy'.setup {
 		end,
 	},
 
+	-- Macbook Touch Bar integration
+	{
+		'eth-p/vim-it2-touchbar',
+
+		-- Only load on Mac
+		cond = function() return vim.fn.has('mac') == 1 end,
+
+	    -- Set up the touchbar labels/actions
+		config = function() require'touchbar'.setup() end,
+	},
 
 	--				   --
 	-- LANGUAGE SERVER --
