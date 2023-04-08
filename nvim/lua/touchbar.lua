@@ -22,7 +22,7 @@ function M.touchbar()
 		if mapping then
 			vim.cmd['TouchBarLabel']('F'..i.." '"..mapping.label.."'")
 			for _, mode in ipairs{'n', 'i', 'v'} do
-				vim.api.nvim_set_keymap(mode, '<F'..i..'>', "<ESC> :"..mapping.command.."<CR>", { noremap = true, silent = true })
+				vim.api.nvim_set_keymap(mode, '<F'..i..'>', "execute('"..mapping.command.."')", { expr = true, noremap = true, silent = true })
 			end
 		else
 			vim.cmd['TouchBarLabel']('F'..i.." ' '")
