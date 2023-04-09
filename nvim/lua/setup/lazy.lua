@@ -121,6 +121,13 @@ require'lazy'.setup {
 		},
 
 		ft = 'rust',
-		config = true,
+		config = function()
+			require'rust-tools'.setup({
+				server = {
+					standalone = true,
+					capabilities = require'cmp_nvim_lsp'.default_capabilities(),
+				}
+			})
+		end
 	}
 }

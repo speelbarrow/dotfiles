@@ -1,10 +1,10 @@
 local M = {
 	mappings = {
-		{ label = "Hover", command = "lua vim.lsp.buf.hover()" },
-		{ label = 'Rename', command = "lua vim.lsp.buf.rename()" },
-		{ label = 'Diagnostic', command = "lua vim.diagnostic.open_float()" },
-		{ label = 'Clear Highlight', command = "noh" },
-		{ label = 'Copilot: On', command = "lua require'touchbar'.toggleCopilot()" },
+		{ label = "Hover", command = "lua vim.lsp.buf.hover()"},
+		{ label = 'Rename', command = "lua vim.lsp.buf.rename()"},
+		{ label = 'Diagnostic', command = "lua vim.diagnostic.open_float()"},
+		{ label = 'Clear Highlight', command = "noh"},
+		{ label = 'Copilot: On', command = [[lua require"touchbar".toggleCopilot()]]},
 	}
 }
 
@@ -37,7 +37,8 @@ function M.toggleCopilot()
 	else
 		M.mappings[5].label = 'Copilot: Off'
 	end
-	vim.fn['it2touchbar#RegenKeys']()
+	local keys = vim.api.nvim_replace_termcodes("<ESC>:call it2touchbar#RegenKeys()<CR><C-l>", true, false, true)
+	vim.api.nvim_feedkeys(keys, 'm', false)
 end
 
 return M
