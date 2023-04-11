@@ -1,5 +1,5 @@
 local lspconfig = require'lspconfig'
-local capabilities = require'cmp_nvim_lsp'.default_capabilities()
+local capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
 if vim.fn.expand('%:p'):find('^'..vim.opt.rtp:get()[1]) ~= nil or
@@ -19,5 +19,14 @@ end
 
 -- LuaLS setup must occur after Neodev setup
 lspconfig.lua_ls.setup {
-	capabilities = capabilities
+	capabilities = capabilities,
+}
+
+-- Use clangd for C/C++ LSP
+lspconfig.clangd.setup {
+	capabilities = (function()
+		local clangd_capabilities = capabilities
+		clangd_capabilities.offsetEncoding = "utf-8"
+		return clangd_capabilities
+	end)(),
 }

@@ -19,10 +19,12 @@ require'lazy'.setup {
 	-- QUALITY OF LIFE --
 	-- 	  			   --
 
-	-- Cute little status line thing
+	-- Dispatch executions and tests asynchronously
 	{
-		'nvim-lualine/lualine.nvim',
-		config = function() require'setup.lualine' end,
+		'tpope/vim-dispatch',
+		config = function()
+			require'setup.dispatch'
+		end,
 	},
 
 	-- Git diff line indicators
@@ -39,15 +41,21 @@ require'lazy'.setup {
 		end,
 	},
 
+	-- Cute little status line thing
+	{
+		'nvim-lualine/lualine.nvim',
+		config = function() require'setup.lualine' end,
+	},
+
 	-- Macbook Touch Bar integration
 	{
 		'noah-friedman/vim-it2-touchbar',
 		branch = 'patch-1',
 
 		-- Only load on Mac
-		cond = function() return vim.fn.has('mac') == 1 end,
+		cond = vim.fn.has('mac') == 1,
 
-	    -- Set up the touchbar labels/actions
+		-- Set up the touchbar labels/actions
 		config = function() require'touchbar'.setup() end,
 	},
 
@@ -124,10 +132,12 @@ require'lazy'.setup {
 		config = function()
 			require'rust-tools'.setup({
 				server = {
-					standalone = true,
-					capabilities = require'cmp_nvim_lsp'.default_capabilities(),
+					-- standalone = true,
+					capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
+
 				}
 			})
-		end
+		end,
+		priority = 51, -- Load after nvim-cmp
 	}
 }
