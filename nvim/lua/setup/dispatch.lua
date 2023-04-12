@@ -17,7 +17,7 @@ for ft, opts in pairs(configs) do
 	end
 end
 
--- Helper function to avoid repeating the same code for `:R` and `:T`
+-- Helper function to avoid repeating the same code for `:R/T/C`
 local function go(cmd)
 	local config = configs[vim.bo.filetype]
 	if config and config.callback then
@@ -27,9 +27,15 @@ local function go(cmd)
 	end
 end
 
--- Set up `:R` and `:T` commands
+-- Set up `:R/T/B`,  commands
 vim.api.nvim_create_user_command('R', function() go("run") end, {nargs = 0})
 vim.api.nvim_create_user_command('T', function() go("test") end, {nargs = 0})
+vim.api.nvim_create_user_command('B' , function() go("build") end, {nargs = 0})
+
+-- Set up keymaps for `r/t/b`
+vim.api.nvim_set_keymap("n", "r", ":R<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "t", ":T<CR>", {noremap = true, silent = true})
+vim.api.nvim_set_keymap("n", "b", ":B<CR>", {noremap = true, silent = true})
 
 -- Set keymapping for closing the quickfix window
 vim.api.nvim_set_keymap("n", "Q", ":ccl<CR><C-l>", {noremap = true, silent = true})
