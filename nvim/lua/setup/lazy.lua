@@ -130,10 +130,16 @@ require'lazy'.setup {
 		ft = 'rust',
 		config = function()
 			require'rust-tools'.setup({
+				dap = {
+					adapter = {
+						type = 'executable',
+						command = 'lldb',
+						name = 'lldb',
+					},
+				},
 				server = {
-					-- standalone = true,
+					standalone = true,
 					capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
-
 				}
 			})
 		end,
