@@ -61,11 +61,11 @@ elif $FORCE; then
 fi
 
 # Save root directory of config files to avoid computing repeatedly
-export ROOT=$(dirname $(realpath $BASH_SOURCE))
+export DOTFILES=$(dirname $(realpath $BASH_SOURCE))
 
 
 # Bring helper functions into scope now that we know where the root directory is
-. $ROOT/helpers.sh
+. $DOTFILES/helpers.sh
 
 # Check for dependencies
 for DEPENDENCY in git curl pip3; do exists $DEPENDENCY || { >&2 echo "ERROR: required program '$DEPENDENCY' is not installed."; exit 1; }; done
@@ -76,7 +76,7 @@ for CONFIGURABLE in nvim; do
 	if exists $CONFIGURABLE; then
 		echo "Configuring $CONFIGURABLE . . ."
 
-		$ROOT/$CONFIGURABLE/setup.sh
+		$DOTFILES/$CONFIGURABLE/setup.sh
 
 		# Check if the script exitted non-zero
 		if [ ${STATUS=$?} -ne 0 ]; then

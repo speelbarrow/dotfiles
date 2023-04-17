@@ -1,0 +1,16 @@
+# Source iTerm2 integration script if it exists
+test -e /Users/speelbarrow/.iterm2_shell_integration.zsh && source /Users/speelbarrow/.iterm2_shell_integration.zsh || true
+
+# Set EDITOR environment variable and `vim` command alias if Neovim found
+if [ -x `command -v nvim` ]; then
+  export EDITOR='nvim'
+  alias vim='nvim'
+fi
+
+# Add other aliases (even if the commands aren't there, they won't break anything)
+alias docker-disposable="docker run --rm -ti --name disposable --entrypoint /bin/sh"
+alias ccmake="ccmake -S . -B 'build/'"
+
+# Sources `.zshrc-local` if it exists
+# Can be used for local config and importing of functions from `functions` dir
+[ -f ~/.zshrc-local ] && source ~/.zshrc-local

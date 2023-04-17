@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Bring helper funcs into scope
-. $ROOT/helpers.sh
+. $DOTFILES/helpers.sh
 
 # Install Neovim support for Python
 [ $FORCE && (pip3 install neovim --force-reinstall --upgrade) ] || pip3 install neovim --upgrade
