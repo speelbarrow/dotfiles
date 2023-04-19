@@ -18,16 +18,8 @@ for option, value in pairs(object) do
 end
 end
 
--- Set up autocommands for buffer-scoped options
-vim.api.nvim_create_autocmd("FileType", {
-	pattern = "*",
-	callback = function()
-		for option, value in pairs({
-			shiftwidth	= 4,
-			tabstop		= 4,
-		}) do vim.bo[option] = value end
-	end
-})
+-- Set tab size based on filetype
+local tabsize = require'tabsize'
 
 -- Keymaps for switching buffers
 vim.api.nvim_set_keymap('n', '<', ':bp<CR><C-l>', {noremap = true})
