@@ -1,9 +1,9 @@
-source ${0:A:h}/functions.zsh
+source $ZSH_CUSTOM/plugins/zsh-apple-touchbar/functions.zsh
 
-if [ -e ~/.zsh-apple-touchbar.zsh.local ]; then
-	source ~/.zsh-apple-touchbar.zsh.local
+if [ -e $HOME/.zsh-apple-touchbar.zsh.local ]; then
+	source $HOME/.zsh-apple-touchbar.zsh.local
 else
-	function local_touchbar() {}
+	function local_touchbar {}
 fi
 
 set_state 'default'
@@ -20,7 +20,7 @@ function default_view() {
 
 	create_key 1 'commit all and push' 'git add .; git commit; git push' '-s'
 	create_key 2 'commit and push' 'git commit; git push' '-s'
-	local_touchbar()
+	local_touchbar
 }
 
 zle -N default_view
