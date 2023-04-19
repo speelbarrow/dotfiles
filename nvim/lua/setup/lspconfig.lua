@@ -30,3 +30,20 @@ lspconfig.clangd.setup {
 		return clangd_capabilities
 	end)(),
 }
+
+-- Dockerfile LSP
+lspconfig.dockerls.setup {
+	capabilities = capabilities,
+}
+
+-- YAML LSP (mainly for editing GitHub Actions workflows)
+lspconfig.yamlls.setup {
+	capabilities = capabilities,
+	settings = {
+		yaml = {
+			schemas = {
+				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*.yml",
+			},
+		},
+	},
+}
