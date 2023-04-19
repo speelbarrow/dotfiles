@@ -1,11 +1,11 @@
 # Determine location of scripts
-DOTFILES=$(dirname $(realpath $BASH_SOURCE))
+DOTFILES=$(dirname $(realpath ${(%):-%N}))
 
 # Run setup script for before loading oh my zsh
-source $DOTFILES/pre-ohmy.zsh
+source $DOTFILES/.zshrc.pre-oh-my-zsh
 
 # Load oh my zsh
 source $ZSH/oh-my-zsh.sh
 
 # Run setup script for after loading oh my zsh
-source $DOTFILES/post-ohmy.zsh
+source $DOTFILES/.zshrc.post-oh-my-zsh

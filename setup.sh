@@ -72,7 +72,7 @@ for DEPENDENCY in git curl pip3; do exists $DEPENDENCY || { >&2 echo "ERROR: req
 
 # Check if commands for config files are present, if so then run the associated script
 FAILED=false
-for CONFIGURABLE in nvim; do
+for CONFIGURABLE in nvim zsh; do
 	if exists $CONFIGURABLE; then
 		echo "Configuring $CONFIGURABLE . . ."
 
