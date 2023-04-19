@@ -10,6 +10,7 @@
 file ~/.config/nvim/init.lua
 
 # Create symlinks for Neovim config files
+mkdir -p ~/.config/nvim
 ln -s "$(dirname "$0")/init.lua" ~/.config/nvim/init.lua
 ln -s "$(dirname "$0")/lua" ~/.config/nvim/lua
 echo "Created Neovim config symlink"
