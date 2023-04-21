@@ -2,6 +2,7 @@
 	options = {
 		theme = 'molokai',
 		globalstatus = true,
+		section_separators = { left = ' ', right = '  ' },
 	},
 	sections = {
 		lualine_a = {
@@ -28,9 +29,6 @@
 		lualine_c = {
 			{
 				'buffers',
-				symbols = {
-					directory = '⌂',
-				},
 			}
 		},
 		lualine_x = {
@@ -38,10 +36,10 @@
 			{
 				'fileformat',
 				symbols = {
-					unix = '↓',
-					dos = '↩',
-					mac = '←',
-				},
+					dos = '󱞢',
+					mac = '󰜱',
+					unix = '󰜮',
+				}
 			},
 			'filetype'
 		},
@@ -52,10 +50,10 @@
 				sources = { 'nvim_lsp' },
 				sections = { 'error', 'warn', 'info', 'hint' },
 				symbols = {
-					error = '⊘ ',
-					warn = '⚠ ',
-					info = '⋯ ',
-					hint = ' ',
+					error = '󰜺 ',
+					warn = '󰀦 ',
+					info = '󰋼 ',
+					hint = '󰌵 ',
 				},
 				update_in_insert = true,
 			}

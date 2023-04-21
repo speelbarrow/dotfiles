@@ -53,7 +53,7 @@ cmp.setup {
 			name = 'nvim_lsp',
 
 			-- Filter out annoying 'Text' autofills
-			entry_filter = function(entry, ctx)
+			entry_filter = function(entry, _)
 				local kind = require'cmp.types'.lsp.CompletionItemKind[entry:get_kind()]
 				return kind ~= "Text"
 			end
