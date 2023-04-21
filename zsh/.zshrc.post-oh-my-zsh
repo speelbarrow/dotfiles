@@ -11,8 +11,8 @@ fi
 alias docker-disposable="docker run --rm -ti --name disposable --entrypoint /bin/sh"
 alias ccmake="ccmake -S . -B 'build/'"
 
-# Sources `.zshrc-local` if it exists
+# Sources `.zshrc.local` if it exists
 # Can be used for local config and importing of functions from `functions` dir
-{ [ -f ~/.zshrc-local ] && source ~/.zshrc-local; }
+{ [ -f ~/.zshrc.local ] && source ~/.zshrc.local; }
 
 return 0
