@@ -36,9 +36,9 @@
 			{
 				'fileformat',
 				symbols = {
-					dos = '󱞢',
-					mac = '󰜱',
-					unix = '󰜮',
+					dos = '󰨡',
+					mac = '󰀶',
+					unix = '󰌽',
 				}
 			},
 			'filetype'
