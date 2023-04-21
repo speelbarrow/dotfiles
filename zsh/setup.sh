@@ -7,7 +7,7 @@
 file "$HOME/.oh-my-zsh"
 
 # Install OhMyZsh
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh) --unattended"
+sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh -O -) --unattended"
 
 # Remove auto-generated .zshrc
 file "$HOME/.zshrc"
