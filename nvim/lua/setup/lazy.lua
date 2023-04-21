@@ -66,10 +66,6 @@ require'lazy'.setup {
 	{
 		'github/copilot.vim',
 		config = function()
-			-- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
-			vim.g.copilot_no_tab_map = true
-			vim.g.copilot_assume_mapped = true
-			vim.g.copilot_tab_fallback = ""
 			vim.api.nvim_set_keymap('i', '<S-Tab>', [[ copilot#Dismiss() ]], { expr = true, silent = true, script = true })
 		end
 	},
@@ -101,7 +97,10 @@ require'lazy'.setup {
 		init = function (_)
 			vim.api.nvim_create_autocmd('LspAttach', {
 				callback = function(args)
-					if vim.lsp.get_client_by_id(args.data.client_id).name ~= 'copilot' then
+					-- Only run if the client is not Copilot, and set capabilities while we're at it
+					local client = vim.lsp.get_client_by_id(args.data.client_id)
+					if client.name ~= 'copilot' then
+						client.config.capabilities = require'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
 						vim.api.nvim_exec_autocmds('User', { pattern = 'cmp' })
 					end
 				end
@@ -139,7 +138,6 @@ require'lazy'.setup {
 				},
 				server = {
 					standalone = true,
-					capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities()),
 				}
 			})
 		end,

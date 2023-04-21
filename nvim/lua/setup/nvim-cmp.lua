@@ -1,6 +1,11 @@
 local cmp = require'cmp'
 local cmp_ultisnips_mappings = require'cmp_nvim_ultisnips.mappings'
 
+-- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
+vim.g.copilot_no_tab_map = true
+vim.g.copilot_assume_mapped = true
+vim.g.copilot_tab_fallback = ""
+
 cmp.setup {
 	-- Tell nvim-cmp how to handle snippets
 	snippet = {

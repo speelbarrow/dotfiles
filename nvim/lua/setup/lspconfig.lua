@@ -1,5 +1,4 @@
 local lspconfig = require'lspconfig'
-local capabilities = require'cmp_nvim_lsp'.default_capabilities(vim.lsp.protocol.make_client_capabilities())
 
 -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
 if vim.fn.expand('%:p'):find('^'..vim.opt.rtp:get()[1]) ~= nil or
@@ -18,27 +17,22 @@ if vim.fn.expand('%:p'):find('^'..vim.opt.rtp:get()[1]) ~= nil or
 end
 
 -- LuaLS setup must occur after Neodev setup
-lspconfig.lua_ls.setup {
-	capabilities = capabilities,
-}
+lspconfig.lua_ls.setup {}
 
 -- Use clangd for C/C++ LSP
 lspconfig.clangd.setup {
 	capabilities = (function()
-		local clangd_capabilities = capabilities
+		local clangd_capabilities = vim.lsp.protocol.make_client_capabilities()
 		clangd_capabilities.offsetEncoding = "utf-8"
 		return clangd_capabilities
 	end)(),
 }
 
 -- Dockerfile LSP
-lspconfig.dockerls.setup {
-	capabilities = capabilities,
-}
+lspconfig.dockerls.setup {}
 
 -- YAML LSP (mainly for editing GitHub Actions workflows)
 lspconfig.yamlls.setup {
-	capabilities = capabilities,
 	settings = {
 		yaml = {
 			schemas = {
