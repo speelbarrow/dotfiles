@@ -13,4 +13,6 @@ alias ccmake="ccmake -S . -B 'build/'"
 
 # Sources `.zshrc-local` if it exists
 # Can be used for local config and importing of functions from `functions` dir
-[ -f ~/.zshrc-local ] && source ~/.zshrc-local
+{ [ -f ~/.zshrc-local ] && source ~/.zshrc-local; }
+
+return 0
