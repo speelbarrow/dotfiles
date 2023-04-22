@@ -1,4 +1,5 @@
 local cmp = require'cmp'
+local helpers = require'cmp-vsnip-helpers'
 
 -- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
 vim.g.copilot_no_tab_map = true
@@ -19,8 +20,6 @@ cmp.setup {
 		["<Down>"] = cmp.mapping.select_next_item(),
 		["<Tab>"] = cmp.mapping(
 		function()
-			local helpers = require'cmp-vsnip-helpers'
-
 			-- If the completion menu is open...
 			if cmp.visible() then
 				cmp.select_next_item()
@@ -41,20 +40,18 @@ cmp.setup {
 	{ "i", "s" }
 	),
 	["<S-Tab>"] = cmp.mapping(
-	function(fallback)
+	function()
 		-- If the completion menu is open, close it
 		if cmp.visible() then
 			cmp.close()
 
-			-- If Copilot has a suggestion, dismiss it
+		-- If Copilot has a suggestion, dismiss it
 		elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
 			vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "i", true)
-			-- Clears the status line
-			require'cmp-vsnip-helpers'.feedkey("<Esc><C-l>a", "n")
 
-			-- Otherwise, just fallback to default
+		-- Otherwise, just fallback to default
 		else
-			fallback()
+			helpers.feedkey("<S-Tab>", "n")
 		end
 	end,
 	{ "i", "s" }
