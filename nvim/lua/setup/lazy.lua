@@ -81,16 +81,7 @@ require'lazy'.setup {
 			'hrsh7th/cmp-buffer',
 			'hrsh7th/cmp-path',
 			'hrsh7th/cmp-cmdline',
-			{
-				-- Snippet engine
-				'SirVer/ultisnips',
-				dependencies = {
-					-- Mapping for nvim-cmp because I don't understand how it works
-					'quangnguyen30192/cmp-nvim-ultisnips',
-					-- Actual snippets
-					'honza/vim-snippets'
-				},
-			},
+
 			-- Snippet engine
 			'hrsh7th/vim-vsnip',
 

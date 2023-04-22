@@ -1,5 +1,4 @@
 local cmp = require'cmp'
---local cmp_ultisnips_mappings = require'cmp_nvim_ultisnips.mappings'
 
 -- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
 vim.g.copilot_no_tab_map = true
@@ -46,33 +45,24 @@ cmp.setup {
 				else
 					fallback()
 				end
-
-				--[[
-				cmp_ultisnips_mappings.expand_or_jump_forwards(function()
-					-- Map Copilot action along with everything else
-					local copilot_keys = vim.fn["copilot#Accept"]()
-					if copilot_keys ~= "" then
-						vim.api.nvim_feedkeys(copilot_keys, "i", true)
-					else
-						fallback()
-					end
-				end)
-				]]--
 			end,
 			{ "i", "s" }
 		),
 		["<S-Tab>"] = cmp.mapping(
 			function(fallback)
-				-- Map Copilot action along with everything else
+				-- If the completion menu is open, close it
 				if cmp.visible() then
 					cmp.close()
+
+				-- If Copilot has a suggestion, dismiss it
+				elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+					vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "i", true)
+					-- Clears the status line
+					require'cmp-vsnip-helpers'.feedkey("<Esc><C-l>a", "n")
+
+				-- Otherwise, just fallback to default
 				else
-					local copilot_keys = vim.fn["copilot#Dismiss"]()
-					if copilot_keys ~= "" then
-						vim.api.nvim_feedkeys(copilot_keys, "i", true)
-					else
-						fallback()
-					end
+					fallback()
 				end
 			end,
 			{ "i", "s" }
@@ -92,7 +82,7 @@ cmp.setup {
 				return kind ~= "Text"
 			end
 		},
-		{ name = 'ultisnips' },
+		{ name = 'vsnip' },
 		-- { name = 'buffer' },	
 	},
 
@@ -119,12 +109,3 @@ cmp.setup.cmdline(':', {
 		{ name = 'cmdline' },
 	}
 })
-
--- Get out of the way of Copilot
-cmp.event:on("menu_opened", function()
-	vim.b.copilot_suggestion_hidden = true
-end)
-
-cmp.event:on("menu_closed", function()
-	vim.b.copilot_suggestion_hidden = false
-end)
