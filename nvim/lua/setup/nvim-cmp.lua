@@ -18,81 +18,73 @@ cmp.setup {
 		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<Down>"] = cmp.mapping.select_next_item(),
 		["<Tab>"] = cmp.mapping(
-			function(fallback)
-				local helpers = require'cmp-vsnip-helpers'
+		function()
+			local helpers = require'cmp-vsnip-helpers'
 
-				-- If the completion menu is open...
-				if cmp.visible() then
-					-- If there are words before the cursor, complete
-					if helpers.has_words_before() then
-						cmp.complete()
-					-- If there are no words before the cursor, select the next item
-					else
-						cmp.select_next_item()
-					end
+			-- If the completion menu is open...
+			if cmp.visible() then
+				cmp.select_next_item()
+			else if vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+				vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
+				helpers.feedkey("<ESC><C-l>a", "n")
 
-				-- If Copilot has a suggestion, accept it
-				elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
-					vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
-					-- Clears the status line
-					helpers.feedkey("<Esc><C-l>a", "n")
+			-- If the completion menu is not open, there are no Copilot suggestions, but a snippet is available...
+			elseif vim.fn["vsnip#available"](1) == 1 then
+				helpers.feedkey("<Plug>(vsnip-expand-or-jump)<C-l>", "")
 
-				-- If the completion menu is not open, there are no Copilot suggestions, but a snippet is available...
-				elseif vim.fn["vsnip#available"](1) == 1 then
-					helpers.feedkey("<Plug>(vsnip-expand-or-jump)<C-l>", "")
-
-				-- Otherwise, just fallback to default
-				else
-					fallback()
-				end
-			end,
-			{ "i", "s" }
-		),
-		["<S-Tab>"] = cmp.mapping(
-			function(fallback)
-				-- If the completion menu is open, close it
-				if cmp.visible() then
-					cmp.close()
-
-				-- If Copilot has a suggestion, dismiss it
-				elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
-					vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "i", true)
-					-- Clears the status line
-					require'cmp-vsnip-helpers'.feedkey("<Esc><C-l>a", "n")
-
-				-- Otherwise, just fallback to default
-				else
-					fallback()
-				end
-			end,
-			{ "i", "s" }
-		),
-		['<CR>'] = cmp.mapping.confirm({ select = true }),
-	},
-
-
-	-- Tell nvim-cmp where it can get information from
-	sources = {
-		{
-			name = 'nvim_lsp',
-
-			-- Filter out annoying 'Text' autofills
-			entry_filter = function(entry, _)
-				local kind = require'cmp.types'.lsp.CompletionItemKind[entry:get_kind()]
-				return kind ~= "Text"
+			-- Otherwise, just fallback to default
+			else
+				helpers.feedkey("<Tab>", "n")
 			end
-		},
-		{ name = 'vsnip' },
-		-- { name = 'buffer' },	
-	},
+		end
+	end,
+	{ "i", "s" }
+	),
+	["<S-Tab>"] = cmp.mapping(
+	function(fallback)
+		-- If the completion menu is open, close it
+		if cmp.visible() then
+			cmp.close()
 
-	-- Add the cute little icons into the box there
-	formatting = {
-		format = function(_, vim_item)
-			vim_item.kind = string.format('%s  %s', require'kind-icons'[vim_item.kind], vim_item.kind)
-			return vim_item
+			-- If Copilot has a suggestion, dismiss it
+		elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+			vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "i", true)
+			-- Clears the status line
+			require'cmp-vsnip-helpers'.feedkey("<Esc><C-l>a", "n")
+
+			-- Otherwise, just fallback to default
+		else
+			fallback()
+		end
+	end,
+	{ "i", "s" }
+	),
+	['<CR>'] = cmp.mapping.confirm({ select = true }),
+},
+
+
+-- Tell nvim-cmp where it can get information from
+sources = {
+	{
+		name = 'nvim_lsp',
+
+		-- Filter out annoying 'Text' autofills
+		entry_filter = function(entry, _)
+			local kind = require'cmp.types'.lsp.CompletionItemKind[entry:get_kind()]
+			return kind ~= "Text"
 		end
 	},
+	{ name = 'vsnip' },
+	-- { name = 'buffer' },	
+},
+
+-- Add the cute little icons into the box there
+formatting = {
+	format = function(_, vim_item)
+		vim_item.kind = string.format('%s  %s', require'kind-icons'[vim_item.kind], vim_item.kind)
+		return vim_item
+	end
+},
 }
 
 -- Draw autocompletions from the buffer for '/' (finding)
