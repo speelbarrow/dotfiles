@@ -18,7 +18,7 @@ ln -s $HOME/.oh-my-zsh/custom/themes/typewritten/typewritten.zsh-theme $HOME/.oh
 ln -s $HOME/.oh-my-zsh/custom/themes/typewritten/async.zsh $HOME/.oh-my-zsh/custom/themes/async
 
 # Install other plugins
-for repo in "zsh-users/zsh-autosuggestions" "zsh-users/zsh-syntax-highlighting" "zsh-users/zsh-apple-touchbar"; do
+for repo in "zsh-users/zsh-autosuggestions" "zsh-users/zsh-syntax-highlighting" "noah-friedman/zsh-apple-touchbar"; do
 	git clone "https://github.com/$repo" "$HOME/.oh-my-zsh/custom/plugins/`basename $repo`"
 done
 
