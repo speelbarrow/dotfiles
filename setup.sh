@@ -68,7 +68,7 @@ export DOTFILES=$(dirname $(realpath $BASH_SOURCE))
 . $DOTFILES/helpers.sh
 
 # Check for dependencies
-for DEPENDENCY in git wget pip3; do exists $DEPENDENCY || { >&2 echo "ERROR: required program '$DEPENDENCY' is not installed."; exit 1; }; done
+for DEPENDENCY in git wget; do exists $DEPENDENCY || { >&2 echo "ERROR: required program '$DEPENDENCY' is not installed."; exit 1; }; done
 
 # Check if commands for config files are present, if so then run the associated script
 FAILED=false

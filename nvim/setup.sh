@@ -3,9 +3,6 @@
 # Bring helper funcs into scope
 . $DOTFILES/helpers.sh
 
-# Install Neovim support for Python
-{ $FORCE && (pip3 install neovim --force-reinstall --upgrade); } || pip3 install neovim --upgrade
-
 # Create a backup of any existing config file
 file ~/.config/nvim
 
