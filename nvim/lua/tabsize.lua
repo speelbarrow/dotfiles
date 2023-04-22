@@ -9,5 +9,5 @@ local function set_tabsize(ft, size)
 end
 
 set_tabsize("*", 4)
-set_tabsize("sh,bash,zsh", 8)
+set_tabsize("sh,bash,zsh,bindzone", 8)
 set_tabsize("yaml", 2)

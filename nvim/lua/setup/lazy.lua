@@ -90,7 +90,12 @@ require'lazy'.setup {
 					-- Actual snippets
 					'honza/vim-snippets'
 				},
-			}
+			},
+			-- Snippet engine
+			'hrsh7th/vim-vsnip',
+
+			-- Acutal snippets
+			'rafamadriz/friendly-snippets',
 		},
 
 		lazy = true,

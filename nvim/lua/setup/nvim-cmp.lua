@@ -1,5 +1,5 @@
 local cmp = require'cmp'
-local cmp_ultisnips_mappings = require'cmp_nvim_ultisnips.mappings'
+--local cmp_ultisnips_mappings = require'cmp_nvim_ultisnips.mappings'
 
 -- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
 vim.g.copilot_no_tab_map = true
@@ -10,7 +10,7 @@ cmp.setup {
 	-- Tell nvim-cmp how to handle snippets
 	snippet = {
 		expand = function(args)
-			vim.fn["UltiSnips#Anon"](args.body)
+			vim.fn["vsnip#anonymous"](args.body)
 		end
 	},
 
@@ -20,6 +20,34 @@ cmp.setup {
 		["<Down>"] = cmp.mapping.select_next_item(),
 		["<Tab>"] = cmp.mapping(
 			function(fallback)
+				local helpers = require'cmp-vsnip-helpers'
+
+				-- If the completion menu is open...
+				if cmp.visible() then
+					-- If there are words before the cursor, complete
+					if helpers.has_words_before() then
+						cmp.complete()
+					-- If there are no words before the cursor, select the next item
+					else
+						cmp.select_next_item()
+					end
+
+				-- If Copilot has a suggestion, accept it
+				elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
+					vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
+					-- Clears the status line
+					helpers.feedkey("<Esc><C-l>a", "n")
+
+				-- If the completion menu is not open, there are no Copilot suggestions, but a snippet is available...
+				elseif vim.fn["vsnip#available"](1) == 1 then
+					helpers.feedkey("<Plug>(vsnip-expand-or-jump)<C-l>", "")
+
+				-- Otherwise, just fallback to default
+				else
+					fallback()
+				end
+
+				--[[
 				cmp_ultisnips_mappings.expand_or_jump_forwards(function()
 					-- Map Copilot action along with everything else
 					local copilot_keys = vim.fn["copilot#Accept"]()
@@ -29,6 +57,7 @@ cmp.setup {
 						fallback()
 					end
 				end)
+				]]--
 			end,
 			{ "i", "s" }
 		),
