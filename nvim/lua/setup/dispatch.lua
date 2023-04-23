@@ -2,7 +2,29 @@
 local configs = {
 	rust = {
 		compiler = "cargo",
-	}
+	},
+	javascript = {
+		callback = function(cmd)
+			if next(vim.lsp.buf.list_workspace_folders()) ~= nil then
+				if cmd == "run" then
+					vim.cmd("Start -wait=always npm start")
+				end
+			else
+				vim.cmd("Start -wait=always node %")
+			end
+		end
+	},
+	typescript = {
+		callback = function(cmd)
+			if next(vim.lsp.buf.list_workspace_folders()) ~= nil then
+				if cmd == "run" then
+					vim.cmd("Start -wait=always npm start")
+				end
+			else
+				vim.cmd("Start -wait=always ts-node %")
+			end
+		end
+	},
 }
 
 -- Sets up autocommands for setting the compiler

@@ -42,5 +42,30 @@ lspconfig.yamlls.setup {
 	},
 }
 
+-- JSON LSP
+lspconfig.jsonls.setup {
+	capabilities = (function()
+		local jsonls_capabilities = vim.lsp.protocol.make_client_capabilities()
+		jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
+		return jsonls_capabilities
+	end)(),
+	settings = {
+		json = {
+			schemas = (function()
+				local schemas = {}
+
+				for schema, fileMatch in pairs({
+					["package.json"] = { "package.json" },
+					["tsconfig.json"] = { "tsconfig.json" },
+				}) do
+					table.insert(schemas, { fileMatch = fileMatch, url = "https://json.schemastore.org/"..schema })
+				end
+
+				return schemas
+			end)(),
+		},
+	},
+}
+
 -- TypeScript LSP (works for JavaScript too)
 lspconfig.tsserver.setup {}
