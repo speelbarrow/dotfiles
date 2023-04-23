@@ -41,3 +41,6 @@ lspconfig.yamlls.setup {
 		},
 	},
 }
+
+-- TypeScript LSP (works for JavaScript too)
+lspconfig.tsserver.setup {}
