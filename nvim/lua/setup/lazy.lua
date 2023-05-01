@@ -13,6 +13,18 @@ end
 
 vim.opt.rtp:append(lazypath)
 
+-- Autocommand that fires when an LSP client that isn't Copilot attaches
+vim.api.nvim_create_autocmd('LspAttach', {
+	callback = function(args)
+		-- Only run if the client is not Copilot, and set capabilities while we're at it
+		local client = vim.lsp.get_client_by_id(args.data.client_id)
+		if client.name ~= 'copilot' then
+			client.config.capabilities = require'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
+			vim.api.nvim_exec_autocmds('User', { pattern = 'NotCopilot', data = { buf = args.buf } })
+		end
+	end
+})
+
 -- Plugin configurations
 require'lazy'.setup {
 	-- 	  			   --
@@ -23,7 +35,10 @@ require'lazy'.setup {
 	{
 		'tpope/vim-dispatch',
 		config = function()
-			require'setup.dispatch'
+			vim.api.nvim_create_autocmd('User', {
+				pattern = 'NotCopilot',
+				callback = function(args) require'setup.dispatch'.setup(args.data.buf) end
+			})
 		end,
 	},
 
@@ -76,7 +91,12 @@ require'lazy'.setup {
 	},
 
 	-- LSP configs
-	'neovim/nvim-lspconfig',
+	{
+		'neovim/nvim-lspconfig',
+		config = function()
+			require'setup.lspconfig'
+		end,
+	},
 
 	-- Provides autocompletion
 	{
@@ -95,19 +115,7 @@ require'lazy'.setup {
 		},
 
 		lazy = true,
-		init = function (_)
-			vim.api.nvim_create_autocmd('LspAttach', {
-				callback = function(args)
-					-- Only run if the client is not Copilot, and set capabilities while we're at it
-					local client = vim.lsp.get_client_by_id(args.data.client_id)
-					if client.name ~= 'copilot' then
-						client.config.capabilities = require'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
-						vim.api.nvim_exec_autocmds('User', { pattern = 'cmp' })
-					end
-				end
-			})
-		end,
-		event = "User cmp",
+		event = "User NotCopilot-*",
 		-- Run config on load
 		config = function() require'setup.nvim-cmp' end
 	},
@@ -121,12 +129,6 @@ require'lazy'.setup {
 	-- Rust LSP and other goodies
 	{
 		'simrat39/rust-tools.nvim',
-		dependencies = {
-			-- For debugging
-			'nvim-lua/plenary.nvim',
-			'mfussenegger/nvim-dap',
-		},
-
 		ft = 'rust',
 		config = function()
 			require'rust-tools'.setup({

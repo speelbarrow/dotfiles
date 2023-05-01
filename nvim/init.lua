@@ -28,6 +28,3 @@ vim.api.nvim_set_keymap('n', '>', ':bn<CR><C-l>', {noremap = true})
 
 -- Configure plugin manager
 require'setup.lazy'
-
--- Configure lspconfig
-require'setup.lspconfig'

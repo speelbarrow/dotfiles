@@ -2,9 +2,9 @@ local M = {
 	mappings = {
 		{ label = "Hover", command = "lua vim.lsp.buf.hover()"},
 		{ label = 'Rename', command = "lua vim.lsp.buf.rename()"},
-		{ label = 'Diagnostic', command = "<ESC>:lua vim.diagnostic.open_float()<CR>", expr = false},
+		{ label = 'Diagnostic', command = "lua vim.diagnostic.open_float()"},
 		{ label = 'Clear Highlight', command = "noh"},
-		{ label = 'Copilot: On', command = [[lua require"touchbar".toggleCopilot()]]},
+		{ label = 'Copilot: On', command = "lua require'touchbar'.toggleCopilot()"},
 	}
 }
 
@@ -22,7 +22,7 @@ function M.touchbar()
 		if mapping then
 			vim.cmd['TouchBarLabel']('F'..i.." '"..mapping.label.."'")
 			for _, mode in ipairs{'n', 'i', 'v'} do
-				vim.api.nvim_set_keymap(mode, '<F'..i..'>', mapping.expr == false and mapping.command or "execute('"..mapping.command.."')", { expr = mapping.expr ~= false, noremap = true, silent = true })
+				vim.api.nvim_set_keymap(mode, '<F'..i..'>', "<Cmd>"..mapping.command.."<CR>", {noremap = true, silent = true})
 			end
 		else
 			vim.cmd['TouchBarLabel']('F'..i.." ' '")
@@ -37,8 +37,7 @@ function M.toggleCopilot()
 	else
 		M.mappings[5].label = 'Copilot: Off'
 	end
-	local keys = vim.api.nvim_replace_termcodes("<ESC>:call it2touchbar#RegenKeys()<CR><C-l>", true, false, true)
-	vim.api.nvim_feedkeys(keys, 'm', false)
+	vim.cmd "call it2touchbar#RegenKeys()"
 end
 
 return M
