@@ -8,7 +8,7 @@ local M = {
 	}
 }
 
----@alias monoconfig { compiler?: string, [action]?: (fun(): nil) | string } Configuration of Dispatch actions for a specific FileType. Functions get called, strings passed to `Dispatch`. If the `compiler` string is defined and the action is a string, it will be prepended to the action string before being sent to Dispatch.
+---@alias monoconfig { compiler?: string, [action]?: (fun(): nil) | string | true } Configuration of Dispatch actions for a specific FileType. Functions get called, strings passed to `Dispatch` (`true` means use the action name as a string). If the `compiler` string is defined and the action is a string, it will be prepended to the action string before being sent to Dispatch.
 ---@alias multiconfig { single?: monoconfig, workspace?: monoconfig } Configuration for a FileType where behaviours should differ between single-file and workspace environments.
 ---@alias config monoconfig | multiconfig Configuration for a FileType.
 
@@ -63,8 +63,11 @@ function M.go(action)
 		if type(action_config) == "function" then
 			action_config()
 
-			-- If the action config is a string, send it to Dispatch
+			-- If the action config is a string or boolean, send it to Dispatch
 		else
+			if action_config == true then
+				action_config = action
+			end
 			if config.compiler then
 				action_config = config.compiler .. " " .. action_config
 			end

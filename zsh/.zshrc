@@ -1,5 +1,6 @@
 # Determine location of scripts
 DOTFILES=$(realpath "$(dirname $(realpath ${(%):-%N}))/..")
+alias dotfiles="cd $DOTFILES"
 
 # Run setup script for before loading oh my zsh
 source $DOTFILES/zsh/.zshrc.pre-oh-my-zsh
