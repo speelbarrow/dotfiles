@@ -10,6 +10,7 @@ fi
 # Add other aliases (even if the commands aren't there, they won't break anything)
 alias docker-disposable="docker run --rm -ti --name disposable --entrypoint /bin/sh"
 alias ccmake="ccmake -S . -B 'build/'"
+alias cdgr='cd $(git rev-parse --show-toplevel)'
 
 # Sources `.zshrc.local` if it exists
 # Can be used for local config and importing of functions from `functions` dir
