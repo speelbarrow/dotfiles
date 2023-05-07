@@ -1,11 +1,14 @@
-local dispatch = require'setup.dispatch'
-
--- Helper function that determines the first binary target in a Cargo.toml file and then executes a command passed as an argument
+-- Helper function that determines all binary targets in a Cargo.toml file and then launches them
 ---@param todo string
 local function do_if_target(todo)
 	local targets = vim.json.decode(vim.fn.system("cargo read-manifest")).targets
+
+	-- Find all binary targets, if at least one is found then update program state accordingly
+	local none = true
 	for _, target in ipairs(targets) do
 		if target.kind[1] == "bin" then
+			none = false
+
 			-- Only two possible LSP clients, if the first is copilot just use second
 			local clients = vim.lsp.get_active_clients()
 			local client = clients[1]
@@ -18,14 +21,15 @@ local function do_if_target(todo)
 
 			-- Execute the command
 			vim.cmd("Start " .. todo .. " " .. client.config.root_dir .. "/target/debug/" .. target.name)
-			return
 		end
 	end
 
-	vim.notify("No binary target found", vim.log.levels.ERROR)
+	if none then
+		vim.notify("No binary target found", vim.log.levels.ERROR)
+	end
 end
 
-dispatch.register("rust", {
+require'setup.dispatch'.register("rust", {
 	single = {
 		compiler = "rustc",
 		run = function()

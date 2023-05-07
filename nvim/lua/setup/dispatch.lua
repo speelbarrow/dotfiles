@@ -8,7 +8,7 @@ local M = {
 	}
 }
 
----@alias monoconfig { compiler?: string, [action]?: (fun(): nil) | string | true } Configuration of Dispatch actions for a specific FileType. Functions get called, strings passed to `Dispatch` (`true` means use the action name as a string). If the `compiler` string is defined and the action is a string, it will be prepended to the action string before being sent to Dispatch.
+---@alias monoconfig { compiler?: (fun(bufnr: integer): nil) | string, [action]?: (fun(): nil) | string | true } Configuration of Dispatch actions for a specific FileType. Functions get called, strings passed to `Dispatch` (`true` means use the action name as a string). If `compiler` is a function, it will be executed when the file is loaded. If it is a string and the action is a string, it will be prepended to the action string before being sent to Dispatch. As well, when the configuration is loaded it set the vim compiler option if available, or the 'b:makeprg' variable otherwise
 ---@alias multiconfig { single?: monoconfig, workspace?: monoconfig } Configuration for a FileType where behaviours should differ between single-file and workspace environments.
 ---@alias config monoconfig | multiconfig Configuration for a FileType.
 
@@ -68,7 +68,7 @@ function M.go(action)
 			if action_config == true then
 				action_config = action
 			end
-			if config.compiler then
+			if config.compiler and type(config.compiler) == "string" then
 				action_config = config.compiler .. " " .. action_config
 			end
 			vim.cmd("Dispatch " .. action_config)
@@ -119,8 +119,12 @@ function M.setup(bufnr)
 
 		-- ... and configure the compiler if provided
 		if current_configs[bufnr].compiler then
-			if not pcall(vim.cmd --[[@as any]], "compiler " .. current_configs[bufnr].compiler) then
-				vim.bo.makeprg = current_configs[bufnr].compiler
+			if type(current_configs[bufnr].compiler) == "function" then
+				current_configs[bufnr].compiler(bufnr)
+			else
+				if not pcall(vim.cmd --[[@as any]], "compiler " .. current_configs[bufnr].compiler) then
+					vim.bo.makeprg = current_configs[bufnr].compiler
+				end
 			end
 		end
 	end
