@@ -7,8 +7,22 @@ if [ -x `command -v nvim` ]; then
   alias vim='nvim'
 fi
 
-# Add other aliases (even if the commands aren't there, they won't break anything)
-alias docker-disposable="docker run --rm -ti --name disposable --entrypoint /bin/sh"
+# Add other aliases/functions (even if the commands aren't there, they won't break anything)
+function docker {
+	if [ "$1" = "disposable" ]; then
+		command docker run --rm -it --name disposable ${@[@]:2}
+	else
+		command docker $@
+	fi
+}
+function _docker-disposable {
+	if [ "${words[2]}" = "disposable" ]; then
+		export words=( "docker" "run" ${words[@]:2} )
+	fi
+	_docker
+}
+compdef _docker-disposable docker
+
 alias ccmake="ccmake -S . -B 'build/'"
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 
