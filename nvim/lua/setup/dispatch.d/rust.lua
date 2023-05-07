@@ -1,3 +1,5 @@
+local dispatch = require'setup.dispatch'
+
 -- Helper function that determines all binary targets in a Cargo.toml file and then launches them
 ---@param todo string
 local function do_if_target(todo)
@@ -37,8 +39,11 @@ require'setup.dispatch'.register("rust", {
 			vim.cmd "Start -wait=always %:p:r; rm %:p:r"
 		end,
 		debug = function()
+			local debugger = require'setup.dispatch'.debugger()
+			if debugger == nil then return end
+
 			vim.cmd "silent make -g"
-			vim.cmd "Start rust-lldb %:p:r; rm -r %:p:r %:p:r.dSYM"
+			vim.cmd("Start rust-" .. debugger .. " %:p:r; 2>/dev/null rm -r %:p:r.dSYM; rm %:p:r")
 		end,
 	},
 	workspace = {
@@ -47,7 +52,11 @@ require'setup.dispatch'.register("rust", {
 		-- Override default behaviour and call `Start` because it is possible we will need an interactive prompt
 		run = function() do_if_target("-wait=always") end,
 
-		debug = function() do_if_target("rust-lldb") end,
+		debug = function()
+			local debugger = require'setup.dispatch'.debugger()
+			if debugger == nil then return end
+			do_if_target("rust-"..debugger)
+		end,
 		test = true,
 		build = true,
 	}
