@@ -17,12 +17,12 @@ local current_configs = {}
 
 -- Configurations of Dispatch actions for associated FileTypes
 ---@type { [vim.opt.filetype]: config }
-local configs = {}
+Configs = {}
 
 ---@param ft vim.opt.filetype
 ---@param new_config config
 function M.register(ft, new_config)
-	configs[ft] = new_config
+	Configs[ft] = new_config
 end
 
 
@@ -100,7 +100,7 @@ function M.setup(bufnr)
 
 
 	-- Determine the configuration for the current buffer (this `setup` function is only called on 'LspAttach')	and add it to the `current_configs` table	
-	current_configs[bufnr] = configs[vim.api.nvim_buf_get_option(bufnr, "filetype")]
+	current_configs[bufnr] = Configs[vim.api.nvim_buf_get_option(bufnr, "filetype")]
 
 	-- If the config is a multiconfig, get the appropriate config
 	if current_configs[bufnr] then
@@ -127,6 +127,19 @@ function M.setup(bufnr)
 				end
 			end
 		end
+	end
+end
+
+-- Helper function to determine what debuggers are available and which to use
+---@return string?
+function M.debugger()
+	if vim.fn.executable "lldb" == 1 then
+		return "lldb"
+	elseif vim.fn.executable "gdb" == 1 then
+		return "gdb"
+	else
+		vim.notify("No debuggers available. Please install `lldb` or `gdb`.", vim.log.levels.ERROR)
+		return nil
 	end
 end
 
