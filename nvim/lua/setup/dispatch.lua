@@ -143,4 +143,26 @@ function M.debugger()
 	end
 end
 
+-- Helper function to attempt building using `Dispatch` command (silently), and set up an autocommand to run a callback upon successful build
+---@param callback (fun(): nil) Function to call after building (if successful)
+---@param args string? Arguments to pass to `Dispatch`
+function M.build_verify_callback(callback, args)
+	for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = "QuickFixCmdPost" })) do
+		if autocmd.pattern == "make" then
+			vim.notify("Trying to run a build with a pending callback while one already exists. Please wait.", vim.log.levels.ERROR)
+			return
+		end
+	end
+	vim.api.nvim_create_autocmd("QuickFixCmdPost", {
+		pattern = "make",
+		once = true,
+		callback = function()
+			if next(vim.fn.getqflist()) == nil then
+				callback()
+			end
+		end,
+	})
+	vim.cmd("Dispatch " .. (args or ""))
+end
+
 return M

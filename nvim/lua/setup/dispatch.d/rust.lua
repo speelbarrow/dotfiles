@@ -5,45 +5,45 @@ local dispatch = require'setup.dispatch'
 local function do_if_target(todo)
 	local targets = vim.json.decode(vim.fn.system("cargo read-manifest")).targets
 
-	-- Find all binary targets, if at least one is found then update program state accordingly
-	local none = true
+	-- Function to actually run a target to avoid code duplication
+	---@param target table
+	local function run(target)
+		-- Get root dir
+		local root = vim.fn.fnamemodify(vim.fn.system("cargo locate-project --message-format=plain"), ":p:h")
+
+		-- Build the project, and execute the command if successful
+		dispatch.build_verify_callback(function()
+			vim.cmd("Start "..todo.." "..root.."/target/debug/"..target.name)
+		end, " -compiler=cargo -dir="..root.." -- build")
+	end
+
+	-- Check for `default-run` field, if none we will just run the first listed in manifest file
+	local default_run = vim.json.decode(vim.fn.system("cargo read-manifest"), { luanil = { object = true, array = true } })["default-run"]
+	if default_run ~= nil then
+		run(default_run)
+	end
+
+	-- Find the first binary target (usually only one anyways), then update program state accordingly
 	for _, target in ipairs(targets) do
 		if target.kind[1] == "bin" then
-			none = false
-
-			-- Only two possible LSP clients, if the first is copilot just use second
-			local clients = vim.lsp.get_active_clients()
-			local client = clients[1]
-			if client.name == "copilot" then
-				client = clients[2]
-			end
-
-			-- Build the project
-			vim.cmd "silent make build"
-
-			-- Execute the command
-			vim.cmd("Start " .. todo .. " " .. client.config.root_dir .. "/target/debug/" .. target.name)
+			run(target)
+			return
 		end
 	end
 
-	if none then
-		vim.notify("No binary target found", vim.log.levels.ERROR)
-	end
+	vim.notify("No binary target found", vim.log.levels.ERROR)
 end
 
-require'setup.dispatch'.register("rust", {
+dispatch.register("rust", {
 	single = {
 		compiler = "rustc",
-		run = function()
-			vim.cmd "silent make"
-			vim.cmd "Start -wait=always %:p:r; rm %:p:r"
-		end,
+		run = function() dispatch.build_verify_callback(function() vim.cmd "Start -wait=always %:p:r; rm %:p:r" end) end,
 		debug = function()
-			local debugger = require'setup.dispatch'.debugger()
+			local debugger = dispatch.debugger()
 			if debugger == nil then return end
-
-			vim.cmd "silent make -g"
-			vim.cmd("Start rust-" .. debugger .. " %:p:r; 2>/dev/null rm -r %:p:r.dSYM; rm %:p:r")
+			dispatch.build_verify_callback(function()
+				vim.cmd("Start rust-"..debugger.." %:p:r; 2>/dev/null rm -r %:p:r.dSYM; rm %:p:r")
+			end, "-- -g")
 		end,
 	},
 	workspace = {
@@ -53,7 +53,7 @@ require'setup.dispatch'.register("rust", {
 		run = function() do_if_target("-wait=always") end,
 
 		debug = function()
-			local debugger = require'setup.dispatch'.debugger()
+			local debugger = dispatch.debugger()
 			if debugger == nil then return end
 			do_if_target("rust-"..debugger)
 		end,
