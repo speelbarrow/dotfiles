@@ -6,20 +6,22 @@ if vim.fn.expand('%:p'):find('^'..vim.opt.rtp:get()[1]) ~= nil or
 	vim.fn.expand('%:p'):find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h')) ~= nil then
 
 	-- Override Neodev defaults -- if we're setting it up, it should be available
-	require'neodev'.setup {
-		override = function(_, library)
-			library.enabled = true
-			library.runtime = true
-			library.types = true
-			library.plugins = true
-		end
-	}
+	require'neodev'.setup {}
 
 end
 
+
 -- LuaLS setup must occur after Neodev setup
 -- (See plugin docs for install)
-lspconfig.lua_ls.setup {}
+lspconfig.lua_ls.setup {
+	settings = {
+		Lua = {
+			completions = {
+				callSnippet = "Replace",
+			}
+		}
+	}
+}
 
 -- Use clangd for C/C++ LSP
 lspconfig.clangd.setup {

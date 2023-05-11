@@ -26,8 +26,4 @@ compdef _docker-disposable docker
 alias ccmake="ccmake -S . -B 'build/'"
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 
-# Sources `.zshrc.local` if it exists
-# Can be used for local config and importing of functions from `functions` dir
-{ [ -f ~/.zshrc.local ] && source ~/.zshrc.local; }
-
 return 0
