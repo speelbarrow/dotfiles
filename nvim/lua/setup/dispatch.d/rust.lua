@@ -59,5 +59,6 @@ dispatch.register("rust", {
 		end,
 		test = true,
 		build = true,
+		clean = true,
 	}
 })

@@ -5,6 +5,7 @@ local M = {
 		debug = "debug",
 		test = "test",
 		build = "build",
+		clean = "clean",
 	}
 }
 
@@ -89,7 +90,7 @@ function M.setup(bufnr)
 	end
 
 	-- Set up keybinding to toggle quickfix window
-	vim.api.nvim_set_keymap("n", "<M-c>", "<cmd>lua require'setup.dispatch'.toggle_quickfix()<CR>", { noremap = true, silent = true })
+	vim.api.nvim_set_keymap("n", "<M-x>", "<cmd>lua require'setup.dispatch'.toggle_quickfix()<CR>", { noremap = true, silent = true })
 	function M.toggle_quickfix()
 		if vim.fn.getqflist({ winid = 1 }).winid ~= 0 then
 			vim.cmd "cclose"
