@@ -81,3 +81,7 @@ lspconfig.jsonls.setup {
 -- TypeScript LSP (works for JavaScript too)
 -- `npm install -g typescript typescript-language-server`
 lspconfig.tsserver.setup {}
+
+-- Markdown LSP (mostly just to trigger Dispatch setup for Markdown files)
+-- Use system package manager
+lspconfig.marksman.setup {}

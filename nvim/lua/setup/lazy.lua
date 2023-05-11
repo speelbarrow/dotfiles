@@ -27,9 +27,9 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Plugin configurations
 require'lazy'.setup {
-	-- 	  			   --
-	-- QUALITY OF LIFE --
-	-- 	  			   --
+	-- 	  	             --
+	-- EXECUTION/TESTING --
+	-- 	  	             --
 
 	-- Dispatch executions and tests asynchronously
 	{
@@ -41,6 +41,19 @@ require'lazy'.setup {
 			})
 		end,
 	},
+
+	-- Preview Markdown files
+	{
+		'iamcco/markdown-preview.nvim',
+		ft = 'markdown',
+		lazy = true,
+		build = ":call mkdp#util#install()"
+	},
+
+
+	-- 	  	     	   --
+	-- QUALITY OF LIFE --
+	-- 	  			   --
 
 	-- Git diff line indicators
 	{
