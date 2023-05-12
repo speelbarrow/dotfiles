@@ -9,11 +9,26 @@ fi
 
 # Add other aliases/functions (even if the commands aren't there, they won't break anything)
 function docker {
-	if [ "$1" = "disposable" ]; then
-		command docker run --rm -it --name disposable ${@[@]:2}
-	else
-		command docker $@
-	fi
+	case "$1" in
+		"disposable")
+			command docker run --rm -it --name disposable ${@[@]:2}
+			;;
+		"images-grep")
+			command docker images -a --format 'table {{.Repository}}:{{.Tag}} {{.ID}}' | tail -n +2 | sed -nE "s/^$2.* ([A-z0-9]+)$/\\1/p"
+			;;
+		"ps-grep")
+			command docker ps -a --format 'table {{.Names}} {{.ID}}' | tail -n +2 | sed -nE "s/^$2.* ([A-z0-9]+)$/\\1/p"
+			;;
+		"rmi-grep")
+			command docker rmi $(docker images-grep $2)
+			;;
+		"rm-grep")
+			command docker rm $(docker ps-grep $2)
+			;;
+		*)
+			command docker "$@"
+			;;
+	esac
 }
 function _docker-disposable {
 	if [ "${words[2]}" = "disposable" ]; then
