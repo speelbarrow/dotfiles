@@ -25,3 +25,6 @@ if [ `uname` = "Darwin" ]; then
   else # If not macOS, then probably Debian-based Linux
 	plugins+=(debian)
 fi
+
+# Configure zsh to keep track of recent directories
+setopt autopushd pushdignoredups pushdsilent pushdtohome

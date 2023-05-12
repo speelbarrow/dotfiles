@@ -25,5 +25,24 @@ done
 # Add symlink for zsh-apple-touchbar (uses -f because I never want the default)
 ln -sf $DOTFILES/zsh/zsh-apple-touchbar.zsh $HOME/.oh-my-zsh/custom/plugins/zsh-apple-touchbar/zsh-apple-touchbar.zsh 
 
+# Install `exa` (if not already present, or if `force` is set)
+if { ! exists exa; } || $FORCE; then
+	# If cargo is already installed, use that
+	if exists cargo; then
+		cargo install exa
+	
+	# Otherwise, check for other common package managers
+	elif exists brew; then
+		brew install exa
+	elif exists apt; then
+		sudo apt install exa
+	elif exists pacman; then
+		sudo pacman -S exa
+	else
+		echo "No package manager found. Please install exa manually."
+	fi
+fi
+
+
 # Symlink .zshrc
 ln -s $DOTFILES/zsh/.zshrc $HOME/.zshrc
