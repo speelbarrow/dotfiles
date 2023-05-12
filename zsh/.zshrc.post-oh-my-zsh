@@ -44,5 +44,6 @@ compdef _docker-disposable docker
 alias ccmake="ccmake -S . -B 'build/'"
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias x='exa -l --git --icons --header'
+alias xa='x -a'
 
 return 0
