@@ -18,9 +18,10 @@ function default_view() {
 		print_key "\033]1337;SetKeyLabel=F$i= \a"
 	done
 
-	create_key 1 'commit all and push' 'git add .; git commit; git push' '-s'
-	create_key 2 'commit and push' 'git commit; git push' '-s'
-	local_touchbar
+	create_key 1 'status' 'git status' '-s'
+	create_key 2 'commit all and push' 'git add .; git commit; git push' '-s'
+	create_key 3 'commit and push' 'git commit; git push' '-s'
+	local_touchbar 4
 }
 
 zle -N default_view
