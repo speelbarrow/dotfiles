@@ -45,6 +45,13 @@ alias ccmake="ccmake -S . -B build"
 alias cdgr='cd $(git rev-parse --show-toplevel)'
 alias x='exa -l --git --icons --header'
 alias xa='x -a'
-alias xx='x -a --tree --level 5 --ignore-glob=".git"'
+function xx {
+	local ignore=".git"
+	if [ -e .gitignore ]; then
+		ignore="$ignore|$(tr '\n' '|' < .gitignore | sed -E 's/\|$//')"
+	fi
+
+	x -a --tree --level 5 --ignore-glob="$ignore"
+}
 
 return 0
