@@ -13,3 +13,5 @@ source $ZSH/oh-my-zsh.sh
 # Run setup script for after loading oh my zsh
 source $DOTFILES/zsh/.zshrc.post-oh-my-zsh
 [ -f $HOME/.zshrc.local.post-oh-my-zsh ] && source $HOME/.zshrc.local.post-oh-my-zsh
+
+return 0
