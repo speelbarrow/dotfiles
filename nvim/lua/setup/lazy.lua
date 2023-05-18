@@ -158,5 +158,11 @@ require'lazy'.setup {
 			})
 		end,
 		priority = 51, -- Load after nvim-cmp
-	}
+	},
+
+	---            ---
+	--- LOCAL SPEC ---
+	---            ---
+
+	unpack(require'dotfiles.local_exists'('lazy') and require'local.lazy' or {}),
 }

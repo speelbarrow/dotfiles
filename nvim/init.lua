@@ -1,4 +1,9 @@
--- If it exists, add the local lua config directory to the runtime path
+local local_exists = require'dotfiles.local_exists'
+
+-- Run local `pre` config (if present)
+if local_exists('pre') then
+	require'local.pre'
+end
 
 -- Editor settings (`:set` commands)
 for scope, object in pairs({
@@ -30,3 +35,8 @@ vim.api.nvim_set_keymap('n', '>', ':bn<CR><C-l>', {noremap = true})
 
 -- Configure plugin manager
 require'dotfiles.setup.lazy'
+
+-- Run local `post` config (if present)
+if local_exists('post') then
+	require'local.post'
+end
