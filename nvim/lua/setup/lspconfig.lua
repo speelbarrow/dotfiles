@@ -85,3 +85,5 @@ lspconfig.tsserver.setup {}
 -- Markdown LSP (mostly just to trigger Dispatch setup for Markdown files)
 -- Use system package manager
 lspconfig.marksman.setup {}
+
+lspconfig.cucumber_language_server.setup {}

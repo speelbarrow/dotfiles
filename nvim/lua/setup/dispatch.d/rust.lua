@@ -1,4 +1,4 @@
-local dispatch = require'setup.dispatch'
+local dispatch = require'dotfiles.setup.dispatch'
 
 -- Helper function that determines all binary targets in a Cargo.toml file and then launches them
 ---@param todo string

@@ -11,7 +11,7 @@ local M = {
 function M.setup()
 	vim.cmd [[
 	function TouchBar()
-		lua require'touchbar'.touchbar()
+		lua require'dotfiles.touchbar'.touchbar()
 	endfunction
 	]]
 end

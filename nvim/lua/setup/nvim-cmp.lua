@@ -1,5 +1,5 @@
 local cmp = require'cmp'
-local helpers = require'cmp-vsnip-helpers'
+local helpers = require'dotfiles.cmp-vsnip-helpers'
 
 -- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
 vim.g.copilot_no_tab_map = true
@@ -78,7 +78,7 @@ sources = {
 -- Add the cute little icons into the box there
 formatting = {
 	format = function(_, vim_item)
-		vim_item.kind = string.format('%s  %s', require'kind-icons'[vim_item.kind], vim_item.kind)
+		vim_item.kind = string.format('%s  %s', require'dotfiles.kind-icons'[vim_item.kind], vim_item.kind)
 		return vim_item
 	end
 },

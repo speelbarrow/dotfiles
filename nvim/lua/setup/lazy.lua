@@ -37,7 +37,7 @@ require'lazy'.setup {
 		config = function()
 			vim.api.nvim_create_autocmd('User', {
 				pattern = 'NotCopilot',
-				callback = function(args) require'setup.dispatch'.setup(args.data.buf) end
+				callback = function(args) require'dotfiles.setup.dispatch'.setup(args.data.buf) end
 			})
 		end,
 	},
@@ -72,7 +72,7 @@ require'lazy'.setup {
 	-- Cute little status line thing
 	{
 		'nvim-lualine/lualine.nvim',
-		config = function() require'setup.lualine' end,
+		config = function() require'dotfiles.setup.lualine' end,
 	},
 
 	-- Macbook Touch Bar integration
@@ -83,7 +83,7 @@ require'lazy'.setup {
 		cond = vim.fn.has('mac') == 1,
 
 		-- Set up the touchbar labels/actions
-		config = function() require'touchbar'.setup() end,
+		config = function() require'dotfiles.touchbar'.setup() end,
 	},
 
 	--				   --
@@ -107,7 +107,7 @@ require'lazy'.setup {
 	{
 		'neovim/nvim-lspconfig',
 		config = function()
-			require'setup.lspconfig'
+			require'dotfiles.setup.lspconfig'
 		end,
 	},
 
@@ -130,7 +130,7 @@ require'lazy'.setup {
 		lazy = true,
 		event = "User NotCopilot-*",
 		-- Run config on load
-		config = function() require'setup.nvim-cmp' end
+		config = function() require'dotfiles.setup.nvim-cmp' end
 	},
 
 	-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files

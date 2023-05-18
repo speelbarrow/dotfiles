@@ -1,7 +1,4 @@
--- Run any local setup that needs to be done before plugins are loaded
-if vim.fn.filereadable(vim.fn.expand('$HOME/.config/nvim/local.pre.lua')) == 1 then
-	vim.cmd.luafile(vim.fn.expand('$HOME/.config/nvim/local.pre.lua'))
-end
+-- If it exists, add the local lua config directory to the runtime path
 
 -- Editor settings (`:set` commands)
 for scope, object in pairs({
@@ -25,16 +22,11 @@ end
 end
 
 -- Set tab size based on filetype
-require'tabsize'
+require'dotfiles.tabsize'
 
 -- Keymaps for switching buffers
 vim.api.nvim_set_keymap('n', '<', ':bp<CR><C-l>', {noremap = true})
 vim.api.nvim_set_keymap('n', '>', ':bn<CR><C-l>', {noremap = true})
 
 -- Configure plugin manager
-require'setup.lazy'
-
--- Run any additional local setup (if present)
-if vim.fn.filereadable(vim.fn.expand('$HOME/.config/nvim/local.post.lua')) == 1 then
-	vim.cmd.luafile(vim.fn.expand('$HOME/.config/nvim/local.post.lua'))
-end
+require'dotfiles.setup.lazy'
