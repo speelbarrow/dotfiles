@@ -62,17 +62,9 @@ cmp.setup {
 
 -- Tell nvim-cmp where it can get information from
 sources = {
-	{
-		name = 'nvim_lsp',
-
-		-- Filter out annoying 'Text' autofills
-		entry_filter = function(entry, _)
-			local kind = require'cmp.types'.lsp.CompletionItemKind[entry:get_kind()]
-			return kind ~= "Text"
-		end
-	},
+	{ name = 'nvim_lsp' },
 	{ name = 'vsnip' },
-	-- { name = 'buffer' },	
+	-- { name = 'buffer' },
 },
 
 -- Add the cute little icons into the box there
