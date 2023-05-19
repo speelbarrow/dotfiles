@@ -4,6 +4,7 @@ local M = {
 		{ label = 'Rename', command = "lua vim.lsp.buf.rename()"},
 		{ label = 'Diagnostic', command = "lua vim.diagnostic.open_float()"},
 		{ label = 'Clear Highlight', command = "noh"},
+		{ label = 'Go to Definition', command = "lua vim.lsp.buf.definition()" },
 		{ label = 'Copilot: On', command = "lua require'touchbar'.toggleCopilot()"},
 	}
 }
