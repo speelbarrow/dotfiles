@@ -26,9 +26,9 @@ lspconfig.lua_ls.setup {
 -- Use clangd for C/C++ LSP
 lspconfig.clangd.setup {
 	capabilities = (function()
-		local clangd_capabilities = vim.lsp.protocol.make_client_capabilities()
-		clangd_capabilities.offsetEncoding = "utf-8"
-		return clangd_capabilities
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.offsetEncoding = "utf-8"
+		return capabilities
 	end)(),
 }
 
@@ -56,9 +56,9 @@ lspconfig.yamlls.setup {
 -- npm install -g vscode-langservers-extracted
 lspconfig.jsonls.setup {
 	capabilities = (function()
-		local jsonls_capabilities = vim.lsp.protocol.make_client_capabilities()
-		jsonls_capabilities.textDocument.completion.completionItem.snippetSupport = true
-		return jsonls_capabilities
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		return capabilities
 	end)(),
 	settings = {
 		json = {
