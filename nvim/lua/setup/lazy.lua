@@ -27,142 +27,156 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Plugin configurations
 require'lazy'.setup {
-	-- 	  	             --
-	-- EXECUTION/TESTING --
-	-- 	  	             --
+	install = { colorscheme = { "default" } },
+	spec = {
+		-- 	  	             --
+		-- EXECUTION/TESTING --
+		-- 	  	             --
 
-	-- Dispatch executions and tests asynchronously
-	{
-		'tpope/vim-dispatch',
-		config = function()
-			vim.api.nvim_create_autocmd('User', {
-				pattern = 'NotCopilot',
-				callback = function(args) require'dotfiles.setup.dispatch'.setup(args.data.buf) end
-			})
-		end,
-	},
-
-	-- Preview Markdown files
-	{
-		'iamcco/markdown-preview.nvim',
-		ft = 'markdown',
-		lazy = true,
-		build = ":call mkdp#util#install()"
-	},
-
-
-	-- 	  	     	   --
-	-- QUALITY OF LIFE --
-	-- 	  			   --
-
-	-- Git diff line indicators
-	{
-		'lewis6991/gitsigns.nvim',
-		config = function()
-			require'gitsigns'.setup {}
-
-			-- Set colours	
-			vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
-			vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
-			vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
-			vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
-		end,
-	},
-
-	-- Cute little status line thing
-	{
-		'nvim-lualine/lualine.nvim',
-		config = function() require'dotfiles.setup.lualine' end,
-	},
-
-	-- Macbook Touch Bar integration
-	{
-		'eth-p/vim-it2-touchbar',
-
-		-- Only load on Mac
-		cond = vim.fn.has('mac') == 1,
-
-		-- Set up the touchbar labels/actions
-		config = function() require'dotfiles.touchbar'.setup() end,
-	},
-
-	--				   --
-	-- LANGUAGE SERVER --
-	--				   --
-
-	-- GitHub Copilot
-	{
-		'github/copilot.vim',
-		config = function()
-			vim.api.nvim_set_keymap('i', '<S-Tab>', [[ copilot#Dismiss() ]], { expr = true, silent = true, script = true })
-
-			-- Add non-default filetypes
-			vim.g.copilot_filetypes = {
-				yaml = true,
-			}
-		end
-	},
-
-	-- LSP configs
-	{
-		'neovim/nvim-lspconfig',
-		config = function()
-			require'dotfiles.setup.lspconfig'
-		end,
-	},
-
-	-- Provides autocompletion
-	{
-		'hrsh7th/nvim-cmp',
-		dependencies = {
-			'hrsh7th/cmp-nvim-lsp',
-			'hrsh7th/cmp-buffer',
-			'hrsh7th/cmp-path',
-			'hrsh7th/cmp-cmdline',
-
-			-- Snippet engine
-			'hrsh7th/vim-vsnip',
-
-			-- Acutal snippets
-			'rafamadriz/friendly-snippets',
+		-- Dispatch executions and tests asynchronously
+		{
+			'tpope/vim-dispatch',
+			config = function()
+				vim.api.nvim_create_autocmd('User', {
+					pattern = 'NotCopilot',
+					callback = function(args) require'dotfiles.setup.dispatch'.setup(args.data.buf) end
+				})
+			end,
 		},
 
-		lazy = true,
-		event = "User NotCopilot-*",
-		-- Run config on load
-		config = function() require'dotfiles.setup.nvim-cmp' end
-	},
+		-- Preview Markdown files
+		{
+			'iamcco/markdown-preview.nvim',
+			ft = 'markdown',
+			lazy = true,
+			build = ":call mkdp#util#install()"
+		},
 
-	-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
-	{
-		'folke/neodev.nvim',
-		lazy = true,
-	},
 
-	-- Rust LSP and other goodies
-	{
-		'simrat39/rust-tools.nvim',
-		ft = 'rust',
-		config = function()
-			require'rust-tools'.setup({
-				dap = {
-					adapter = {
-						type = 'executable',
-						command = 'lldb',
-						name = 'lldb',
-					},
-				},
-				server = {
-					standalone = true,
+		-- 	  	     	   --
+		-- QUALITY OF LIFE --
+		-- 	  			   --
+
+		-- Git diff line indicators
+		{
+			'lewis6991/gitsigns.nvim',
+			config = function()
+				require'gitsigns'.setup {}
+
+				-- Set colours	
+				vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
+				vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
+				vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
+				vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
+			end,
+		},
+
+		-- Cute little status line thing
+		{
+			'nvim-lualine/lualine.nvim',
+			config = function() require'dotfiles.setup.lualine' end,
+		},
+
+		-- Macbook Touch Bar integration
+		{
+			'eth-p/vim-it2-touchbar',
+
+			-- Only load on Mac
+			cond = vim.fn.has('mac') == 1,
+
+			-- Set up the touchbar labels/actions
+			config = function() require'dotfiles.touchbar'.setup() end,
+		},
+
+		{
+			'windwp/nvim-ts-autotag',
+			ft = 'html,xml',
+			config = true,
+			opts = { filetypes = { "html", "xml" } },
+		},
+
+		--				   --
+		-- LANGUAGE SERVER --
+		--				   --
+
+		-- GitHub Copilot
+		{
+			'github/copilot.vim',
+			config = function()
+				vim.api.nvim_set_keymap('i', '<S-Tab>', [[ copilot#Dismiss() ]], { expr = true, silent = true, script = true })
+
+				-- Add non-default filetypes
+				vim.g.copilot_filetypes = {
+					yaml = true,
 				}
-			})
-		end,
-		priority = 51, -- Load after nvim-cmp
-	},
+			end
+		},
 
-	---            ---
-	--- LOCAL SPEC ---
-	---            ---
+		-- LSP configs
+		{
+			'neovim/nvim-lspconfig',
+			config = function()
+				require'dotfiles.setup.lspconfig'
+			end,
+		},
 
-	unpack(require'dotfiles.local_exists'('lazy') and require'local.lazy' or {}),
+		-- Provides autocompletion
+		{
+			'hrsh7th/nvim-cmp',
+			dependencies = {
+				'hrsh7th/cmp-nvim-lsp',
+				'hrsh7th/cmp-buffer',
+				'hrsh7th/cmp-path',
+				'hrsh7th/cmp-cmdline',
+
+				-- Snippet engine
+				'hrsh7th/vim-vsnip',
+
+				-- Acutal snippets
+				'rafamadriz/friendly-snippets',
+			},
+
+			lazy = true,
+			event = "User NotCopilot-*",
+			-- Run config on load
+			config = function() require'dotfiles.setup.nvim-cmp' end
+		},
+
+		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
+		{
+			'folke/neodev.nvim',
+			lazy = true,
+		},
+
+		-- Rust LSP and other goodies
+		{
+			'simrat39/rust-tools.nvim',
+			ft = 'rust',
+			dependencies = {
+				-- Better syntax highlighting
+				'rust-lang/rust.vim',
+			},
+			config = function()
+				require'rust-tools'.setup({
+					dap = {
+						adapter = {
+							type = 'executable',
+							command = 'lldb',
+							name = 'lldb',
+						},
+					},
+					server = {
+						standalone = true,
+					}
+				})
+			end,
+			priority = 51, -- Load after nvim-cmp
+		},
+
+		---            ---
+		--- LOCAL SPEC ---
+		---            ---
+
+		unpack(require'dotfiles.local_exists'('lazy') and require'local.lazy' or {}),
+	}
 }

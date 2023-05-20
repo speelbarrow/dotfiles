@@ -53,7 +53,7 @@ lspconfig.yamlls.setup {
 }
 
 -- JSON LSP
--- npm install -g vscode-langservers-extracted
+-- `npm install -g vscode-langservers-extracted`
 lspconfig.jsonls.setup {
 	capabilities = (function()
 		local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -78,6 +78,16 @@ lspconfig.jsonls.setup {
 	},
 }
 
+-- HTML/CSS/JS LSP
+-- `npm install -g vscode-langservers-extracted`
+lspconfig.html.setup {
+	capabilities = (function()
+		local capabilities = vim.lsp.protocol.make_client_capabilities()
+		capabilities.textDocument.completion.completionItem.snippetSupport = true
+		return capabilities
+	end)(),
+}
+
 -- TypeScript LSP (works for JavaScript too)
 -- `npm install -g typescript typescript-language-server`
 lspconfig.tsserver.setup {}
@@ -86,4 +96,6 @@ lspconfig.tsserver.setup {}
 -- Use system package manager
 lspconfig.marksman.setup {}
 
+-- Cucumber (Gherkin) LSP
+-- `npm install -g cucumber-language-server` (requires Node >= 16)
 lspconfig.cucumber_language_server.setup {}
