@@ -48,8 +48,9 @@ alias xa='x -a'
 function xx {
 	local ignore=".git"
 	if [ -e .gitignore ]; then
-		ignore="$ignore|$(grep -Ev -e '^#' .gitignore | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/\|$//')"
+		ignore="$ignore|$(grep -Ev -e '^#' .gitignore | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/(^|\|)\//\1/g' | sed -E 's/\|$//')"
 	fi
+	echo $ignore
 
 	x -a --tree --level 5 --ignore-glob="$ignore"
 }
