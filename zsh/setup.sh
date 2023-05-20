@@ -36,8 +36,8 @@ if { ! exists exa; } || $FORCE; then
 		brew install exa
 	elif exists apt; then
 		sudo apt install exa
-	elif exists pacman; then
-		sudo pacman -S exa
+	elif exists apk; then
+		sudo apk -S exa
 	else
 		echo "No package manager found. Please install exa manually."
 	fi
