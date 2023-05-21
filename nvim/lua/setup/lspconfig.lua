@@ -97,5 +97,5 @@ lspconfig.tsserver.setup {}
 lspconfig.marksman.setup {}
 
 -- Cucumber (Gherkin) LSP
--- `npm install -g cucumber-language-server` (requires Node >= 16)
+-- `npm install -g @binhtran432k/cucumber-language-server` (requires Node >= 16)
 lspconfig.cucumber_language_server.setup {}
