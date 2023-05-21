@@ -88,13 +88,6 @@ require'lazy'.setup {
 			config = function() require'dotfiles.touchbar'.setup() end,
 		},
 
-		{
-			'windwp/nvim-ts-autotag',
-			ft = 'html,xml',
-			config = true,
-			opts = { filetypes = { "html", "xml" } },
-		},
-
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
