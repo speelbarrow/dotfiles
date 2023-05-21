@@ -79,9 +79,16 @@ function M.go(action)
 	end
 end
 
+local run_once = false
 ---@param bufnr integer
 function M.setup(bufnr)
-	vim.cmd "runtime! lua/setup/dispatch.d/*.lua"
+	if not run_once then
+		vim.cmd "runtime! lua/dotfiles/setup/dispatch.d/*.lua"
+
+		vim.api.nvim_create_augroup("dotfiles.dispatch", {})
+
+		run_once = true
+	end
 
 	-- Set up custom commands and keybindings for each action
 	for _, action in pairs(M.actions) do
@@ -149,13 +156,14 @@ end
 ---@param args string? Arguments to pass to `Dispatch`
 function M.build_verify_callback(callback, args)
 	for _, autocmd in ipairs(vim.api.nvim_get_autocmds({ event = "QuickFixCmdPost" })) do
-		if autocmd.pattern == "make" then
+		if autocmd.pattern == "make" and autocmd.group_name == "dotfiles.dispatch" then
 			vim.notify("Trying to run a build with a pending callback while one already exists. Please wait.", vim.log.levels.ERROR)
 			return
 		end
 	end
 	vim.api.nvim_create_autocmd("QuickFixCmdPost", {
 		pattern = "make",
+		group = "dotfiles.dispatch",
 		once = true,
 		callback = function()
 			if next(vim.fn.getqflist()) == nil then
