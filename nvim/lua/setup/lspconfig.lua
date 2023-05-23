@@ -99,3 +99,7 @@ lspconfig.marksman.setup {}
 -- Cucumber (Gherkin) LSP
 -- `npm install -g @binhtran432k/cucumber-language-server` (requires Node >= 16)
 lspconfig.cucumber_language_server.setup {}
+
+-- GoPLS
+-- `go get golang.org/x/tools/gopls@latest`
+lspconfig.gopls.setup {}

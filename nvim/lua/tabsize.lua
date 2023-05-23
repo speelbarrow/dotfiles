@@ -10,4 +10,4 @@ end
 
 set_tabsize("*", 4)
 set_tabsize("sh,bash,zsh,bindzone", 8)
-set_tabsize("yaml", 2)
+set_tabsize("yaml,markdown", 2)
