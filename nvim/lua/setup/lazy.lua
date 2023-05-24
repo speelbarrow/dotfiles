@@ -29,6 +29,60 @@ vim.api.nvim_create_autocmd('LspAttach', {
 require'lazy'.setup {
 	install = { colorscheme = { "default" } },
 	spec = {
+		--                         --
+		-- PROJECT/FILE MANAGEMENT --
+		--                         --
+
+		-- Tree view
+		{
+			'nvim-tree/nvim-tree.lua',
+			dependencies = {
+				'nvim-tree/nvim-web-devicons',
+			},
+			init = function()
+				vim.g.loaded_netrw = 1
+				vim.g.loaded_netrwPlugin = 1
+			end,
+			config = require'dotfiles.setup.nvim-tree'.setup,
+		},
+
+		-- Project detection
+		{
+			'ahmedkhalf/project.nvim',
+			config = function()
+				require'project_nvim'.setup {
+					ignore_lsp = { 'copilot', 'lua_ls' }
+				}
+			end,
+			priority = 0,
+		},
+
+		-- Git integration
+		{
+			'tpope/vim-fugitive',
+			init = function()
+				vim.g.fugitive_no_maps = 1
+			end,
+			config = function()
+				vim.keymap.set('n', '<M-z>', '<Cmd>Git commit<CR>')
+			end
+		},
+
+		-- Git diff line indicators
+		{
+			'lewis6991/gitsigns.nvim',
+			config = function()
+				require'gitsigns'.setup {}
+
+				-- Set colours	
+				vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
+				vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
+				vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
+				vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
+			end,
+		},
+
+
 		-- 	  	             --
 		-- EXECUTION/TESTING --
 		-- 	  	             --
@@ -56,20 +110,6 @@ require'lazy'.setup {
 		-- 	  	     	   --
 		-- QUALITY OF LIFE --
 		-- 	  			   --
-
-		-- Git diff line indicators
-		{
-			'lewis6991/gitsigns.nvim',
-			config = function()
-				require'gitsigns'.setup {}
-
-				-- Set colours	
-				vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
-				vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
-				vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
-				vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
-			end,
-		},
 
 		-- Cute little status line thing
 		{

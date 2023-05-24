@@ -8,7 +8,6 @@ end
 -- Editor settings (`:set` commands)
 for scope, object in pairs({
 	g = {
-		autochdir 	= true,																-- change working directory to that of the current file
 		autowrite	= true,																-- automatically save before commands like :next and :make
 		guicursor	= vim.go.guicursor .. ",i:-blinkwait175-blinkoff150-blinkon175",	-- make the cursor blink in insert mode
 		showmode	= false,															-- don't show mode (e.g. -- INSERT --) because it's shown by Lualine

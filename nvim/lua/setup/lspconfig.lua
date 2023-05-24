@@ -2,8 +2,8 @@ local lspconfig = require'lspconfig'
 
 -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
 -- (Installing and updating managed by Lazy)
-if vim.fn.expand('%:p'):find('^'..vim.opt.rtp:get()[1]) ~= nil or
-	vim.fn.expand('%:p'):find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h')) ~= nil then
+if vim.fn.getcwd():find('^'..vim.opt.rtp:get()[1]) ~= nil or
+	vim.fn.getcwd():find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h:h')) ~= nil then
 
 	-- Override Neodev defaults -- if we're setting it up, it should be available
 	require'neodev'.setup {}
@@ -18,6 +18,9 @@ lspconfig.lua_ls.setup {
 		Lua = {
 			completions = {
 				callSnippet = "Replace",
+			},
+			workspace = {
+				checkThirdParty = false
 			}
 		}
 	}
