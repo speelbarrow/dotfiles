@@ -2,12 +2,13 @@ local lspconfig = require'lspconfig'
 
 -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
 -- (Installing and updating managed by Lazy)
-if vim.fn.getcwd():find('^'..vim.opt.rtp:get()[1]) ~= nil or
-	vim.fn.getcwd():find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h:h')) ~= nil then
+for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do
+	if path:find('^'..vim.opt.rtp:get()[1]) ~= nil or
+		path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h:h')) ~= nil then
 
-	-- Override Neodev defaults -- if we're setting it up, it should be available
-	require'neodev'.setup {}
-
+		require'neodev'.setup {}
+		break
+	end
 end
 
 
@@ -72,13 +73,13 @@ lspconfig.jsonls.setup {
 					["package.json"] = { "package.json" },
 					["tsconfig.json"] = { "tsconfig.json" },
 				}) do
-					table.insert(schemas, { fileMatch = fileMatch, url = "https://json.schemastore.org/"..schema })
-				end
+				table.insert(schemas, { fileMatch = fileMatch, url = "https://json.schemastore.org/"..schema })
+			end
 
-				return schemas
-			end)(),
-		},
+			return schemas
+		end)(),
 	},
+},
 }
 
 -- HTML/CSS/JS LSP
