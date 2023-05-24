@@ -27,7 +27,8 @@ vim.api.nvim_create_autocmd('LspAttach', {
 
 -- Plugin configurations
 require'lazy'.setup {
-	install = { colorscheme = { "default" } },
+	install = { colorscheme = {} },
+	performance = { reset_packpath = false },
 	spec = {
 		--                         --
 		-- PROJECT/FILE MANAGEMENT --
@@ -37,7 +38,16 @@ require'lazy'.setup {
 		{
 			'nvim-tree/nvim-tree.lua',
 			dependencies = {
+				-- Icons
 				'nvim-tree/nvim-web-devicons',
+
+				-- Git integration
+				{
+					'tpope/vim-fugitive',
+					init = function() vim.g.fugitive_no_maps = 1 end,
+				},
+
+
 			},
 			init = function()
 				vim.g.loaded_netrw = 1
@@ -54,32 +64,12 @@ require'lazy'.setup {
 					ignore_lsp = { 'copilot', 'lua_ls' }
 				}
 			end,
-			priority = 0,
-		},
-
-		-- Git integration
-		{
-			'tpope/vim-fugitive',
-			init = function()
-				vim.g.fugitive_no_maps = 1
-			end,
-			config = function()
-				vim.keymap.set('n', '<M-z>', '<Cmd>Git commit<CR>')
-			end
 		},
 
 		-- Git diff line indicators
 		{
 			'lewis6991/gitsigns.nvim',
-			config = function()
-				require'gitsigns'.setup {}
-
-				-- Set colours	
-				vim.api.nvim_set_hl(0, 'SignColumn', {}) -- Unset background colour
-				vim.api.nvim_set_hl(0, 'DiffAdd', { fg='#7bd88f', ctermfg=2 })
-				vim.api.nvim_set_hl(0, 'DiffChange', { fg='#fd9353', ctermfg=4 })
-				vim.api.nvim_set_hl(0, 'DiffDelete', { fg='#fc618d', ctermfg=9 })
-			end,
+			config = function() require'gitsigns'.setup {} end,
 		},
 
 
@@ -171,8 +161,12 @@ require'lazy'.setup {
 
 			lazy = true,
 			event = "User NotCopilot-*",
+
 			-- Run config on load
-			config = function() require'dotfiles.setup.nvim-cmp' end
+			config = function() require'dotfiles.setup.nvim-cmp' end,
+
+			-- Load early
+			priority = 1,
 		},
 
 		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files

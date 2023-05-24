@@ -13,6 +13,7 @@ for scope, object in pairs({
 		showmode	= false,															-- don't show mode (e.g. -- INSERT --) because it's shown by Lualine
 		splitbelow	= true, 															-- put new (horizontally split) windows below current
 		splitright	= true,																-- put new (vertically split) windows to the right
+		termguicolors = true,															-- enable 24-bit RGB colors in the TUI
 	},
 	w = {
 		number 		= true,																-- show line numbers

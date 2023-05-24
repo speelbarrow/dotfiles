@@ -3,18 +3,6 @@ local M = {}
 local tree = nil
 
 function M.setup()
-	-- Configure highlight groups
-	vim.cmd [[
-	highlight NvimTreeGitDirty ctermfg=lightyellow
-	highlight NvimTreeGitStaged ctermfg=lightgreen
-	highlight NvimTreeGitMerge ctermfg=magenta
-	highlight NvimTreeGitNew ctermfg=lightred
-	highlight NvimTreeGitIgnored ctermfg=blue
-	highlight NvimTreeGitDeleted ctermfg=red
-
-	highlight NvimTreeOpenedFile ctermfg=cyan
-	]]
-
 	-- Set up the plugin
 	require'nvim-tree'.setup {
 		on_attach = function(bufnr)
