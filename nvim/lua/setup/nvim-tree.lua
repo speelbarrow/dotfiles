@@ -58,6 +58,7 @@ function M.setup()
 				})
 				vim.cmd('Git commit')
 			end, { buffer = bufnr })
+			vim.keymap.set('n', 'PP', function() vim.cmd('Git push') end, { buffer = bufnr })
 		end,
 		disable_netrw = true,
 		hijack_cursor = true,
