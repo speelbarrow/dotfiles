@@ -1,6 +1,6 @@
- require'lualine'.setup {
+require'lualine'.setup {
 	options = {
-		theme = 'molokai',
+		theme = 'dracula',
 		globalstatus = true,
 		section_separators = { left = ' ', right = '  ' },
 	},

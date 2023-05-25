@@ -30,6 +30,32 @@ require'lazy'.setup {
 	install = { colorscheme = {} },
 	performance = { reset_packpath = false },
 	spec = {
+		-- Dracula theme
+		{
+			'dracula/vim',
+			name = 'dracula',
+			config = function()
+				vim.g.dracula_full_special_attrs_support = true
+				vim.g.dracula_colorterm = 0
+				vim.g.termguicolors = true
+				vim.cmd.colorscheme 'dracula'
+
+				-- Set up some custom highlighting for NvimTree (because it doesn't link to Dracula automatically)
+				vim.cmd [[
+					hi! link NvimTreeGitDeleted DiffDelete
+					hi! link NvimTreeGitIgnored DraculaComment
+					hi! link NvimTreeExecFile DraculaRed
+					hi! link NvimTreeSpecialFile DraculaFgBold
+					hi! link NvimTreeGitDirty DiffChange
+					hi! link NvimTreeGitMerge DraculaPurple
+					hi! link NvimTreeGitNew DraculaYellow
+					hi! link NvimTreeGitStaged DiffAdd
+					hi! link NvimTreeGitRenamed DraculaInfoLine
+					hi! link NvimTreeOpenedFile DraculaPink
+				]]
+			end,
+		},
+
 		--                         --
 		-- PROJECT/FILE MANAGEMENT --
 		--                         --
@@ -69,7 +95,10 @@ require'lazy'.setup {
 		-- Git diff line indicators
 		{
 			'lewis6991/gitsigns.nvim',
-			config = function() require'gitsigns'.setup {} end,
+			config = function() require'gitsigns'.setup {
+				--show_deleted = true,
+				_signs_staged_enable = true,
+			} end,
 		},
 
 
