@@ -65,7 +65,19 @@ require 'lazy'.setup {
 			'nvim-tree/nvim-tree.lua',
 			dependencies = {
 				-- Icons
-				'nvim-tree/nvim-web-devicons',
+				{
+					'nvim-tree/nvim-web-devicons',
+					opts = {
+						override = {
+							go = {
+								icon = '󰟓',
+								color = "#519aba",
+								cterm_color = "74",
+								name = "Go",
+							}
+						}
+					}
+				},
 
 				-- Git integration
 				{
