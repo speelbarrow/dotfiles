@@ -43,15 +43,18 @@ compdef _docker-disposable docker
 # Add other aliases/functions (even if the commands aren't there, they won't break anything)
 alias ccmake="ccmake -S . -B build"
 alias cdgr='cd $(git rev-parse --show-toplevel)'
-alias x='exa -l --git --icons --header'
-alias xa='x -a'
-function xx {
-	local ignore=".git"
+
+function x {
+	local ignore=".git|Icon"
 	if [ -e .gitignore ]; then
-		ignore="$ignore|$(grep -Ev -e '^#' .gitignore | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/(^|\|)\//\1/g' | sed -E 's/\|$//')"
+		ignore+="|$(grep -Ev -e '^#' .gitignore | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/(^|\|)\//\1/g' | sed -E 's/\|$//')"
 	fi
 
-	x -a --tree --level 5 --ignore-glob="$ignore"
+	exa -l --git --icons --header --ignore-glob="$ignore" $@
 }
+alias xa='x -a'
+alias xaa='x -a --ignore-glob " "'
+alias xx='xa --tree --level 5'
+alias xxa='xx --ignore-glob " "'
 
 return 0
