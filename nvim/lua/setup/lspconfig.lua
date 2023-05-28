@@ -6,7 +6,16 @@ for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do
 	if path:find('^'..vim.opt.rtp:get()[1]) ~= nil or
 		path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h:h')) ~= nil then
 
-		require'neodev'.setup {}
+		require'neodev'.setup {
+			-- Don't bother with the logic for enabling/disabling Neodev because we're only loading it under certain 
+			-- conditions anyway
+			override = function(_, library)
+				library.enabled = true
+				library.runtime = true
+				library.types = true
+				library.plugins = true
+			end
+		}
 		break
 	end
 end
@@ -17,11 +26,11 @@ end
 lspconfig.lua_ls.setup {
 	settings = {
 		Lua = {
-			completions = {
-				callSnippet = "Replace",
-			},
+			runtime = { version = 'LuaJIT' },
+			diagnostics = { globals = { 'vim' } },
 			workspace = {
-				checkThirdParty = false
+				checkThirdParty = false,
+				library = { vim.api.nvim_get_runtime_file('', true) },
 			}
 		}
 	}

@@ -5,33 +5,42 @@ if local_exists('pre') then
 	require'local.pre'
 end
 
--- Editor settings (`:set` commands)
-for scope, object in pairs({
-	g = {
-		autowrite	= true,																-- automatically save before commands like :next and :make
-		guicursor	= vim.go.guicursor .. ",i:-blinkwait175-blinkoff150-blinkon175",	-- make the cursor blink in insert mode
-		showmode	= false,															-- don't show mode (e.g. -- INSERT --) because it's shown by Lualine
-		splitbelow	= true, 															-- put new (horizontally split) windows below current
-		splitright	= true,																-- put new (vertically split) windows to the right
-		termguicolors = true,															-- enable 24-bit RGB colors in the TUI
-	},
-	w = {
-		number 		= true,																-- show line numbers
-	},
+-- Global editor settings (`:set` commands)
+for key, value in pairs({
+	autowrite		= true,
+	colorcolumn		= "+1",
+	foldenable		= false,
+	guicursor		= vim.go.guicursor ..
+	",i:-blinkwait175-blinkoff150-blinkon175",
+	number 			= true,
+	showmode		= false,
+	shiftwidth		= 4,
+	splitbelow		= true,
+	splitright		= true,
+	tabstop			= 4,
+	termguicolors 	= true,
+	textwidth		= 119,
 }) do
-for option, value in pairs(object) do
-	-- add the 'o' because thats what the fields are *actually* called (e.g. 'wo', 'bo')
-	-- see ':help vim.o'
-	vim[scope..'o'][option] = value
-end
+	vim.o[key] = value
 end
 
 -- Set tab size based on filetype
-require'dotfiles.tabsize'
+require'dotfiles.tabs'
 
--- Keymaps for switching buffers
-vim.api.nvim_set_keymap('n', '<', ':bp<CR><C-l>', {noremap = true})
-vim.api.nvim_set_keymap('n', '>', ':bn<CR><C-l>', {noremap = true})
+-- Keymaps for switching buffers/windows/tabpages
+for mod, cmd in pairs({
+	'b',
+	['M'] = { "wincmd ", 'W', 'w' },
+	['C'] = "tab"
+}) do
+	for dir, key in pairs({
+		[ cmd[2] or 'p' ] = 'char-60',
+		[ cmd[3] or 'n' ] = 'char-62',
+	}) do
+		key = '<'..(type(mod) == "string" and (mod..'-') or '')..key..'>'
+		vim.keymap.set('n', key, "<Cmd>"..(cmd[1] or cmd)..dir.."<CR>")
+	end
+end
 
 -- Configure plugin manager
 require'dotfiles.setup.lazy'

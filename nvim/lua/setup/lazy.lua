@@ -19,16 +19,15 @@ vim.api.nvim_create_autocmd('LspAttach', {
 		-- Only run if the client is not Copilot, and set capabilities while we're at it
 		local client = vim.lsp.get_client_by_id(args.data.client_id)
 		if client.name ~= 'copilot' then
-			client.config.capabilities = require'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
+			client.config.capabilities = require 'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
 			vim.api.nvim_exec_autocmds('User', { pattern = 'NotCopilot', data = { buf = args.buf } })
 		end
 	end
 })
 
 -- Plugin configurations
-require'lazy'.setup {
-	install = { colorscheme = {} },
-	performance = { reset_packpath = false },
+require 'lazy'.setup {
+	install = { colorscheme = { 'dracula' } },
 	spec = {
 		-- Dracula theme
 		{
@@ -37,7 +36,6 @@ require'lazy'.setup {
 			config = function()
 				vim.g.dracula_full_special_attrs_support = true
 				vim.g.dracula_colorterm = 0
-				vim.g.termguicolors = true
 				vim.cmd.colorscheme 'dracula'
 
 				-- Set up some custom highlighting for NvimTree (because it doesn't link to Dracula automatically)
@@ -54,6 +52,8 @@ require'lazy'.setup {
 					hi! link NvimTreeOpenedFile DraculaPink
 				]]
 			end,
+			-- Load early
+			priority = 1000,
 		},
 
 		--                         --
@@ -71,6 +71,15 @@ require'lazy'.setup {
 				{
 					'tpope/vim-fugitive',
 					init = function() vim.g.fugitive_no_maps = 1 end,
+					config = function()
+						-- Create a keymap for commit buffers to quit and then push
+						vim.api.nvim_create_autocmd('User', {
+							pattern = 'FugitiveCommit',
+							callback = function(opts)
+								vim.api.nvim_buf_create_user_command(opts.buf, 'CP', "Gwq | Git push")
+							end,
+						})
+					end,
 				},
 
 
@@ -79,26 +88,26 @@ require'lazy'.setup {
 				vim.g.loaded_netrw = 1
 				vim.g.loaded_netrwPlugin = 1
 			end,
-			config = require'dotfiles.setup.nvim-tree'.setup,
+			config = require 'dotfiles.setup.nvim-tree'.setup,
+
+			-- Load later
+			priority = 1,
 		},
 
 		-- Project detection
 		{
 			'ahmedkhalf/project.nvim',
-			config = function()
-				require'project_nvim'.setup {
-					ignore_lsp = { 'copilot', 'lua_ls' }
-				}
-			end,
+			config = function() require 'project_nvim'.setup { ignore_lsp = { 'copilot', 'lua_ls' } } end,
 		},
 
 		-- Git diff line indicators
 		{
 			'lewis6991/gitsigns.nvim',
-			config = function() require'gitsigns'.setup {
-				--show_deleted = true,
-				_signs_staged_enable = true,
-			} end,
+			config = function()
+				require 'gitsigns'.setup {
+					_signs_staged_enable = true,
+				}
+			end,
 		},
 
 
@@ -112,7 +121,7 @@ require'lazy'.setup {
 			config = function()
 				vim.api.nvim_create_autocmd('User', {
 					pattern = 'NotCopilot',
-					callback = function(args) require'dotfiles.setup.dispatch'.setup(args.data.buf) end
+					callback = function(args) require 'dotfiles.setup.dispatch'.setup(args.data.buf) end
 				})
 			end,
 		},
@@ -133,7 +142,7 @@ require'lazy'.setup {
 		-- Cute little status line thing
 		{
 			'nvim-lualine/lualine.nvim',
-			config = function() require'dotfiles.setup.lualine' end,
+			config = function() require 'dotfiles.setup.lualine' end,
 		},
 
 		-- Macbook Touch Bar integration
@@ -144,7 +153,7 @@ require'lazy'.setup {
 			cond = vim.fn.has('mac') == 1,
 
 			-- Set up the touchbar labels/actions
-			config = function() require'dotfiles.touchbar'.setup() end,
+			config = function() require 'dotfiles.touchbar'.setup() end,
 		},
 
 		--				   --
@@ -155,7 +164,11 @@ require'lazy'.setup {
 		{
 			'github/copilot.vim',
 			config = function()
-				vim.api.nvim_set_keymap('i', '<S-Tab>', [[ copilot#Dismiss() ]], { expr = true, silent = true, script = true })
+				vim.api.nvim_set_keymap('i', '<S-Tab>', "copilot#Dismiss()", {
+					expr = true,
+					silent = true,
+					script = true
+				})
 
 				-- Add non-default filetypes
 				vim.g.copilot_filetypes = {
@@ -167,9 +180,7 @@ require'lazy'.setup {
 		-- LSP configs
 		{
 			'neovim/nvim-lspconfig',
-			config = function()
-				require'dotfiles.setup.lspconfig'
-			end,
+			config = function() require 'dotfiles.setup.lspconfig' end,
 		},
 
 		-- Provides autocompletion
@@ -189,13 +200,13 @@ require'lazy'.setup {
 			},
 
 			lazy = true,
-			event = "User NotCopilot-*",
+			event = "LspAttach",
 
 			-- Run config on load
-			config = function() require'dotfiles.setup.nvim-cmp' end,
+			config = function() require 'dotfiles.setup.nvim-cmp' end,
 
 			-- Load early
-			priority = 1,
+			priority = 500,
 		},
 
 		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
@@ -213,7 +224,7 @@ require'lazy'.setup {
 				'rust-lang/rust.vim',
 			},
 			config = function()
-				require'rust-tools'.setup({
+				require 'rust-tools'.setup({
 					dap = {
 						adapter = {
 							type = 'executable',
@@ -226,7 +237,6 @@ require'lazy'.setup {
 					}
 				})
 			end,
-			priority = 51, -- Load after nvim-cmp
 		},
 
 		---            ---
