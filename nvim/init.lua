@@ -45,6 +45,9 @@ end
 -- Configure plugin manager
 require'dotfiles.setup.lazy'
 
+-- Filetype-specific configuration
+require'dotfiles.ft'
+
 -- Run local `post` config (if present)
 if local_exists('post') then
 	require'local.post'
