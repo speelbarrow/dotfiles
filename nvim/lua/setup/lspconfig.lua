@@ -60,6 +60,7 @@ lspconfig.yamlls.setup {
 		yaml = {
 			schemas = {
 				["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*.yml",
+				["https://json.schemastore.org/github-action.json"] = "action.yml",
 			},
 		},
 	},
