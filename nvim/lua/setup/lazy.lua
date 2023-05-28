@@ -71,15 +71,6 @@ require 'lazy'.setup {
 				{
 					'tpope/vim-fugitive',
 					init = function() vim.g.fugitive_no_maps = 1 end,
-					config = function()
-						-- Create a keymap for commit buffers to quit and then push
-						vim.api.nvim_create_autocmd('User', {
-							pattern = 'FugitiveCommit',
-							callback = function(opts)
-								vim.api.nvim_buf_create_user_command(opts.buf, 'CP', "Gwq | Git push")
-							end,
-						})
-					end,
 				},
 
 

@@ -67,8 +67,16 @@ function M.setup()
 			end
 
 			-- Set 'git commit' and 'git push' keymaps seperately for special handling
-			vim.keymap.set('n', '<C-a>', function() vim.cmd "tab Git commit" end, { buffer = bufnr })
+			vim.keymap.set('n', '<C-a>', "<Cmd>tab Git commit<CR>", { buffer = bufnr })
 			vim.keymap.set('n', '<C-s>', "<Cmd>Git push<CR>", { buffer = bufnr })
+			vim.keymap.set('n', '<C-x>', function()
+				vim.cmd "tab Git commit"
+				vim.api.nvim_create_autocmd("User", {
+					pattern = "FugitiveChanged",
+					once = true,
+					command = "Git push"
+				})
+			end, { buffer = bufnr })
 
 			-- Override buffer-switching keymaps
 			for _, key in ipairs({ '<', '>' }) do
