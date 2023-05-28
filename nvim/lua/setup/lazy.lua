@@ -159,6 +159,18 @@ require 'lazy'.setup {
 			config = function() require 'dotfiles.touchbar'.setup() end,
 		},
 
+		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
+		{
+			'fatih/vim-go',
+			ft = { 'gohtmltmpl', 'gomod' },
+			config = function()
+				vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
+					pattern = "*.gohtml",
+					command = "set ft=gohtmltmpl"
+				})
+			end
+		},
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
