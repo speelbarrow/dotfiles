@@ -74,7 +74,19 @@ require 'lazy'.setup {
 								color = "#519aba",
 								cterm_color = "74",
 								name = "Go",
-							}
+							},
+							["gohtml"] = {
+								icon = '󰟓',
+								color = "#519aba",
+								cterm_color = "74",
+								name = "GoHTML",
+							},
+							["go.mod"] = {
+								icon = '󰟓',
+								color = "#519aba",
+								cterm_color = "74",
+								name = "GoModules",
+							},
 						}
 					}
 				},
@@ -163,12 +175,6 @@ require 'lazy'.setup {
 		{
 			'fatih/vim-go',
 			ft = { 'gohtmltmpl', 'gomod' },
-			config = function()
-				vim.api.nvim_create_autocmd({ "BufReadPost", "BufNewFile" }, {
-					pattern = "*.gohtml",
-					command = "set ft=gohtmltmpl"
-				})
-			end
 		},
 
 		--				   --
