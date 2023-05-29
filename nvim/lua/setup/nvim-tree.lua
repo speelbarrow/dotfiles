@@ -92,7 +92,7 @@ function M.setup()
 			update_root = true,
 			ignore_list = {"help", "gitcommit"}
 		},
-		filters = { custom = { "^\\.git$" } },
+		filters = { custom = { "^\\.git$", "^go\\.sum$" } },
 		git = { enable = true },
 		renderer = {
 			highlight_git = true,
