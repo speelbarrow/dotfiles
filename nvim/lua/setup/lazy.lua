@@ -184,6 +184,9 @@ require 'lazy'.setup {
 			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml' end,
 		},
 
+		-- Close buffers better
+		'famiu/bufdelete.nvim',
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
