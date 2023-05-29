@@ -177,6 +177,13 @@ require 'lazy'.setup {
 			ft = { 'gohtmltmpl', 'gomod' },
 		},
 
+		-- Automatically close HTML/XML tags
+		{
+			'alvan/vim-closetag',
+			ft = { 'html', 'xml', 'gohtmltmpl' },
+			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml' end,
+		},
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
