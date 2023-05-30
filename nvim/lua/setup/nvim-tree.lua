@@ -86,15 +86,22 @@ nvim_tree.setup {
 		-- Set keymaps using `git` function
 		for key, command in pairs(
 			{
-				['a'] = 'add',
 				['s'] = 'restore --staged',
 				['d'] = 'rm --cached',
 				['DD'] = 'checkout HEAD --',
 			}) do
 			vim.keymap.set('n', key, git(command), { buffer = bufnr })
 		end
+		-- Set `git add` seperately for overriding when root node is selected
+		vim.keymap.set('n', 'a', function()
+			if nvim_tree_api.tree.get_node_under_cursor().name == ".." then
+				vim.cmd "Git add ."
+			else
+				git('add')()
+			end
+		end, { buffer = bufnr })
 
-		-- Set 'git commit' and 'git push' keymaps seperately for special handling
+		-- Set 'git commit' and 'git push' keymaps seperately due to different format
 		vim.keymap.set('n', '<C-a>', "<Cmd>tab Git commit<CR>", { buffer = bufnr })
 		vim.keymap.set('n', '<C-s>', "<Cmd>Git push<CR>", { buffer = bufnr })
 		vim.keymap.set('n', '<C-x>', function()

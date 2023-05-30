@@ -10,3 +10,6 @@ require 'rust-tools'.setup({
 		standalone = true,
 	}
 })
+
+-- Disable recommended styles provided by rust.vim
+vim.g.rust_recommended_style = 0
