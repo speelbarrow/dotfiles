@@ -37,8 +37,14 @@ function M.setup()
 				vim.api.nvim_buf_delete(to_close, {})
 			end, { buffer = bufnr })
 
-			-- 'Un'-focus the tree without closing on escape and tab
-			vim.keymap.set('n', '<Tab>', "<C-w>p", { buffer = bufnr, silent = true })
+			-- 'Un'-focus the tree without closing on tab
+			vim.keymap.set('n', '<Tab>', function()
+				if #(vim.api.nvim_list_wins()) > 1 then
+					vim.cmd.wincmd 'p'
+				else
+					vim.cmd.bn()
+				end
+			end, { buffer = bufnr, silent = true })
 
 			-- Expand all nodes on 'E'
 			vim.keymap.set('n', 'E', nvim_tree_api.tree.expand_all, { buffer = bufnr })
