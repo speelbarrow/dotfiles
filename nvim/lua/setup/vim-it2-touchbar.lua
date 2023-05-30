@@ -14,7 +14,15 @@ function M.touchbar()
 	end
 end
 
--- Listeners for LspAttach (first) and CopilotToggled (all) events to switch label text
+-- Listeners for BufLeave and CopilotToggled events to switch label text
+
+vim.api.nvim_create_autocmd("BufEnter", {
+	callback = function()
+		keymap.function_keys[#keymap.function_keys][1] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On" or "Copilot: Off"
+		vim.fn["it2touchbar#RegenKeys"]()
+	end
+})
+
 vim.api.nvim_create_autocmd("User", {
 	pattern = "CopilotToggled",
 	callback = function()
