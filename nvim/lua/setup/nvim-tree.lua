@@ -122,6 +122,23 @@ function M.setup()
 		nvim_tree_api.tree.toggle({ find_file = true, focus = false })
 	end)
 
+	-- Define user command for opening a new buffer relative to tree cursor
+	vim.api.nvim_create_user_command("E", function(args)
+		local to_open = args.fargs[1]
+
+		local node = nvim_tree_api.tree.get_node_under_cursor()
+		while node.parent ~= nil do
+			if node.fs_stat.type == 'directory' then
+				to_open = node.absolute_path .. '/' .. to_open
+				break
+			else
+				node = node.parent
+			end
+		end
+
+		vim.cmd.edit(to_open)
+	end, { nargs = 1 })
+
 	-- Define filetypes where the tree shouldn't automatically open
 	local no_auto_open_list = { 'help', 'gitcommit' }
 
