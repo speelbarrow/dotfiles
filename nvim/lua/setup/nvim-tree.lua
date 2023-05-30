@@ -161,7 +161,7 @@ vim.api.nvim_create_user_command("E", function(args)
 end, { nargs = 1 })
 
 -- Define filetypes where the tree shouldn't automatically open
-local no_auto_open_list = { 'help', 'gitcommit' }
+local no_auto_open_list = { 'help', 'gitcommit', 'gitrebase' }
 
 -- Transform the list into a map for faster lookup
 local no_auto_open = {}
