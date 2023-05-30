@@ -195,6 +195,18 @@ require 'lazy'.setup {
 			config = function() require'dotfiles.setup.rust-tools' end,
 		},
 
+		-- Not exactly a language server but close enough, provides better experience in Cargo.toml files
+		{
+			'Saecki/crates.nvim',
+			dependencies = {
+				'nvim-lua/plenary.nvim',
+			},
+			event = "BufRead Cargo.toml",
+			init = function()
+			end,
+			config = function() require'dotfiles.setup.crates' end,
+		},
+
 		---            ---
 		--- LOCAL SPEC ---
 		---            ---
