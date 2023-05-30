@@ -1,8 +1,4 @@
-vim.api.nvim_set_keymap('i', '<S-Tab>', "copilot#Dismiss()", {
-	expr = true,
-	silent = true,
-	script = true
-})
+vim.keymap.set('i', '<S-Tab>', "<Cmd>copilot#Dismiss()<CR>")
 
 -- Add non-default filetypes
 vim.g.copilot_filetypes = {
