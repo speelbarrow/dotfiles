@@ -7,7 +7,6 @@ function M.setup()
 	-- Set up the plugin
 	nvim_tree.setup {
 		on_attach = function(bufnr)
-			Bufnr = bufnr
 			-- Open on enter
 			for key, modes in pairs({ ['<CR>'] = { 'n' }, ['<2-LeftMouse>'] = { 'n', 'i' }}) do
 				vim.keymap.set(modes, key, nvim_tree_api.node.open.edit, { buffer = bufnr })
