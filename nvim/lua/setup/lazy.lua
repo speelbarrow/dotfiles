@@ -52,7 +52,7 @@ require 'lazy'.setup {
 					hi! link NvimTreeOpenedFile DraculaPink
 				]]
 			end,
-			-- Load early
+			-- Load earliest
 			priority = 1000,
 		},
 
@@ -105,7 +105,7 @@ require 'lazy'.setup {
 			end,
 			config = require 'dotfiles.setup.nvim-tree'.setup,
 
-			-- Load later
+			-- Load latest
 			priority = 1,
 		},
 
