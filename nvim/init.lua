@@ -25,27 +25,14 @@ for key, value in pairs({
 	vim.o[key] = value
 end
 
+-- Set baseline custom keymaps
+require 'dotfiles.keymap'
+
 -- Set tab size based on filetype
 require'dotfiles.tabs'
 
--- Keymaps for switching buffers/windows/tabpages
-for mod, cmd in pairs({
-	'b',
-	['M'] = { "wincmd ", 'W', 'w' },
-	['C'] = "tab"
-}) do
-	for dir, key in pairs({
-		[ cmd[2] or 'p' ] = 'char-60',
-		[ cmd[3] or 'n' ] = 'char-62',
-	}) do
-		key = '<'..(type(mod) == "string" and (mod..'-') or '')..key..'>'
-		vim.keymap.set('n', key, "<Cmd>"..(cmd[1] or cmd)..dir.."<CR>")
-	end
-end
-
 -- Add autocommand triggered when a language server other than Copilot attaches
 require 'dotfiles.not-copilot'
-
 
 -- Configure plugin manager
 require'dotfiles.setup.lazy'

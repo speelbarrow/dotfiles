@@ -116,7 +116,7 @@ require 'lazy'.setup {
 			cond = vim.fn.has('mac') == 1,
 
 			-- Set up the touchbar labels/actions
-			config = function() require 'dotfiles.touchbar'.setup() end,
+			config = function() require'dotfiles.setup.vim-it2-touchbar' end,
 		},
 
 		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
