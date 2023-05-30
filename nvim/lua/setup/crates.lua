@@ -1,13 +1,10 @@
--- Defined as function because it needs to be run manually the first time
-local function on_read()
-	require'cmp'.setup.buffer { sources = { { name = 'crates' } } }
-	vim.b.copilot_enabled = false
-end
-
-vim.api.nvim_create_autocmd("BufReadPost", {
-	pattern = "Cargo.toml",
-	callback = on_read
+vim.api.nvim_create_autocmd("FileType", {
+	pattern = "toml",
+	callback = function(args)
+		if args.file:find("Cargo.toml$") ~= nil then
+			vim.api.nvim_buf_set_var(args.buf, "copilot_enabled", false)
+		end
+	end
 })
 
 require'crates'.setup {}
-on_read()

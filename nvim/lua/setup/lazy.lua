@@ -202,8 +202,6 @@ require 'lazy'.setup {
 				'nvim-lua/plenary.nvim',
 			},
 			event = "BufRead Cargo.toml",
-			init = function()
-			end,
 			config = function() require'dotfiles.setup.crates' end,
 		},
 
