@@ -22,8 +22,8 @@ cmp.setup {
 	mapping = {
 		["<Up>"] = cmp.mapping.select_prev_item(),
 		["<Down>"] = cmp.mapping.select_next_item(),
-		["<ScrollWheelUp>"] = cmp.mapping.scroll_docs(-4),
-		["<ScrollWheelDown>"] = cmp.mapping.scroll_docs(4),
+		["<ScrollWheelUp>"] = cmp.mapping.select_prev_item(),
+		["<ScrollWheelDown>"] = cmp.mapping.select_next_item(),
 		["<Tab>"] = cmp.mapping(function()
 			-- If the completion menu is open, select the next item
 			if cmp.visible() then
