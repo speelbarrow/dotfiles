@@ -216,7 +216,8 @@ require 'lazy'.setup {
 
 		-- Provides autocompletion
 		{
-			'hrsh7th/nvim-cmp',
+			'noah-friedman/nvim-cmp',
+			branch = 'improve-mapping-types',
 			dependencies = {
 				'hrsh7th/cmp-nvim-lsp',
 				'hrsh7th/cmp-buffer',

@@ -28,22 +28,18 @@ cmp.setup {
 			-- If the completion menu is open, select the next item
 			if cmp.visible() then
 				cmp.select_next_item()
-				print("a")
 			-- If a snippet is available, expand it
 			elseif vim.fn["vsnip#available"](1) == 1 then
 				helpers.feedkey("<Plug>(vsnip-expand-or-jump)<C-l>", "")
-				print("b")
 
 			-- If copilot has a suggestion, accept it
 			elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
 				vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
 				helpers.feedkey("<ESC><C-l>a", "n")
-				print("c")
 
 			-- Otherwise, just fallback to default
 			else
 				helpers.feedkey("<Tab>", "n")
-				print("d")
 			end
 		end, { "i", "s" }),
 		["<S-Tab>"] = cmp.mapping(function()
