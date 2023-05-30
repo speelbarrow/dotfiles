@@ -10,7 +10,7 @@ endfunction
 
 function M.touchbar()
 	for index = 1, 24 do
-		vim.cmd("TouchBarLabel F"..index.." '"..(keymap.function_keys[index] or { "" })[1].."'")
+		vim.cmd("TouchBarLabel F"..index.." '"..(keymap.function_keys[index] or { " " })[1].."'")
 	end
 end
 
