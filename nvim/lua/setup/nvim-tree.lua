@@ -1,6 +1,8 @@
 local nvim_tree = require'nvim-tree'
 local nvim_tree_api = require'nvim-tree.api'
 
+local M = {}
+
 -- Configure custom icons for nvim-web-devicons		
 require'nvim-web-devicons'.setup {
 	override = {
@@ -161,11 +163,11 @@ vim.api.nvim_create_user_command("E", function(args)
 end, { nargs = 1 })
 
 -- Define filetypes where the tree shouldn't automatically open
-local no_auto_open_list = { 'help', 'gitcommit', 'gitrebase' }
+M.no_auto_open_list = { 'help', 'gitcommit', 'gitrebase' }
 
 -- Transform the list into a map for faster lookup
 local no_auto_open = {}
-for _, filetype in ipairs(no_auto_open_list) do
+for _, filetype in ipairs(M.no_auto_open_list) do
 	no_auto_open[filetype] = true
 end
 
@@ -210,3 +212,5 @@ vim.api.nvim_create_autocmd("TabNewEntered", {
 		open_tree(vim.api.nvim_buf_get_option(args.buf, "filetype"))
 	end
 })
+
+return M
