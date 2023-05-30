@@ -109,7 +109,8 @@ require 'lazy'.setup {
 
 		-- Macbook Touch Bar integration
 		{
-			'eth-p/vim-it2-touchbar',
+			'noah-friedman/vim-it2-touchbar',
+			branch = 'migrate-writefile',
 
 			-- Only load on Mac
 			cond = vim.fn.has('mac') == 1,
