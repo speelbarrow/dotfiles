@@ -13,18 +13,6 @@ end
 
 vim.opt.rtp:append(lazypath)
 
--- Autocommand that fires when an LSP client that isn't Copilot attaches
-vim.api.nvim_create_autocmd('LspAttach', {
-	callback = function(args)
-		-- Only run if the client is not Copilot, and set capabilities while we're at it
-		local client = vim.lsp.get_client_by_id(args.data.client_id)
-		if client.name ~= 'copilot' then
-			client.config.capabilities = require 'cmp_nvim_lsp'.default_capabilities(client.config.capabilities)
-			vim.api.nvim_exec_autocmds('User', { pattern = 'NotCopilot', data = { buf = args.buf } })
-		end
-	end
-})
-
 -- Plugin configurations
 require 'lazy'.setup {
 	install = { colorscheme = { 'dracula' } },
@@ -33,25 +21,8 @@ require 'lazy'.setup {
 		{
 			'dracula/vim',
 			name = 'dracula',
-			config = function()
-				vim.g.dracula_full_special_attrs_support = true
-				vim.g.dracula_colorterm = 0
-				vim.cmd.colorscheme 'dracula'
+			config = function() require'dotfiles.setup.dracula' end,
 
-				-- Set up some custom highlighting for NvimTree (because it doesn't link to Dracula automatically)
-				vim.cmd [[
-					hi! link NvimTreeGitDeleted DiffDelete
-					hi! link NvimTreeGitIgnored DraculaComment
-					hi! link NvimTreeExecFile DraculaRed
-					hi! link NvimTreeSpecialFile DraculaFgBold
-					hi! link NvimTreeGitDirty DiffChange
-					hi! link NvimTreeGitMerge DraculaPurple
-					hi! link NvimTreeGitNew DraculaYellow
-					hi! link NvimTreeGitStaged DiffAdd
-					hi! link NvimTreeGitRenamed DraculaInfoLine
-					hi! link NvimTreeOpenedFile DraculaPink
-				]]
-			end,
 			-- Load earliest
 			priority = 1000,
 		},
@@ -65,45 +36,25 @@ require 'lazy'.setup {
 			'nvim-tree/nvim-tree.lua',
 			dependencies = {
 				-- Icons
-				{
-					'nvim-tree/nvim-web-devicons',
-					opts = {
-						override = {
-							go = {
-								icon = '󰟓',
-								color = "#519aba",
-								cterm_color = "74",
-								name = "Go",
-							},
-							["gohtml"] = {
-								icon = '󰟓',
-								color = "#519aba",
-								cterm_color = "74",
-								name = "GoHTML",
-							},
-							["go.mod"] = {
-								icon = '󰟓',
-								color = "#519aba",
-								cterm_color = "74",
-								name = "GoModules",
-							},
-						}
-					}
-				},
+				'nvim-tree/nvim-web-devicons',
 
 				-- Git integration
 				{
 					'tpope/vim-fugitive',
+
+					-- Disable maps by default
 					init = function() vim.g.fugitive_no_maps = 1 end,
 				},
 
 
 			},
+
+			-- Disable Netrw so it doesn't conflict with nvim-tree
 			init = function()
 				vim.g.loaded_netrw = 1
 				vim.g.loaded_netrwPlugin = 1
 			end,
-			config = require 'dotfiles.setup.nvim-tree'.setup,
+			config = function() require 'dotfiles.setup.nvim-tree' end,
 
 			-- Load latest
 			priority = 1,
@@ -112,17 +63,13 @@ require 'lazy'.setup {
 		-- Project detection
 		{
 			'ahmedkhalf/project.nvim',
-			config = function() require 'project_nvim'.setup { ignore_lsp = { 'copilot', 'lua_ls' } } end,
+			config = function() require'dotfiles.setup.project_nvim' end,
 		},
 
 		-- Git diff line indicators
 		{
 			'lewis6991/gitsigns.nvim',
-			config = function()
-				require 'gitsigns'.setup {
-					_signs_staged_enable = true,
-				}
-			end,
+			config = function() require'dotfiles.setup.gitsigns' end,
 		},
 
 
@@ -194,18 +141,7 @@ require 'lazy'.setup {
 		-- GitHub Copilot
 		{
 			'github/copilot.vim',
-			config = function()
-				vim.api.nvim_set_keymap('i', '<S-Tab>', "copilot#Dismiss()", {
-					expr = true,
-					silent = true,
-					script = true
-				})
-
-				-- Add non-default filetypes
-				vim.g.copilot_filetypes = {
-					yaml = true,
-				}
-			end
+			config = function() require'dotfiles.setup.copilot' end
 		},
 
 		-- LSP configs
@@ -255,26 +191,13 @@ require 'lazy'.setup {
 				-- Better syntax highlighting
 				'rust-lang/rust.vim',
 			},
-			config = function()
-				require 'rust-tools'.setup({
-					dap = {
-						adapter = {
-							type = 'executable',
-							command = 'lldb',
-							name = 'lldb',
-						},
-					},
-					server = {
-						standalone = true,
-					}
-				})
-			end,
+			config = function() require'dotfiles.setup.rust-tools' end,
 		},
 
 		---            ---
 		--- LOCAL SPEC ---
 		---            ---
 
-		unpack(require'dotfiles.local_exists'('lazy') and require'local.lazy' or {}),
+		unpack(require'dotfiles.local-exists'('lazy') and require'local.lazy' or {}),
 	}
 }

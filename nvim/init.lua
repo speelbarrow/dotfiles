@@ -1,4 +1,4 @@
-local local_exists = require'dotfiles.local_exists'
+local local_exists = require'dotfiles.local-exists'
 
 -- Run local `pre` config (if present)
 if local_exists('pre') then
@@ -42,6 +42,10 @@ for mod, cmd in pairs({
 		vim.keymap.set('n', key, "<Cmd>"..(cmd[1] or cmd)..dir.."<CR>")
 	end
 end
+
+-- Add autocommand triggered when a language server other than Copilot attaches
+require 'dotfiles.not-copilot'
+
 
 -- Configure plugin manager
 require'dotfiles.setup.lazy'
