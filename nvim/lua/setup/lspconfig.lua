@@ -117,3 +117,7 @@ lspconfig.cucumber_language_server.setup {}
 -- GoPLS
 -- `go get golang.org/x/tools/gopls@latest`
 lspconfig.gopls.setup {}
+
+-- Vimscript LSP
+-- `npm install -g vim-language-server`
+lspconfig.vimls.setup {}
