@@ -9,14 +9,16 @@ local function set_tabsize(ft, size)
 	})
 end
 set_tabsize("bash,bindzone,sh,text,zsh", 8)
-set_tabsize("yaml,markdown", 2)
+set_tabsize("yaml,markdown,json", 2)
 
--- Enable `expandtab`
-for _, ft in ipairs({}) do
-	vim.api.nvim_create_autocmd("Filetype", {
-		pattern = ft,
-		callback = function()
-			vim.bo.expandtab = true
-		end
-	})
-end
+-- Enable `expandtab` for certain filetypes
+vim.api.nvim_create_autocmd("Filetype", {
+	pattern = {
+		"yaml",
+		"json",
+		"lua",
+	},
+	callback = function()
+		vim.bo.expandtab = true
+	end
+})
