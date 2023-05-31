@@ -12,10 +12,8 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 # Remove auto-generated .zshrc
 file "$HOME/.zshrc"
 
-# Install Typewritten theme
-git clone https://github.com/reobin/typewritten.git $HOME/.oh-my-zsh/custom/themes/typewritten
-ln -s $HOME/.oh-my-zsh/custom/themes/typewritten/typewritten.zsh-theme $HOME/.oh-my-zsh/custom/themes/typewritten.zsh-theme
-ln -s $HOME/.oh-my-zsh/custom/themes/typewritten/async.zsh $HOME/.oh-my-zsh/custom/themes/async
+# Install Dracula theme
+git clone https://github.com/dracula/zsh.git $HOME/.oh-my-zsh/custom/themes/dracula
 
 # Install other plugins
 for repo in "zsh-users/zsh-autosuggestions" "zsh-users/zsh-syntax-highlighting" "noah-friedman/zsh-apple-touchbar"; do
