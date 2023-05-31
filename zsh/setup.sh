@@ -13,7 +13,8 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 file "$HOME/.zshrc"
 
 # Install Dracula theme
-git clone https://github.com/dracula/zsh.git $HOME/.oh-my-zsh/custom/themes/dracula
+git clone --branch patch-1 https://github.com/noah-friedman/dracula-zsh.git $HOME/.oh-my-zsh/custom/themes/dracula
+ln -s $HOME/.oh-my-zsh/custom/themes/dracula/dracula.zsh-theme $HOME/.oh-my-zsh/custom/themes/dracula.zsh-theme
 
 # Install other plugins
 for repo in "zsh-users/zsh-autosuggestions" "zsh-users/zsh-syntax-highlighting" "noah-friedman/zsh-apple-touchbar"; do
