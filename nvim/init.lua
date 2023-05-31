@@ -11,8 +11,7 @@ for key, value in pairs({
 	colorcolumn		= "+1",
 	foldenable		= false,
 	formatoptions	= vim.o.formatoptions .. "t",
-	guicursor		= vim.go.guicursor ..
-					  ",i:-blinkwait175-blinkoff150-blinkon175",
+	guicursor		= vim.go.guicursor .. ",i:-blinkwait175-blinkoff150-blinkon175",
 	number 			= true,
 	showmode		= false,
 	shiftwidth		= 4,
