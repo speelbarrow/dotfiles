@@ -24,5 +24,11 @@ if [ `uname` = "Darwin" ]; then
 	plugins+=(debian)
 fi
 
+# Fix cursor in precmd
+function _cursor() {
+  echo -ne "\e[3 q"
+}
+precmd_functions+=(_cursor)
+
 # Configure zsh to keep track of recent directories
 setopt autopushd pushdignoredups pushdsilent pushdtohome
