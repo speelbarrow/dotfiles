@@ -109,7 +109,7 @@ require 'lazy'.setup {
 
 		-- Macbook Touch Bar integration
 		{
-			'noah-friedman/vim-it2-touchbar',
+			'speelbarrow/vim-it2-touchbar',
 			branch = 'migrate-writefile',
 
 			-- Only load on Mac
@@ -153,7 +153,7 @@ require 'lazy'.setup {
 
 		-- Provides autocompletion
 		{
-			'noah-friedman/nvim-cmp',
+			'speelbarrow/nvim-cmp',
 			branch = 'improve-mapping-types',
 			dependencies = {
 				'hrsh7th/cmp-nvim-lsp',
