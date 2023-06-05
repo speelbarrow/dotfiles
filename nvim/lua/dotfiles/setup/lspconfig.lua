@@ -1,5 +1,28 @@
 local lspconfig = require'lspconfig'
 
+-- Styling for LSP windows
+
+vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
+  vim.lsp.handlers.hover,
+  { border = "rounded" }
+)
+
+vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
+  vim.lsp.handlers.signature_help,
+  { border = "rounded" }
+)
+
+vim.diagnostic.config {
+    float = {
+        border = "rounded",
+    }
+}
+
+vim.cmd [[
+hi! NormalFloat guibg=none ctermbg=none
+hi! FloatBorder guibg=none ctermbg=none
+]]
+
 -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
 -- (Installing and updating managed by Lazy)
 for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do

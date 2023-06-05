@@ -1,3 +1,4 @@
+vim.o.rtp = vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h')..','..vim.o.rtp
 local local_exists = require'dotfiles.local-exists'
 
 -- Run local `pre` config (if present)
@@ -36,9 +37,6 @@ require 'dotfiles.not-copilot'
 
 -- Configure plugin manager
 require'dotfiles.setup.lazy'
-
--- Filetype-specific configuration
-require'dotfiles.ft'
 
 -- Run local `post` config (if present)
 if local_exists('post') then
