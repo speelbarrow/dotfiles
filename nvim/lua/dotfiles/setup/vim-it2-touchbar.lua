@@ -18,7 +18,7 @@ end
 local function update_copilot_key()
     keymap.function_keys[#keymap.function_keys][1] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On"
                                                         or "Copilot: Off"
-    vim.fn["it2touchbar#RegenKeys"]()
+    vim.schedule_wrap(function() vim.fn["it2touchbar#RegenKeys"]() end)
 end
 
 -- Don't enable the `BufEnter` autocommand until the `UIEnter` event has fired
