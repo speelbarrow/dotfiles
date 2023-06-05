@@ -1,6 +1,10 @@
-require 'project_nvim'.setup {
-	ignore_lsp = {
-		'copilot',
-		'lua_ls'
-	}
+return {
+    setup = function()
+        require 'project_nvim'.setup {
+            ignore_lsp = {
+                'copilot',
+                'lua_ls'
+            }
+        }
+    end
 }
