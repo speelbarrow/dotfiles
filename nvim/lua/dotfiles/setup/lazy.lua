@@ -144,7 +144,7 @@ require 'lazy'.setup {
 		-- GitHub Copilot
 		{
 			'github/copilot.vim',
-			config = function() require'dotfiles.setup.copilot' end
+			config = require'dotfiles.setup.copilot'.setup
 		},
 
 		-- LSP configs
