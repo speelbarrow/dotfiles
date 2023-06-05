@@ -123,7 +123,7 @@ require 'lazy'.setup {
 		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
 		{
 			'fatih/vim-go',
-			ft = { 'gohtmltmpl', 'gomod' },
+			ft = { 'go', 'gohtmltmpl', 'gomod' },
             build = ":GoUpdateBinaries"
 		},
 

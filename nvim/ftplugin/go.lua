@@ -22,13 +22,11 @@ end
 
 -- Disable `vim-go` functionality that I don't use
 for _, opt in ipairs({
-    "code_completion"
+    "code_completion",
+    "gopls",
 }) do
     vim.g["go_"..opt.."_enabled"] = false
 end
-
-print("Called")
-Called = true
 
 -- Refresh syntax highlighting
 vim.cmd 'syntax on'
