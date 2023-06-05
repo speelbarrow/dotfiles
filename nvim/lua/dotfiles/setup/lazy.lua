@@ -81,12 +81,7 @@ require 'lazy'.setup {
 		-- Dispatch executions and tests asynchronously
 		{
 			'tpope/vim-dispatch',
-			config = function()
-				vim.api.nvim_create_autocmd('User', {
-					pattern = 'NotCopilot',
-					callback = function(args) require 'dotfiles.setup.dispatch'.setup(args.data.buf) end
-				})
-			end,
+            config = function() require'dotfiles.setup.dispatch'.setup() end,
 		},
 
 		-- Preview Markdown files
