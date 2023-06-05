@@ -4,7 +4,7 @@ local lspconfig = require'lspconfig'
 -- (Installing and updating managed by Lazy)
 for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do
 	if path:find('^'..vim.opt.rtp:get()[1]) ~= nil or
-		path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.fn.expand('~/.config/nvim/init.lua')), ':h:h')) ~= nil then
+		path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h:h')) ~= nil then
 
 		require'neodev'.setup {
 			-- Don't bother with the logic for enabling/disabling Neodev because we're only loading it under certain 
