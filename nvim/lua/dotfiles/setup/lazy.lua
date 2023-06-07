@@ -123,6 +123,7 @@ require 'lazy'.setup {
 		{
 			'fatih/vim-go',
 			ft = { 'gohtmltmpl', 'gomod' },
+            build = ":GoUpdateBinaries"
 		},
 
 		-- Automatically close HTML/XML tags
