@@ -202,10 +202,10 @@ require 'lazy'.setup {
 			config = function() require'dotfiles.setup.crates'.setup() end,
 		},
 
-		---            ---
-		--- LOCAL SPEC ---
-		---            ---
-
-		unpack(require'dotfiles.local-exists'('lazy') and require'local.lazy' or {}),
+        -- Provides schema files for JSON and YAML
+        {
+            'b0o/SchemaStore.nvim',
+            lazy = true
+        }
 	}
 }

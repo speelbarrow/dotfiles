@@ -1,7 +1,41 @@
+---@param keys string
+---@param mode string?
+local function feedkeys(keys, mode)
+    mode = mode or 'n'
+    vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes(keys, true, true, true), mode, false)
+end
+
+local kind_icons = {
+  Text = "󱩾",
+  Method = "󱝒",
+  Function = "󰒓",
+  Constructor = "󱉜",
+  Field = "󱝔",
+  Variable = "󰏫",
+  Class = "󰀼",
+  Interface = "󰠥",
+  Module = "󰏖",
+  Property = "󰓹",
+  Unit = "",
+  Value = "󰎠",
+  Enum = "󰖽",
+  Keyword = "",
+  Snippet = "󰲋",
+  Color = "󰏘",
+  File = "󰈙",
+  Reference = "",
+  Folder = "󰝰",
+  EnumMember = "󰈍",
+  Constant = "󰏿",
+  Struct = "󰉺",
+  Event = "",
+  Operator = "",
+  TypeParameter = ""
+}
+
 return {
     setup = function()
         local cmp = require'cmp'
-        local helpers = require'dotfiles.cmp-vsnip-helpers'
 
         -- Need to set these options or Copilot will complain that nvim-cmp is using the <Tab> keybind
         vim.g.copilot_no_tab_map = true
@@ -32,16 +66,16 @@ return {
                         cmp.select_next_item()
                         -- If a snippet is available, expand it
                     elseif vim.fn["vsnip#available"](1) == 1 then
-                        helpers.feedkey("<Plug>(vsnip-expand-or-jump)<C-l>", "")
+                        feedkeys("<Plug>(vsnip-expand-or-jump)<C-l>", "")
 
                         -- If copilot has a suggestion, accept it
                     elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
                         vim.api.nvim_feedkeys(vim.fn["copilot#Accept"](), "i", true)
-                        helpers.feedkey("<ESC><C-l>a", "n")
+                        feedkeys("<ESC><C-l>a")
 
                         -- Otherwise, just fallback to default
                     else
-                        helpers.feedkey("<Tab>", "n")
+                        feedkeys("<Tab>")
                     end
                 end, { "i", "s" }),
                 ["<S-Tab>"] = cmp.mapping(function()
@@ -54,7 +88,7 @@ return {
                         vim.api.nvim_feedkeys(vim.fn["copilot#Dismiss"](), "i", true)
 
                         -- Otherwise, just fallback to default
-                    else helpers.feedkey("<S-Tab>", 'n') end
+                    else feedkeys("<S-Tab>") end
                 end, { "i", "s" }),
                 ['<CR>'] = cmp.mapping.confirm({ select = true }),
             },
@@ -70,7 +104,7 @@ return {
             -- Add the cute little icons into the box there
             formatting = {
                 format = function(_, vim_item)
-                    vim_item.kind = string.format('%s  %s', require'dotfiles.kind-icons'[vim_item.kind], vim_item.kind)
+                    vim_item.kind = string.format('%s  %s', kind_icons[vim_item.kind], vim_item.kind)
                     return vim_item
                 end
             },

@@ -1,18 +1,24 @@
-local keymap = require'dotfiles.keymap'
-
 local M = {}
+
+-- Key labels
+local keylabels = {
+    "Hover",
+    "Rename",
+    "Diagnostic",
+    "Clear Highlight",
+    "Go to Definition",
+    "Copilot: Off"
+}
 
 function M.touchbar()
     for index = 1, 24 do
-        vim.cmd("TouchBarLabel F"..index.." '"..(keymap.function_keys[index] or { " " })[1].."'")
+        vim.cmd("TouchBarLabel F"..index.." '"..(keylabels[index] or " ").."'")
     end
 end
 
 -- Helper function for updating Copilot key label
 local function update_copilot_key()
-    keymap.function_keys[#keymap.function_keys][1] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On"
-    or "Copilot: Off"
-
+    keylabels[#keylabels] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On" or "Copilot: Off"
     vim.fn["it2touchbar#RegenKeys"]()
 end
 

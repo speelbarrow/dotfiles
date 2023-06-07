@@ -1,10 +1,4 @@
 vim.o.rtp = vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h')..','..vim.o.rtp
-local local_exists = require'dotfiles.local-exists'
-
--- Run local `pre` config (if present)
-if local_exists('pre') then
-	require'local.pre'
-end
 
 -- Global editor settings (`:set` commands)
 for key, value in pairs({
@@ -26,19 +20,5 @@ for key, value in pairs({
 	vim.o[key] = value
 end
 
--- Set baseline custom keymaps
-require 'dotfiles.keymap'
-
--- Set tab size based on filetype
-require'dotfiles.tabs'
-
--- Add autocommand triggered when a language server other than Copilot attaches
-require 'dotfiles.not-copilot'
-
 -- Configure plugin manager
 require'dotfiles.setup.lazy'
-
--- Run local `post` config (if present)
-if local_exists('post') then
-	require'local.post'
-end

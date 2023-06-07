@@ -1,24 +1,17 @@
 return {
     setup = function()
         local lspconfig = require'lspconfig'
+        local default_capabalities = require'cmp_nvim_lsp'.default_capabilities
+        local capabilities = default_capabalities()
 
         -- Styling for LSP windows
 
-        vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(
-        vim.lsp.handlers.hover,
-        { border = "rounded" }
-        )
+        vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
 
-        vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(
-        vim.lsp.handlers.signature_help,
-        { border = "rounded" }
-        )
+        vim.lsp.handlers['textDocument/signatureHelp'] = vim.lsp.with(vim.lsp.handlers.signature_help,
+        {border = "rounded" })
 
-        vim.diagnostic.config {
-            float = {
-                border = "rounded",
-            }
-        }
+        vim.diagnostic.config { float = { border = "rounded" } }
 
         vim.cmd [[
         hi! NormalFloat guibg=none ctermbg=none
@@ -49,6 +42,7 @@ return {
         -- LuaLS setup must occur after Neodev setup
         -- (See plugin docs for install)
         lspconfig.lua_ls.setup {
+            capabilities = capabilities,
             settings = {
                 Lua = {
                     runtime = { version = 'LuaJIT' },
@@ -63,30 +57,29 @@ return {
 
         -- Use clangd for C/C++ LSP
         lspconfig.clangd.setup {
-            capabilities = (function()
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities.offsetEncoding = "utf-8"
-                return capabilities
-            end)(),
+            capabilities = default_capabalities({ offsetEncoding = "utf-8" }),
         }
 
         -- CMakeLists LSP
         -- `pip install cmake-language-server`
-        lspconfig.cmake.setup {}
+        lspconfig.cmake.setup {
+            capabilities = capabilities
+        }
 
         -- Dockerfile LSP
         -- `npm install -g dockerfile-language-server-nodejs`
-        lspconfig.dockerls.setup {}
+        lspconfig.dockerls.setup {
+            capabilities = capabilities
+        }
 
         -- YAML LSP (mainly for editing GitHub Actions workflows)
         -- `npm install -g yaml-language-server`
         lspconfig.yamlls.setup {
+            capabilities = capabilities,
             settings = {
                 yaml = {
-                    schemas = {
-                        ["https://json.schemastore.org/github-workflow.json"] = "/.github/workflows/*.yml",
-                        ["https://json.schemastore.org/github-action.json"] = "action.yml",
-                    },
+                    schemaStore = { enable = false },
+                    schemas = require('schemastore').yaml.schemas(),
                 },
             },
         }
@@ -94,58 +87,66 @@ return {
         -- JSON LSP
         -- `npm install -g vscode-langservers-extracted`
         lspconfig.jsonls.setup {
-            capabilities = (function()
-                local capabilities = vim.lsp.protocol.make_client_capabilities()
-                capabilities.textDocument.completion.completionItem.snippetSupport = true
-                return capabilities
-            end)(),
+            capabilities = default_capabalities({
+                textDocument = {
+                    completion = {
+                        completionItem = {
+                            snippetSupport = true,
+                        },
+                    },
+                },
+            }),
             settings = {
                 json = {
-                    schemas = (function()
-                        local schemas = {}
-
-                        for schema, fileMatch in pairs({
-                            ["package.json"] = { "package.json" },
-                            ["tsconfig.json"] = { "tsconfig.json" },
-                        }) do
-                        table.insert(schemas, { fileMatch = fileMatch, url = "https://json.schemastore.org/"..schema })
-                    end
-
-                    return schemas
-                end)(),
+                    schemas = require('schemastore').json.schemas(),
+                    validate = { enable = true },
+                },
             },
-        },
-    }
+        }
 
-    -- HTML/CSS/JS LSP
-    -- `npm install -g vscode-langservers-extracted`
-    lspconfig.html.setup {
-        capabilities = (function()
-            local capabilities = vim.lsp.protocol.make_client_capabilities()
-            capabilities.textDocument.completion.completionItem.snippetSupport = true
-            return capabilities
-        end)(),
-    }
+        -- HTML/CSS/JS LSP
+        -- `npm install -g vscode-langservers-extracted`
+        lspconfig.html.setup {
+            capabilities = default_capabalities({
+                textDocument = {
+                    completion = {
+                        completionItem = {
+                            snippetSupport = true,
+                        },
+                    },
+                },
+            })
+        }
 
-    -- TypeScript LSP (works for JavaScript too)
-    -- `npm install -g typescript typescript-language-server`
-    lspconfig.tsserver.setup {}
+        -- TypeScript LSP (works for JavaScript too)
+        -- `npm install -g typescript typescript-language-server`
+        lspconfig.tsserver.setup {
+            capabilities = capabilities
+        }
 
-    -- Markdown LSP (mostly just to trigger Dispatch setup for Markdown files)
-    -- Use system package manager
-    lspconfig.marksman.setup {}
+        -- Markdown LSP (mostly just to trigger Dispatch setup for Markdown files)
+        -- Use system package manager
+        lspconfig.marksman.setup {
+            capabilities = capabilities
+        }
 
-    -- Cucumber (Gherkin) LSP
-    -- `npm install -g @binhtran432k/cucumber-language-server` (requires Node >= 16)
-    lspconfig.cucumber_language_server.setup {}
+        -- Cucumber (Gherkin) LSP
+        -- `npm install -g @binhtran432k/cucumber-language-server` (requires Node >= 16)
+        lspconfig.cucumber_language_server.setup {
+            capabilities = capabilities
+        }
 
-    -- GoPLS
-    -- `go get golang.org/x/tools/gopls@latest`
-    lspconfig.gopls.setup {}
+        -- GoPLS
+        -- `go get golang.org/x/tools/gopls@latest`
+        lspconfig.gopls.setup {
+            capabilities = capabilities
+        }
 
-    -- Vimscript LSP
-    -- `npm install -g vim-language-server`
-    lspconfig.vimls.setup {}
+        -- Vimscript LSP
+        -- `npm install -g vim-language-server`
+        lspconfig.vimls.setup {
+            capabilities = capabilities
+        }
 
-end
+    end
 }
