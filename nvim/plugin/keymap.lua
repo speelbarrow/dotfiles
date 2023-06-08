@@ -54,3 +54,11 @@ vim.keymap.set('n', "<S-CR>", function()
         vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-CR>", true, true, true), 'n', false)
     end
 end)
+
+-- 'E' opens all folds, 'C' closes all folds
+for lhs, rhs in pairs({
+    E = 'R',
+    C = 'M'
+}) do
+    vim.keymap.set('n', lhs, 'z'..rhs, { noremap = true })
+end
