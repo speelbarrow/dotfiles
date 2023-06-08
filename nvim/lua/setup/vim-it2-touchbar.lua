@@ -12,7 +12,7 @@ local keylabels = {
 
 function M.touchbar()
     for index = 1, 24 do
-        vim.cmd("TouchBarLabel F"..index.." '"..(keylabels[index] or " ").."'")
+        vim.schedule(function() vim.cmd("TouchBarLabel F"..index.." '"..(keylabels[index] or " ").."'") end)
     end
 end
 
