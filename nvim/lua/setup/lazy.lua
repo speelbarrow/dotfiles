@@ -129,6 +129,9 @@ require 'lazy'.setup {
 			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml' end,
 		},
 
+        -- Syntax highlighting for Kitty configuration files
+        'fladson/vim-kitty',
+
 		-- Close buffers better
 		'famiu/bufdelete.nvim',
 
