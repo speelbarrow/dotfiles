@@ -74,6 +74,9 @@ return {
                 -- Expand all nodes on 'E'
                 vim.keymap.set('n', 'E', nvim_tree_api.tree.expand_all, { buffer = bufnr })
 
+                -- Collapse all nodes on 'C'
+                vim.keymap.set('n', 'C', nvim_tree_api.tree.collapse_all, { buffer = bufnr })
+
                 -- Helper function to create an anonymous function that executes a 
                 -- Git command on the current node
                 -- (uses the `Git` command from the fugitive plugin)
