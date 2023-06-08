@@ -25,7 +25,7 @@ end
 function M.setup()
     vim.cmd [[
     function! TouchBar() 
-    lua require'dotfiles.setup.vim-it2-touchbar'.touchbar() 
+    lua require'setup.vim-it2-touchbar'.touchbar() 
     endfunction
     ]]
 

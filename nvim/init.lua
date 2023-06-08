@@ -21,4 +21,4 @@ for key, value in pairs({
 end
 
 -- Configure plugin manager
-require'dotfiles.setup.lazy'
+require'setup.lazy'

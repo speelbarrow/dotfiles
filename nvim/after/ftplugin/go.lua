@@ -1,4 +1,4 @@
-local dispatch = require"dotfiles.setup.dispatch"
+local dispatch = require"setup.dispatch"
 
 ---@param buildpath string
 ---@param outpath string

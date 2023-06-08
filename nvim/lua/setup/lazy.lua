@@ -22,7 +22,7 @@ require 'lazy'.setup {
 		{
 			'dracula/vim',
 			name = 'dracula',
-			config = function() require'dotfiles.setup.dracula'.setup() end,
+			config = function() require'setup.dracula'.setup() end,
 
 			-- Load earliest
 			priority = 1000,
@@ -55,7 +55,7 @@ require 'lazy'.setup {
 				vim.g.loaded_netrw = 1
 				vim.g.loaded_netrwPlugin = 1
 			end,
-			config = function() require'dotfiles.setup.nvim-tree'.setup() end,
+			config = function() require'setup.nvim-tree'.setup() end,
 
 			-- Load latest
 			priority = 1,
@@ -64,13 +64,13 @@ require 'lazy'.setup {
 		-- Project detection
 		{
 			'ahmedkhalf/project.nvim',
-			config = function() require'dotfiles.setup.project_nvim'.setup() end,
+			config = function() require'setup.project_nvim'.setup() end,
 		},
 
 		-- Git diff line indicators
 		{
 			'lewis6991/gitsigns.nvim',
-			config = require'dotfiles.setup.gitsigns'.setup,
+			config = require'setup.gitsigns'.setup,
 		},
 
 
@@ -81,7 +81,7 @@ require 'lazy'.setup {
 		-- Dispatch executions and tests asynchronously
 		{
 			'tpope/vim-dispatch',
-            config = function() require'dotfiles.setup.dispatch'.setup() end,
+            config = function() require'setup.dispatch'.setup() end,
 		},
 
 		-- Preview Markdown files
@@ -100,7 +100,7 @@ require 'lazy'.setup {
 		-- Cute little status line thing
 		{
 			'nvim-lualine/lualine.nvim',
-			config = function() require'dotfiles.setup.lualine'.setup() end,
+			config = function() require'setup.lualine'.setup() end,
 		},
 
 		-- Macbook Touch Bar integration
@@ -112,7 +112,7 @@ require 'lazy'.setup {
 			cond = vim.fn.has('mac') == 1,
 
 			-- Set up the touchbar labels/actions
-			config = function() require'dotfiles.setup.vim-it2-touchbar'.setup() end,
+			config = function() require'setup.vim-it2-touchbar'.setup() end,
 		},
 
 		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
@@ -139,13 +139,13 @@ require 'lazy'.setup {
 		-- GitHub Copilot
 		{
 			'github/copilot.vim',
-			config = function() require'dotfiles.setup.copilot'.setup() end
+			config = function() require'setup.copilot'.setup() end
 		},
 
 		-- LSP configs
 		{
 			'neovim/nvim-lspconfig',
-			config = function() require'dotfiles.setup.lspconfig'.setup() end,
+			config = function() require'setup.lspconfig'.setup() end,
 		},
 
 		-- Provides autocompletion
@@ -169,7 +169,7 @@ require 'lazy'.setup {
 			event = "LspAttach",
 
 			-- Run config on load
-			config = function() require'dotfiles.setup.nvim-cmp'.setup() end,
+			config = function() require'setup.nvim-cmp'.setup() end,
 
 			-- Load early
 			priority = 500,
@@ -189,7 +189,7 @@ require 'lazy'.setup {
 				-- Better syntax highlighting
 				'rust-lang/rust.vim',
 			},
-			config = function() require'dotfiles.setup.rust-tools'.setup() end,
+			config = function() require'setup.rust-tools'.setup() end,
 		},
 
 		-- Not exactly a language server but close enough, provides better experience in Cargo.toml files
@@ -199,7 +199,7 @@ require 'lazy'.setup {
 				'nvim-lua/plenary.nvim',
 			},
 			event = "BufRead Cargo.toml",
-			config = function() require'dotfiles.setup.crates'.setup() end,
+			config = function() require'setup.crates'.setup() end,
 		},
 
         -- Provides schema files for JSON and YAML
