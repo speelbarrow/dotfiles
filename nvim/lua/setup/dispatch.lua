@@ -25,7 +25,7 @@ end
 
 function M.setup()
     for _, action in ipairs({ "run", "debug", "test", "build", "clean" }) do
-        local char = action:sub(1,1)
+        local char = ((action == "build") and 'v') or action:sub(1,1)
 
         vim.api.nvim_create_user_command(char:upper(), function()
             if vim.b.dispatch_config and vim.b.dispatch_config[action] then
@@ -41,7 +41,7 @@ function M.setup()
             end
         end, {})
 
-        vim.keymap.set({'n', 'i', 'v'}, "<M-" .. char .. ">", "<Cmd>"..char:upper().."<CR>", { noremap = true })
+        vim.keymap.set({'n', 'i', 'v'}, "<A-" .. char .. ">", "<Cmd>"..char:upper().."<CR>", { noremap = true })
     end
 
     vim.api.nvim_create_augroup("Dispatch", {})

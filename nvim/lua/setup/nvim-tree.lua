@@ -118,9 +118,22 @@ return {
                     })
                 end, { buffer = bufnr })
 
-                -- Override buffer-switching keymaps
-                for _, key in ipairs({ '<', '>' }) do
-                    vim.keymap.set('n', key, '', { buffer = bufnr })
+                -- Arrow key mappings
+                for key, command in pairs {
+                    Up = nvim_tree_api.node.navigate.sibling.prev,
+                    Down = nvim_tree_api.node.navigate.sibling.next,
+                    Left = nvim_tree_api.node.navigate.parent,
+                    Right = function()
+                        local node = nvim_tree_api.tree.get_node_under_cursor()
+                        if node.fs_stat and node.fs_stat.type == "directory" then
+                            nvim_tree_api.node.open.edit()
+                            vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<Down>", true, false, true), "n",
+                            false)
+                        end
+                    end,
+                }
+                do
+                    vim.keymap.set('n', "<S-" .. key .. ">", command, { buffer = bufnr })
                 end
             end,
             disable_netrw = true,

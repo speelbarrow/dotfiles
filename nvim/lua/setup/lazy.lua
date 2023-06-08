@@ -108,8 +108,8 @@ require 'lazy'.setup {
 			'speelbarrow/vim-it2-touchbar',
 			branch = 'migrate-writefile',
 
-			-- Only load on Mac
-			cond = vim.fn.has('mac') == 1,
+			-- Only load when in iTerm2
+			cond = vim.env.ITERM_SESSION_ID ~= nil,
 
 			-- Set up the touchbar labels/actions
 			config = function() require'setup.vim-it2-touchbar'.setup() end,

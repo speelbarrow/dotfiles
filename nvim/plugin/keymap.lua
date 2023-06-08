@@ -1,14 +1,14 @@
 -- Keymaps for switching buffers/windows/tabpages
 for mod, cmd in pairs({
-	'b',
-	['M'] = { "wincmd ", 'W', 'w' },
-	['C'] = "tab"
+    S = 'b',
+	A = { "wincmd ", 'W', 'w' },
+    C = "tab"
 }) do
 	for dir, key in pairs({
-		[ cmd[2] or 'p' ] = 'char-60',
-		[ cmd[3] or 'n' ] = 'char-62',
+		[ cmd[2] or 'p' ] = "Left",
+		[ cmd[3] or 'n' ] = "Right",
 	}) do
-		key = '<'..(type(mod) == "string" and (mod..'-') or '')..key..'>'
+		key = "<"..mod.."-"..key..">"
 		vim.keymap.set('n', key, "<Cmd>"..(cmd[1] or cmd)..dir.."<CR>")
 	end
 end
