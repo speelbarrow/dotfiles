@@ -38,3 +38,19 @@ vim.keymap.set('n', '<M-x>', function()
         vim.cmd "copen"
     end
 end, { noremap = true })
+
+-- 'CR' opens folds, 'S-CR' closes
+vim.keymap.set('n', "<CR>", function()
+    if vim.fn.foldclosed --[[@as function]] "." ~= -1 then
+        vim.cmd.foldopen()
+    else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<CR>", true, true, true), 'n', false)
+    end
+end, { noremap = true })
+vim.keymap.set('n', "<S-CR>", function()
+    if vim.fn.foldlevel --[[@as function]] "." ~= 0 then
+        vim.cmd.foldclose()
+    else
+        vim.api.nvim_feedkeys(vim.api.nvim_replace_termcodes("<S-CR>", true, true, true), 'n', false)
+    end
+end)
