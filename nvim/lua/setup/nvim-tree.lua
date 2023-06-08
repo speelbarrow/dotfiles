@@ -120,8 +120,8 @@ return {
 
                 -- Arrow key mappings
                 for key, command in pairs {
-                    Up = nvim_tree_api.node.navigate.sibling.prev,
-                    Down = nvim_tree_api.node.navigate.sibling.next,
+                    ["S-Up"] = nvim_tree_api.node.navigate.sibling.prev,
+                    ["S-Down"] = nvim_tree_api.node.navigate.sibling.next,
                     Left = nvim_tree_api.node.navigate.parent,
                     Right = function()
                         local node = nvim_tree_api.tree.get_node_under_cursor()
@@ -133,7 +133,7 @@ return {
                     end,
                 }
                 do
-                    vim.keymap.set('n', "<S-" .. key .. ">", command, { buffer = bufnr })
+                    vim.keymap.set('n', "<" .. key .. ">", command, { buffer = bufnr })
                 end
             end,
             disable_netrw = true,
