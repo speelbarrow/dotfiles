@@ -148,5 +148,11 @@ return {
             capabilities = capabilities
         }
 
+        -- Bash (and other shells) LSP
+        -- `npm install -g bash-language-server`
+        lspconfig.bashls.setup {
+            capabilities = capabilities,
+            filetypes = { "sh", "bash", "zsh" }
+        }
     end
 }
