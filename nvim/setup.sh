@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Bring helper funcs into scope
-. $DOTFILES/helpers.sh
+. "$DOTFILES/helpers.sh"
 
 # Create a backup of any existing config file
 file ~/.config/nvim

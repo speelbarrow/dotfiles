@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 # Bring helper funcs into scope
-. $DOTFILES/helpers.sh
+. "$DOTFILES/helpers.sh"
 
 # Deal with any existing config
 file "$HOME/.oh-my-zsh"
@@ -13,16 +13,17 @@ sh -c "$(wget https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/ins
 file "$HOME/.zshrc"
 
 # Install Dracula theme
-git clone --branch patch-1 https://github.com/speelbarrow/dracula-zsh.git $HOME/.oh-my-zsh/custom/themes/dracula
-ln -s $HOME/.oh-my-zsh/custom/themes/dracula/dracula.zsh-theme $HOME/.oh-my-zsh/custom/themes/dracula.zsh-theme
+git clone --branch patch-1 https://github.com/speelbarrow/dracula-zsh.git "$HOME/.oh-my-zsh/custom/themes/dracula"
+ln -s "$HOME/.oh-my-zsh/custom/themes/dracula/dracula.zsh-theme" "$HOME/.oh-my-zsh/custom/themes/dracula.zsh-theme"
 
 # Install other plugins
 for repo in "zsh-users/zsh-autosuggestions" "zsh-users/zsh-syntax-highlighting" "speelbarrow/zsh-apple-touchbar"; do
-	git clone "https://github.com/$repo" "$HOME/.oh-my-zsh/custom/plugins/`basename $repo`"
+        git clone "https://github.com/$repo" "$HOME/.oh-my-zsh/custom/plugins/$(basename $repo)"
 done
 
 # Add symlink for zsh-apple-touchbar (uses -f because I never want the default)
-ln -sf $DOTFILES/zsh/zsh-apple-touchbar.zsh $HOME/.oh-my-zsh/custom/plugins/zsh-apple-touchbar/zsh-apple-touchbar.zsh 
+ln -sf "$DOTFILES/zsh/zsh-apple-touchbar.zsh" \
+        "$HOME/.oh-my-zsh/custom/plugins/zsh-apple-touchbar/zsh-apple-touchbar.zsh"
 
 # Install `exa` (if not already present, or if `force` is set)
 if { ! exists exa; } || $FORCE; then
@@ -44,4 +45,4 @@ fi
 
 
 # Symlink .zshrc
-ln -s $DOTFILES/zsh/.zshrc $HOME/.zshrc
+ln -s "$DOTFILES/zsh/.zshrc" "$HOME/.zshrc"
