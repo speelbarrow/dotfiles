@@ -74,7 +74,7 @@ for DEPENDENCY in git wget; do exists $DEPENDENCY || { >&2 echo "ERROR: required
 # Check if commands for config files are present, if so then run the associated script
 FAILED=false
 for CONFIGURABLE in nvim zsh; do
-	if exists $CONFIGURABLE; then
+	if exists "$CONFIGURABLE"; then
 		echo "Configuring $CONFIGURABLE . . ."
 
 		"$DOTFILES/$CONFIGURABLE/setup.sh"
