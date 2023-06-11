@@ -161,6 +161,15 @@ return {
                         }
                     }
                 }
+            },
+            diagnostics = {
+                enable = true,
+                icons = {
+                    error = '󰜺 ',
+                    warning = '󰀦 ',
+                    info = '󰋼 ',
+                    hint = '󰌵 ',
+                }
             }
         }
 
