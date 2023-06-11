@@ -34,6 +34,7 @@ return {
                     }
                 },
                 lualine_x = {
+                    function() return vim.fn["copilot#Enabled"]() == 0 and ' ' or ' ' end,
                     'encoding',
                     {
                         'fileformat',
@@ -48,7 +49,6 @@ return {
                 lualine_y = {
                     {
                         'diagnostics',
-                        colored = false,			-- Just makes it look better on dark bg
                         sources = { 'nvim_lsp' },
                         sections = { 'error', 'warn', 'info', 'hint' },
                         symbols = {
