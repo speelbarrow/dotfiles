@@ -63,5 +63,7 @@ return {
                 lualine_z = { 'location' },
             },
         }
+
+        vim.cmd "highlight link lualine_c_buffers_active lualine_transitional_lualine_a_normal_to_lualine_c_normal"
     end
 }
