@@ -2,7 +2,7 @@
 for mod, cmd in pairs({
     S = 'b',
 	A = { "wincmd ", 'W', 'w' },
-    C = "tab"
+    ["S-A"] = "tab"
 }) do
 	for dir, key in pairs({
 		[ cmd[2] or 'p' ] = "Left",
