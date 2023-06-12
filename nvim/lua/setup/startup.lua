@@ -6,7 +6,6 @@ return {
             callback = function(args)
                 if args.file == "" and not require'nvim-tree.api'.tree.is_visible() then
                     startup.display()
-                    vim.wo.colorcolumn = ""
                 end
                 return true
             end
@@ -21,7 +20,7 @@ return {
                 -- Center-able cow
                 local cow = {
                     "\\   ^__^                 ",
-                     "\\  (oo)\\_______        ",
+                    " \\  (oo)\\_______        ",
                          "(__)\\       )\\/\\",
                              "||----w |",
                              "||     ||",
@@ -90,11 +89,12 @@ return {
             options = {
                 paddings = {3, 5, 0, 2},
                 after = function()
+                    vim.o.colorcolumn = "0"
                     vim.api.nvim_create_autocmd("BufLeave", {
                         buffer = 0,
                         callback = function()
-                            vim.cmd "bd"
                             vim.o.colorcolumn = "+1"
+                            vim.cmd "bd"
                         end
                     })
                 end
