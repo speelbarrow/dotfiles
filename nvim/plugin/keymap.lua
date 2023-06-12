@@ -56,9 +56,17 @@ vim.keymap.set('n', "<S-CR>", function()
 end)
 
 -- 'E' opens all folds, 'C' closes all folds
-for lhs, rhs in pairs({
+for lhs, rhs in pairs {
     E = 'R',
     C = 'M'
-}) do
+} do
     vim.keymap.set('n', lhs, 'z'..rhs, { noremap = true })
+end
+
+-- Various telescope pickers
+for key, picker in pairs {
+    f = "find_files",
+    p = "projects",
+} do
+    vim.keymap.set('n', "t"..key, "<Cmd>Telescope "..picker.."<CR>")
 end
