@@ -80,4 +80,15 @@ function M.build_and_run(run)
     end
 end
 
+---@return string?
+function M.get_debugger()
+    for _, debugger in ipairs { "lldb", "gdb" } do
+        if vim.fn.executable(debugger) == 1 then
+            return debugger
+        end
+    end
+
+    vim.notify("No debugger found", vim.log.levels.ERROR)
+end
+
 return M
