@@ -6,6 +6,7 @@ return {
             callback = function(args)
                 if args.file == "" and not require'nvim-tree.api'.tree.is_visible() then
                     startup.display()
+                    vim.wo.colorcolumn = ""
                 end
                 return true
             end
@@ -89,10 +90,12 @@ return {
             options = {
                 paddings = {3, 5, 0, 2},
                 after = function()
-                    vim.wo.colorcolumn = 0
                     vim.api.nvim_create_autocmd("BufLeave", {
                         buffer = 0,
-                        command = "bd"
+                        callback = function()
+                            vim.cmd "bd"
+                            vim.o.colorcolumn = "+1"
+                        end
                     })
                 end
             }
