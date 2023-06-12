@@ -5,7 +5,6 @@ if vim.g.neovide then
     for key, value in pairs({
         underline_automatic_scaling = true,
         input_macos_alt_is_meta = true,
-        fullscreen = true,
     })
     do
         vim.g["neovide_"..key] = value
@@ -14,6 +13,11 @@ if vim.g.neovide then
     for key, command in pairs({ c = "y", v = "p", x = "x" }) do
         vim.keymap.set({'n', 'i', 'v'}, "<D-"..key..">", "<Cmd>normal \"*"..command.."<CR>", { noremap = true })
     end
+
+    vim.api.nvim_create_autocmd("UIEnter", {
+        once = true,
+        command = "let g:neovide_fullscreen = v:true"
+    })
 else
     vim.o.guicursor = vim.o.guicursor .. ",i:-blinkwait175-blinkoff150-blinkon175"
 end
