@@ -1,6 +1,6 @@
 if vim.g.neovide then
     vim.o.guicursor = vim.o.guicursor .. ",i:-blinkwait350-blinkoff300-blinkon350"
-    vim.o.guifont = "JetBrainsMono Nerd Font:h14"
+    vim.o.guifont = "JetBrains Mono,JetBrainsMono Nerd Font:h14"
 
     for key, value in pairs({
         underline_automatic_scaling = true,
