@@ -36,18 +36,8 @@ require 'lazy'.setup {
 		{
 			'nvim-tree/nvim-tree.lua',
 			dependencies = {
-				-- Icons
 				'nvim-tree/nvim-web-devicons',
-
-				-- Git integration
-				{
-					'tpope/vim-fugitive',
-
-					-- Disable maps by default
-					init = function() vim.g.fugitive_no_maps = 1 end,
-				},
-
-
+                'tpope/vim-fugitive',
 			},
 
 			-- Disable Netrw so it doesn't conflict with nvim-tree
@@ -60,6 +50,14 @@ require 'lazy'.setup {
 			-- Load latest
 			priority = 1,
 		},
+
+        -- Git integration
+        {
+            'tpope/vim-fugitive',
+
+            -- Disable maps by default
+            init = function() vim.g.fugitive_no_maps = 1 end,
+        },
 
 		-- Project detection
 		{
@@ -100,6 +98,9 @@ require 'lazy'.setup {
 		-- Cute little status line thing
 		{
 			'nvim-lualine/lualine.nvim',
+            dependencies = {
+                'nvim-tree/nvim-web-devicons',
+            },
 			config = function() require'setup.lualine'.setup() end,
 		},
 
@@ -146,6 +147,15 @@ require 'lazy'.setup {
             config = function() require'setup.startup'.setup() end,
         },
 
+        -- Quicksearch anything
+        {
+            "nvim-telescope/telescope.nvim",
+            dependencies = {
+                "nvim-lua/plenary.nvim",
+            },
+            lazy = true,
+        },
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
@@ -189,10 +199,7 @@ require 'lazy'.setup {
 		},
 
 		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
-		{
-			'folke/neodev.nvim',
-			lazy = true,
-		},
+		'folke/neodev.nvim',
 
 		-- Rust LSP and other goodies
 		{
