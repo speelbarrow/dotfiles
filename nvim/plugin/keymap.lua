@@ -65,7 +65,8 @@ end
 
 -- Various telescope pickers
 for key, picker in pairs {
-    f = "find_files",
+    f = "oldfiles",
+    F = "find_files",
     p = "projects",
 } do
     vim.keymap.set('n', "t"..key, "<Cmd>Telescope "..picker.."<CR>")
