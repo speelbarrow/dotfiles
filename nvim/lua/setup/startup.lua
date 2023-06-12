@@ -1,27 +1,13 @@
 return {
     setup = function()
-        vim.api.nvim_create_autocmd("FileType", {
-            pattern = "startup",
-            command = "setlocal colorcolumn=0"
-        })
-
         local startup = require'startup'
 
         vim.api.nvim_create_autocmd("BufEnter", {
             callback = function(args)
-                if args.file:find("^NvimTree") == nil then
-                    if args.file == "" then
-                        startup.display()
-                    end
-                    return true
+                if args.file == "" and not require'nvim-tree.api'.tree.is_visible() then
+                    startup.display()
                 end
-            end
-        })
-        vim.api.nvim_create_autocmd("BufLeave", {
-            callback = function(args)
-                if vim.api.nvim_buf_get_option(args.buf, "filetype") == "startup" then
-                    vim.cmd "bd"
-                end
+                return true
             end
         })
 
@@ -34,10 +20,10 @@ return {
                 -- Center-able cow
                 local cow = {
                     "\\   ^__^                 ",
-                    "\\  (oo)\\_______        ",
-                        "(__)\\       )\\/\\",
-                            "||----w |",
-                            "||     ||",
+                     "\\  (oo)\\_______        ",
+                         "(__)\\       )\\/\\",
+                             "||----w |",
+                             "||     ||",
                 }
 
                 -- Replace the cow
@@ -64,7 +50,7 @@ return {
                 content = {
                     {
                         "Reopen Last Project ("..vim.fn.fnamemodify(projects[#projects], ":t")..")",
-                        "cd "..projects[#projects].." | bd",
+                        "cd "..projects[#projects].." | wincmd w",
                         "pp"
                     }
                 }
@@ -79,7 +65,11 @@ return {
                     local r = {}
                     for i = 1, 9 do
                         if projects[#projects-i] then
-                            table.insert(r, { "Reopen "..projects[#projects-i], "cd "..projects[#projects-i].." | bd", "p"..i })
+                            table.insert(r, {
+                                "Reopen "..projects[#projects-i],
+                                "cd "..projects[#projects-i].." | wincmd w",
+                                "p"..i
+                            })
                         end
                     end
 
@@ -97,7 +87,14 @@ return {
             },
             parts = { "header", "last_project", "more_projects", "mapping_area" },
             options = {
-                paddings = {3, 5, 0, 2}
+                paddings = {3, 5, 0, 2},
+                after = function()
+                    vim.wo.colorcolumn = 0
+                    vim.api.nvim_create_autocmd("BufLeave", {
+                        buffer = 0,
+                        command = "bd"
+                    })
+                end
             }
         }
     end
