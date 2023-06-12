@@ -15,10 +15,10 @@ if vim.g.neovide then
         vim.keymap.set({'n', 'i', 'v'}, "<D-"..key..">", "<Cmd>normal \"*"..command.."<CR>", { noremap = true })
     end
 
-    --[[vim.api.nvim_create_autocmd("UIEnter", {
+    vim.api.nvim_create_autocmd("UIEnter", {
         once = true,
-        command = "let g:neovide_fullscreen = v:true"
-    })]]
+        callback = vim.schedule_wrap(function() vim.g.neovide_fullscreen = true end)
+    })
 else
     vim.o.guicursor = vim.o.guicursor .. ",i:-blinkwait175-blinkoff150-blinkon175"
 end
