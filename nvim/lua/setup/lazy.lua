@@ -135,6 +135,17 @@ require 'lazy'.setup {
 		-- Close buffers better
 		'famiu/bufdelete.nvim',
 
+        -- Customizable startup screen
+        {
+            'startup-nvim/startup.nvim',
+            dependencies = {
+                "nvim-telescope/telescope.nvim",
+                "nvim-lua/plenary.nvim"
+            },
+            event = "VimEnter",
+            config = function() require'setup.startup'.setup() end,
+        },
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --

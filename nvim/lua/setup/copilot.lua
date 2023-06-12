@@ -6,6 +6,7 @@ return {
         vim.g.copilot_filetypes = {
             yaml = true,
             NvimTree = false,
+            startup = false,
         }
     end
 }

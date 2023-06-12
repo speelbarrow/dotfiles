@@ -6,5 +6,7 @@ return {
                 'lua_ls'
             }
         }
+
+        require'telescope'.load_extension "projects"
     end
 }
