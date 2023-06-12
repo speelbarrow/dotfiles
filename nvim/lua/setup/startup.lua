@@ -17,6 +17,13 @@ return {
                 end
             end
         })
+        vim.api.nvim_create_autocmd("BufLeave", {
+            callback = function(args)
+                if vim.api.nvim_buf_get_option(args.buf, "filetype") == "startup" then
+                    vim.cmd "bd"
+                end
+            end
+        })
 
         local projects = require'project_nvim'.get_recent_projects()
         startup.setup {
@@ -84,15 +91,7 @@ return {
                 align = "center",
                 highlight = "DraculaPink",
                 content = {
-                    { "Recent Projects...", "lua " .. ([[
-                    require'telescope'.extensions.projects.projects { 
-                        attach_mappings = function(bufnr, _)
-                            require'telescope.actions'.select_default:replace(function()
-                                vim.fn.maparg("w", "n", nil, true).callback(bufnr)
-                            end)
-                            return true
-                        end 
-                    }]]):gsub("\n", " "), "P" },
+                    { "Recent Projects...", "Telescope projects", "P" },
                     { "Recent Files...", "Telescope oldfiles", "F" },
                 }
             },
