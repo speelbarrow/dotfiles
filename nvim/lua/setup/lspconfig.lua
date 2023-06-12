@@ -20,23 +20,23 @@ return {
 
         -- Only load Neodev under certain conditions, as it will modify the behaviour of LuaLS
         -- (Installing and updating managed by Lazy)
-        for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do
-            if path:find('^'..vim.opt.rtp:get()[1]) ~= nil or
-                path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h:h')) ~= nil then
+        require'neodev'.setup {
+            -- Don't bother with the logic for enabling/disabling Neodev because we're only loading it under certain 
+            -- conditions anyway
+            override = function(_, library)
+                for _, path in ipairs({ vim.fn.getcwd(), vim.fn.expand('%:p') }) do
+                    if path:find('^'..vim.opt.rtp:get()[1]) ~= nil or
+                        path:find('^'..vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h:h')) ~= nil then
 
-                require'neodev'.setup {
-                    -- Don't bother with the logic for enabling/disabling Neodev because we're only loading it under certain 
-                    -- conditions anyway
-                    override = function(_, library)
                         library.enabled = true
                         library.runtime = true
                         library.types = true
                         library.plugins = true
                     end
-                }
-                break
+                    break
+                end
             end
-        end
+        }
 
 
         -- LuaLS setup must occur after Neodev setup
