@@ -106,18 +106,6 @@ return {
                     end
                 end, { buffer = bufnr })
 
-                -- Set 'git commit' and 'git push' keymaps seperately due to different format
-                vim.keymap.set('n', '<C-a>', "<Cmd>tab Git commit<CR>", { buffer = bufnr })
-                vim.keymap.set('n', '<C-s>', "<Cmd>Git push<CR>", { buffer = bufnr })
-                vim.keymap.set('n', '<C-x>', function()
-                    vim.cmd "tab Git commit"
-                    vim.api.nvim_create_autocmd("User", {
-                        pattern = "FugitiveChanged",
-                        once = true,
-                        command = "Git push"
-                    })
-                end, { buffer = bufnr })
-
                 -- Arrow key mappings
                 for key, command in pairs {
                     ["S-Up"] = nvim_tree_api.node.navigate.sibling.prev,

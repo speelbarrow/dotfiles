@@ -71,3 +71,14 @@ for key, picker in pairs {
 } do
     vim.keymap.set('n', "t"..key, "<Cmd>Telescope "..picker.."<CR>")
 end
+
+vim.keymap.set('n', '<C-a>', "<Cmd>tab Git commit<CR>")
+vim.keymap.set('n', '<C-s>', "<Cmd>Git push<CR>")
+vim.keymap.set('n', '<C-x>', function()
+    vim.cmd "tab Git commit"
+    vim.api.nvim_create_autocmd("User", {
+        pattern = "FugitiveChanged",
+        once = true,
+        command = "Git push"
+    })
+end)
