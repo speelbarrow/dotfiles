@@ -49,6 +49,11 @@ return {
                 highlight = "DraculaPurpleBold",
                 content = {
                     {
+                        "Reopen Last File ("..vim.fn.fnamemodify(vim.v.oldfiles[1], ":t")..")",
+                        "e "..vim.v.oldfiles[1].." | e",
+                        "ff"
+                    },
+                    {
                         "Reopen Last Project ("..vim.fn.fnamemodify(projects[#projects], ":t")..")",
                         "cd "..projects[#projects].." | wincmd w",
                         "pp"
@@ -60,8 +65,8 @@ return {
                 align = "center",
                 highlight = "DraculaPink",
                 content = {
-                    { "Recent Projects...", "Telescope projects", "P" },
                     { "Recent Files...", "Telescope oldfiles", "F" },
+                    { "Recent Projects...", "Telescope projects", "P" },
                 }
             },
             parts = { "header", "last_project", "mapping_area" },
