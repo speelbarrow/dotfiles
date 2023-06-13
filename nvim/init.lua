@@ -5,6 +5,7 @@ for key, value in pairs({
 	autowrite		= true,
 	colorcolumn		= "+1",
     expandtab       = true,
+    foldlevelstart  = 99,
 	formatoptions	= vim.o.formatoptions .. "t",
 	number 			= true,
 	showmode		= false,
