@@ -43,11 +43,6 @@ require 'lazy'.setup {
                 'tpope/vim-fugitive',
 			},
 
-			-- Disable Netrw so it doesn't conflict with nvim-tree
-			init = function()
-				vim.g.loaded_netrw = 1
-				vim.g.loaded_netrwPlugin = 1
-			end,
 			config = function() require'setup.nvim-tree'.setup() end,
 
 			-- Load latest

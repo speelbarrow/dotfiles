@@ -124,7 +124,6 @@ return {
                     vim.keymap.set('n', "<" .. key .. ">", command, { buffer = bufnr })
                 end
             end,
-            disable_netrw = true,
             hijack_cursor = true,
             sync_root_with_cwd = true,
             respect_buf_cwd = true,
