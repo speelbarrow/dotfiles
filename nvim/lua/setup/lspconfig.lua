@@ -76,12 +76,6 @@ return {
         -- `npm install -g yaml-language-server`
         lspconfig.yamlls.setup {
             capabilities = capabilities,
-            settings = {
-                yaml = {
-                    schemaStore = { enable = false },
-                    schemas = require('schemastore').yaml.schemas(),
-                },
-            },
         }
 
         -- JSON LSP
