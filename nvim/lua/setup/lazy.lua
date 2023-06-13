@@ -16,7 +16,10 @@ vim.opt.rtp:append(lazypath)
 -- Plugin configurations
 require 'lazy'.setup {
 	install = { colorscheme = { 'dracula' } },
-    performance = { rtp = { paths = { vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h') } } },
+    performance = { rtp = { paths = (function()
+        local path = vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h')
+        return { path, path.."/after" }
+    end)() } },
 	spec = {
 		-- Dracula theme
 		{
