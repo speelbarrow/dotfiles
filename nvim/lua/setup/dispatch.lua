@@ -27,19 +27,19 @@ function M.setup()
     for _, action in ipairs({ "run", "debug", "test", "build", "clean" }) do
         local char = action:sub(1,1)
 
-        vim.api.nvim_create_user_command(char:upper(), function()
+        vim.api.nvim_create_user_command(char:upper(), function(args)
             if vim.b.dispatch_config and vim.b.dispatch_config[action] then
                 local handler = vim.b.dispatch_config[action]
 
                 if type(handler) == "function" then
                     handler()
                 elseif type(handler) == "string" then
-                    vim.cmd("Dispatch " .. (vim.b.dispatch_config.compiler or "") .. " " .. handler)
+                    vim.cmd("Dispatch "..(vim.b.dispatch_config.compiler or "").." "..handler.." "..(args.args or ""))
                 end
             else
                 vim.notify("The '" .. action .. "' action is not configured for this buffer", vim.log.levels.ERROR)
             end
-        end, {})
+        end, { nargs = "*" })
 
         vim.keymap.set({'n', 'i', 'v'}, "<A-" .. char .. ">", "<Cmd>"..char:upper().."<CR>", { noremap = true })
     end
@@ -48,8 +48,9 @@ function M.setup()
 end
 
 ---@param run Dispatch.Handler
+---@param build_args string?
 ---@return Dispatch.Handler.Function
-function M.build_and_run(run)
+function M.build_and_run(run, build_args)
     return function()
         if next(vim.api.nvim_get_autocmds({
                 event = "QuickFixCmdPost",
@@ -76,7 +77,7 @@ function M.build_and_run(run)
             end),
         })
 
-        vim.cmd("B")
+        vim.cmd("B " .. (build_args or ""))
     end
 end
 
