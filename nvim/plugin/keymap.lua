@@ -17,9 +17,9 @@ end
 local function_maps = {
     vim.lsp.buf.hover,
     vim.lsp.buf.rename,
+    vim.lsp.buf.definition,
     vim.diagnostic.open_float,
     vim.cmd.noh,
-    vim.lsp.buf.definition,
     function()
         vim.b.copilot_enabled = vim.fn['copilot#Enabled']() == 0
         vim.api.nvim_exec_autocmds("User", { pattern = "CopilotToggled" })

@@ -4,9 +4,9 @@ local M = {}
 local keylabels = {
     "Hover",
     "Rename",
+    "Go to Definition",
     "Diagnostic",
     "Clear Highlight",
-    "Go to Definition",
     "Copilot: Off"
 }
 
