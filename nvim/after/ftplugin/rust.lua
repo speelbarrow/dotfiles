@@ -15,7 +15,7 @@ end
 local function single()
     dispatch.configure_buffer {
         compiler = "rustc",
-        run = dispatch.build_and_run("-wait=always ./%:r; rm %:r"),
+        run = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./%:r; rm %:r"),
         debug = debug("%:r", "rm %:r; { [ -e %:r.dSYM ] && rm -r %:r.dSYM; return 0 }", "-g"),
         build = "%",
         clean = function() vim.cmd "silent !rm -r %:r %:r.dSYM" end
@@ -27,7 +27,7 @@ local function workspace()
 
     dispatch.configure_buffer {
         compiler = "cargo",
-        run = dispatch.build_and_run("-wait=always "..outpath),
+        run = dispatch.build_and_run("-wait=always trap ':' SIGINT; "..outpath),
         debug = debug(outpath),
         test = true,
         build = true,

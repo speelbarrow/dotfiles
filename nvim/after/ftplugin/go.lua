@@ -6,7 +6,7 @@ local dispatch = require"setup.dispatch"
 local function base(buildpath, outpath)
     return {
         compiler = "go",
-        run = dispatch.build_and_run("-wait=always ./"..outpath.."; rm "..outpath),
+        run = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./"..outpath.."; rm "..outpath),
         debug = dispatch.build_and_run("dlv exec "..outpath.."; rm "..outpath),
         build = function() vim.cmd("Make "..buildpath) end,
         clean = function() vim.cmd("silent !rm "..outpath) end,

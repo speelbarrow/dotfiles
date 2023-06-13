@@ -55,27 +55,6 @@ return {
                     }
                 }
             },
-            more_projects = {
-                type = "mapping",
-                align = "center",
-                highlight = "DraculaPurpleBold",
-                fold_section = true,
-                title = "[Tab] More projects...",
-                content = (function()
-                    local r = {}
-                    for i = 1, 9 do
-                        if projects[#projects-i] then
-                            table.insert(r, {
-                                "Reopen "..projects[#projects-i],
-                                "cd "..projects[#projects-i].." | wincmd w",
-                                "p"..i
-                            })
-                        end
-                    end
-
-                    return r
-                end)()
-            },
             mapping_area = {
                 type = "mapping",
                 align = "center",
@@ -85,9 +64,9 @@ return {
                     { "Recent Files...", "Telescope oldfiles", "F" },
                 }
             },
-            parts = { "header", "last_project", "more_projects", "mapping_area" },
+            parts = { "header", "last_project", "mapping_area" },
             options = {
-                paddings = {3, 5, 0, 2},
+                paddings = {3, 5, 1},
                 after = function()
                     vim.o.colorcolumn = "0"
                     vim.api.nvim_create_autocmd("BufLeave", {
