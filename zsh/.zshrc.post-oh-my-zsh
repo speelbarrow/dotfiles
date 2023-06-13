@@ -57,4 +57,7 @@ alias xaa='x -a --ignore-glob " "'
 alias xx='xa --tree --level 5'
 alias xxa='xx --ignore-glob " "'
 
+# Set KiTTY ssh alias if we're in KiTTY
+[ -n "$KITTY_PID" ] && alias ssh="kitty +kitten ssh"
+
 return 0
