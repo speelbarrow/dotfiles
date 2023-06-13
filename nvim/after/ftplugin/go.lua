@@ -1,5 +1,8 @@
 local dispatch = require"setup.dispatch"
 
+-- Configure code folding
+vim.wo.foldmethod = "syntax"
+
 ---@param buildpath string
 ---@param outpath string
 ---@return Dispatch.Config

@@ -30,6 +30,8 @@ return {
             vim.g["go_"..opt.."_enabled"] = false
         end
 
+        vim.g.go_fold_enable = {"block", "import"}
+
         -- Refresh syntax highlighting
         vim.cmd 'syntax on'
     end
