@@ -35,6 +35,7 @@ function M.setup()
 
         vim.api.nvim_create_user_command(char:upper(), function(args)
             if vim.b.dispatch_config and vim.b.dispatch_config[action] then
+                vim.cmd 'w'
                 local handler = vim.b.dispatch_config[action]
 
                 if type(handler) == "function" then
