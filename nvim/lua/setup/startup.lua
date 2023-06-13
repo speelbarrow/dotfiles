@@ -2,12 +2,12 @@ return {
     setup = function()
         local startup = require'startup'
 
-        vim.api.nvim_create_autocmd("BufEnter", {
+        vim.api.nvim_create_autocmd("UIEnter", {
+            once = true,
             callback = function(args)
                 if args.file == "" and not require'nvim-tree.api'.tree.is_visible() then
                     startup.display()
                 end
-                return true
             end
         })
 
