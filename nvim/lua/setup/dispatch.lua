@@ -1,6 +1,6 @@
 local M = {}
 
----@alias Dispatch.Handler.String string
+---@alias Dispatch.Handler.String string | true
 ---@alias Dispatch.Handler.Function fun(): nil
 ---@alias Dispatch.Handler Dispatch.Handler.String | Dispatch.Handler.Function
 
@@ -17,6 +17,12 @@ function M.configure_buffer(config)
     if config.compiler then
         if not pcall(vim.cmd--[[@as any]], "compiler " .. config.compiler) then
             vim.bo.makeprg = config.compiler
+        end
+    end
+
+    for _, action in ipairs({ "run", "debug", "test", "build", "clean" }) do
+        if config[action] == true then
+            config[action] = action
         end
     end
 
