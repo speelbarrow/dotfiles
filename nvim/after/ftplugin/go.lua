@@ -2,6 +2,14 @@ local dispatch = require"setup.dispatch"
 
 -- Configure code folding
 vim.wo.foldmethod = "syntax"
+vim.api.nvim_create_autocmd("BufWinLeave", {
+    buffer = 0,
+    command = "mkview"
+})
+vim.api.nvim_create_autocmd("BufWinEnter", {
+    buffer = 0,
+    command = "silent! loadview"
+})
 
 ---@param buildpath string
 ---@param outpath string

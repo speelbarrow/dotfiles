@@ -24,10 +24,13 @@ return {
 
         -- Disable `vim-go` functionality that I don't use
         for _, opt in ipairs {
-            "code_completion",
-            "gopls",
+            "code_completion_enabled",
+            "gopls_enabled",
+            "fmt_autosave",
+            "imports_autosave",
+
         } do
-            vim.g["go_"..opt.."_enabled"] = false
+            vim.g["go_"..opt] = false
         end
 
         vim.g.go_fold_enable = {"block", "import"}
