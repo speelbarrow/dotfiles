@@ -27,7 +27,7 @@ local function workspace()
 
     dispatch.configure_buffer {
         compiler = "cargo",
-        run = dispatch.build_and_run("-wait=always trap ':' SIGINT; "..outpath),
+        run = dispatch.build_and_run("-wait=always ./"..outpath),
         debug = debug(outpath),
         test = true,
         build = true,

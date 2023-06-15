@@ -155,6 +155,12 @@ require 'lazy'.setup {
             lazy = true,
         },
 
+        -- Better highlighting for GNU Assembler files
+        {
+            "shirk/vim-gas",
+            ft = "asm,gas",
+        },
+
 		--				   --
 		-- LANGUAGE SERVER --
 		--				   --
