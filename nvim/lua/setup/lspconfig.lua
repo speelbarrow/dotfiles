@@ -148,5 +148,11 @@ return {
             capabilities = capabilities,
             filetypes = { "bash" }
         }
+
+        -- TOML LSP
+        -- `cargo install --features lsp taplo-cli`
+        lspconfig.taplo.setup {
+            capabilities = capabilities
+        }
     end
 }
