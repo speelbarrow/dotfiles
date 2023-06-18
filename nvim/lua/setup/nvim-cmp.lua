@@ -126,7 +126,7 @@ return {
             mapping = cmp.mapping.preset.cmdline(),
             sources = {
                 { name = 'path' },
-                { name = 'cmdline' },
+                { name = 'cmdline', option = { ignore_cmds = { "Man" } } },
             }
         })
     end
