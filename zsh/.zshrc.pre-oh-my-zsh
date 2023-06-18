@@ -14,7 +14,7 @@ zstyle ':omz:update' enable auto
 COMPLETION_WAITING_DOTS="true"
 
 # Load OMZ plugins
-plugins=(colored-man-pages colorize git zsh-apple-touchbar zsh-autosuggestions zsh-syntax-highlighting)
+plugins=(colored-man-pages colorize git zsh-autosuggestions zsh-syntax-highlighting)
 if [ `uname` = "Darwin" ]; then
 	plugins+=(brew macos)
 
@@ -22,6 +22,9 @@ if [ `uname` = "Darwin" ]; then
 	FPATH="$(brew --prefix)/share/zsh/site-functions:$FPATH"
   else # If not macOS, then probably Debian-based Linux
 	plugins+=(debian)
+fi
+if [ -x "$ITERM_SESSION_ID" ]; then
+        plugins+=(zsh-apple-touchbar)
 fi
 
 # Fix cursor in precmd

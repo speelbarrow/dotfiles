@@ -1,5 +1,7 @@
 # Source iTerm2 integration script if it exists
-test -e /Users/speelbarrow/.iterm2_shell_integration.zsh && source /Users/speelbarrow/.iterm2_shell_integration.zsh || true
+if [ -x "$ITERM_SESSION_ID" ] && [ -e /Users/speelbarrow/.iterm2_shell_integration.zsh ]; then
+        source /Users/speelbarrow/.iterm2_shell_integration.zsh
+fi
 
 # Set EDITOR environment variable and `vim` command alias if Neovim found
 if [ -x `command -v nvim` ]; then
