@@ -78,9 +78,12 @@ function M.build_and_run(run, build_args)
             pattern = "make",
             once = true,
             callback = vim.schedule_wrap(function()
-                if next(vim.fn.getqflist()) == nil then
-                    handler()
+                for _, line in ipairs(vim.fn.getqflist()) do
+                    if line.type == "E" then
+                        return
+                    end
                 end
+                handler()
             end),
         })
 
