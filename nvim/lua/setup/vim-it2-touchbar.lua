@@ -5,6 +5,7 @@ local keylabels = {
     "Hover",
     "Rename",
     "Go to Definition",
+    "Code Action",
     "Diagnostic",
     "Clear Highlight",
     "Copilot: Off"

@@ -18,6 +18,7 @@ local function_maps = {
     vim.lsp.buf.hover,
     vim.lsp.buf.rename,
     vim.lsp.buf.definition,
+    vim.lsp.buf.code_action,
     vim.diagnostic.open_float,
     vim.cmd.noh,
     function()
