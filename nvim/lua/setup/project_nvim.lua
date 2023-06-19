@@ -3,7 +3,8 @@ return {
         require 'project_nvim'.setup {
             ignore_lsp = {
                 'copilot',
-                'lua_ls'
+                'lua_ls',
+                'clangd',
             }
         }
 
