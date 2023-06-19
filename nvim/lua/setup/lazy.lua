@@ -23,7 +23,7 @@ require 'lazy'.setup {
 	spec = {
 		-- Dracula theme
 		{
-			'speelbarrow/dracula-vim',
+			'dracula/vim',
 			name = 'dracula',
 			config = function() require'setup.dracula'.setup() end,
 
