@@ -9,11 +9,15 @@ return {
                     procMacro = {
                         enable = true
                     },
+                    checkOnSave = {
+                        command = "clippy"
+                    },
                 }
             }
         })
 
-        -- Disable recommended styles provided by rust.vim
+        -- Disable recommended styles provided by rust.vim, but enable RustFmt on save
         vim.g.rust_recommended_style = 0
+        vim.g.rustfmt_autosave = 1
     end
 }
