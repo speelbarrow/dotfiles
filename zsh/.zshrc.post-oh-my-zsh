@@ -1,5 +1,5 @@
 # Source iTerm2 integration script if it exists
-if [ -x "$ITERM_SESSION_ID" ] && [ -e /Users/speelbarrow/.iterm2_shell_integration.zsh ]; then
+if ! [ -z "$ITERM_SESSION_ID" ] && [ -e /Users/speelbarrow/.iterm2_shell_integration.zsh ]; then
         source /Users/speelbarrow/.iterm2_shell_integration.zsh
 fi
 

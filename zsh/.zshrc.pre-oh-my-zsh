@@ -23,7 +23,7 @@ if [ `uname` = "Darwin" ]; then
   else # If not macOS, then probably Debian-based Linux
 	plugins+=(debian)
 fi
-if [ -x "$ITERM_SESSION_ID" ]; then
+if ! [ -z "$ITERM_SESSION_ID" ]; then
         plugins+=(zsh-apple-touchbar)
 fi
 
