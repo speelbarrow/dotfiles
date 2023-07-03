@@ -177,6 +177,8 @@ return {
                     node = node.parent
                 end
             end
+
+            return "."
         end
 
         -- User command for opening a new buffer relative to tree cursor
