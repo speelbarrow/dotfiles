@@ -130,7 +130,7 @@ return {
             update_focused_file = {
                 enable = true,
                 update_root = true,
-                ignore_list = {"help", "gitcommit"}
+                ignore_list = {"help", "gitcommit", "git"}
             },
             filters = { custom = { "^\\.git$", "^go\\.sum$" } },
             git = { enable = true },
