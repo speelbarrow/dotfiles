@@ -5,6 +5,7 @@ return {
                 'copilot',
                 'lua_ls',
                 'clangd',
+                'taplo',
             }
         }
 

@@ -68,9 +68,6 @@ return {
                     -- If the completion menu is open, select the next item
                     if cmp.visible() then
                         cmp.select_next_item()
-                        -- If a snippet is available, expand it
-                    elseif vim.fn["vsnip#available"](1) == 1 then
-                        feedkeys("<Plug>(vsnip-expand-or-jump)<C-l>", "")
 
                         -- If copilot has a suggestion, accept it
                     elseif vim.fn["copilot#GetDisplayedSuggestion"]().text ~= "" then
