@@ -17,6 +17,7 @@ local function single()
         compiler = "rustc",
         run = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./%:r; rm %:r"),
         debug = debug("%:r", "rm %:r; { [ -e %:r.dSYM ] && rm -r %:r.dSYM; return 0 }", "-g"),
+        test = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./%:r; rm %:r", "--test"),
         build = "%",
         clean = function() vim.cmd "silent !rm -r %:r %:r.dSYM" end
     }
