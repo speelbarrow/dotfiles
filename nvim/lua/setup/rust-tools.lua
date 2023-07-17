@@ -12,6 +12,11 @@ return {
                     checkOnSave = {
                         command = "clippy"
                     },
+                    diagnostics = {
+                        disabled = {
+                            "inactive-code"
+                        }
+                    }
                 }
             }
         })
