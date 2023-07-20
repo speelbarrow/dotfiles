@@ -213,6 +213,9 @@ require 'lazy'.setup {
 			dependencies = {
 				-- Better syntax highlighting
 				'rust-lang/rust.vim',
+
+                -- Crate version resolution
+                'Saecki/crates.nvim',
 			},
 			config = function() require'setup.rust-tools'.setup() end,
 		},
@@ -222,6 +225,9 @@ require 'lazy'.setup {
 			'Saecki/crates.nvim',
 			dependencies = {
 				'nvim-lua/plenary.nvim',
+
+                -- Rust LSP and other goodies
+                'simrat39/rust-tools.nvim'
 			},
 			event = "BufRead Cargo.toml",
 			config = function() require'setup.crates'.setup() end,
