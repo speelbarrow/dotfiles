@@ -30,8 +30,8 @@ local function workspace()
         compiler = "cargo",
         run = dispatch.build_and_run("-wait=always ./"..outpath),
         debug = debug(outpath),
-        test = true,
-        build = true,
+        test = "test --all",
+        build = "build --all",
         clean = true
     }
 end
