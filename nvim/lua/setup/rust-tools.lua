@@ -3,22 +3,22 @@ return {
         require 'rust-tools'.setup({
             server = {
                 standalone = true,
-            },
-            settings = {
-                ["rust-analyzer"] = {
-                    procMacro = {
-                        enable = true
-                    },
-                    checkOnSave = {
-                        command = "clippy"
-                    },
-                    diagnostics = {
-                        disabled = {
-                            "inactive-code"
+                settings = {
+                    ["rust-analyzer"] = {
+                        procMacro = {
+                            enable = true
+                        },
+                        checkOnSave = {
+                            command = "clippy"
+                        },
+                        diagnostics = {
+                            disabled = {
+                                "inactive-code"
+                            }
                         }
                     }
                 }
-            }
+            },
         })
 
         -- Disable recommended styles provided by rust.vim, but enable RustFmt on save
