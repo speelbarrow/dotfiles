@@ -173,7 +173,8 @@ require 'lazy'.setup {
 
 		-- LSP configs
 		{
-			'neovim/nvim-lspconfig',
+			'speelbarrow/nvim-lspconfig',
+            branch = "patch-1",
 			config = function() require'setup.lspconfig'.setup() end,
 		},
 
@@ -208,7 +209,7 @@ require 'lazy'.setup {
 
 		-- Rust LSP and other goodies
 		{
-			'simrat39/rust-tools.nvim',
+			'speelbarrow/rust-tools.nvim',
 			ft = 'rust',
 			dependencies = {
 				-- Better syntax highlighting
@@ -227,7 +228,7 @@ require 'lazy'.setup {
 				'nvim-lua/plenary.nvim',
 
                 -- Rust LSP and other goodies
-                'simrat39/rust-tools.nvim'
+                'speelbarrow/rust-tools.nvim'
 			},
 			event = "BufRead Cargo.toml",
 			config = function() require'setup.crates'.setup() end,
