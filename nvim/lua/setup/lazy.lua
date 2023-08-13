@@ -238,6 +238,15 @@ require 'lazy'.setup {
         {
             'b0o/SchemaStore.nvim',
             lazy = true
-        }
+        },
+
+        --       --
+        -- LOCAL --
+        --       --
+        (function()
+            if vim.fn.filereadable(vim.fn.fnamemodify(vim.env.MYVIMRC, ":h").."/lua/local/lazy.lua") == 1 then
+                return unpack(require'local.lazy')
+            end
+        end)()
 	}
 }
