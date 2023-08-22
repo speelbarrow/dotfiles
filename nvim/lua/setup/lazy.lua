@@ -173,8 +173,7 @@ require 'lazy'.setup {
 
 		-- LSP configs
 		{
-			'speelbarrow/nvim-lspconfig',
-            branch = "patch-1",
+			'neovim/nvim-lspconfig',
 			config = function() require'setup.lspconfig'.setup() end,
 		},
 
