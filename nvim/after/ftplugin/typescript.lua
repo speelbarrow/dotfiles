@@ -1,4 +1,4 @@
 require'setup.dispatch'.configure_buffer({
-    compiler = "ts-node",
+    compiler = "bun",
     run = "%",
 })
