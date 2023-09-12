@@ -1,6 +1,6 @@
 require'setup.dispatch'.configure_buffer({
     compiler = "bun",
-    run = "%",
+    run = function() vim.cmd("Start -wait=always bun run %") end,
     test = true,
     build = true,
 })
