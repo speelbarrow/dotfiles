@@ -22,7 +22,11 @@ local function_maps = {
     vim.diagnostic.open_float,
     vim.cmd.noh,
     function()
-        vim.b.copilot_enabled = vim.fn['copilot#Enabled']() == 0
+        if vim.fn["copilot#Enabled"]() == 1 then
+            vim.cmd "Copilot disable"
+        else
+            vim.cmd "Copilot enable"
+        end
         vim.api.nvim_exec_autocmds("User", { pattern = "CopilotToggled" })
     end
 }
