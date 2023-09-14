@@ -65,6 +65,7 @@ return {
                 align = "center",
                 highlight = "DraculaPink",
                 content = {
+                    { "New file", "enew", "N" },
                     { "Recent Files...", "Telescope oldfiles", "F" },
                     { "Recent Projects...", "Telescope projects", "P" },
                 }
