@@ -30,6 +30,8 @@ function M.setup()
     endfunction
     ]]
 
+    vim.api.nvim_create_autocmd("BufEnter", { callback = update_copilot_key })
+
     vim.api.nvim_create_autocmd("UIEnter", {
         once = true,
         callback = function()

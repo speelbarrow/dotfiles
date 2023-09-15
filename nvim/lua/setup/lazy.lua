@@ -22,33 +22,19 @@ require 'lazy'.setup {
     end)() } },
 	spec = {
 		-- Dracula theme
-		{
-			'dracula/vim',
-			name = 'dracula',
-			config = function() require'setup.dracula'.setup() end,
+        {
+            'Mofiqul/dracula.nvim',
+            config = function() require'setup.dracula'.setup() end,
 
-			-- Load earliest
-			priority = 1000,
-		},
+            priority = 1000,
+        },
+
 
 		--                         --
 		-- PROJECT/FILE MANAGEMENT --
 		--                         --
 
 		-- Tree view
-		{
-			'nvim-tree/nvim-tree.lua',
-			dependencies = {
-				'nvim-tree/nvim-web-devicons',
-                'tpope/vim-fugitive',
-			},
-
-			config = function() require'setup.nvim-tree'.setup() end,
-
-			-- Load latest
-			priority = 1,
-		},
-
         {
             "nvim-neo-tree/neo-tree.nvim",
             branch = "v3.x",
@@ -57,6 +43,7 @@ require 'lazy'.setup {
                 "nvim-tree/nvim-web-devicons",
                 "MunifTanjim/nui.nvim",
             },
+            config = function() require'setup.neo-tree'.setup() end,
         },
 
         -- Git integration
@@ -122,6 +109,7 @@ require 'lazy'.setup {
 
 			-- Set up the touchbar labels/actions
 			config = function() require'setup.vim-it2-touchbar'.setup() end,
+            priority = 1000,
 		},
 
 		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)

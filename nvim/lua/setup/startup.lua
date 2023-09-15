@@ -5,7 +5,9 @@ return {
         vim.api.nvim_create_autocmd("UIEnter", {
             once = true,
             callback = function(args)
-                if args.file == "" and not require'nvim-tree.api'.tree.is_visible() then
+                if args.file == "" and not require'neo-tree.ui.renderer'.tree_is_visible(
+                    require'neo-tree.sources.manager'.get_state("filesystem")
+                ) then
                     startup.display()
                 end
             end
@@ -82,6 +84,7 @@ return {
                             vim.cmd "bd"
                         end
                     })
+                    vim.keymap.set('n', '<S-Tab>', '<Cmd>enew<CR><Cmd>Neotree<CR>', { buffer = true })
                 end
             }
         }
