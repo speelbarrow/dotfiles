@@ -13,14 +13,14 @@ local keylabels = {
 
 function M.touchbar()
     for index = 1, 24 do
-        vim.schedule(function() vim.cmd("TouchBarLabel F"..index.." '"..(keylabels[index] or " ").."'") end)
+        vim.cmd("TouchBarLabel F"..index.." '"..(keylabels[index] or " ").."'")
     end
 end
 
 -- Helper function for updating Copilot key label
 local function update_copilot_key()
     keylabels[#keylabels] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On" or "Copilot: Off"
-    vim.fn["it2touchbar#RegenKeys"]()
+    vim.schedule(vim.fn["it2touchbar#RegenKeys"])
 end
 
 function M.setup()
