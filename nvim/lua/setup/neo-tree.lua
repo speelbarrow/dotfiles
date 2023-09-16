@@ -76,8 +76,10 @@ function M.setup()
                 ["<Tab>"] = function()
                     vim.cmd.wincmd 'w'
                 end,
-                ["A"] = "git_add_file",
-                ["D"] = "git_unstage_file",
+                ["a"] = "git_add_file",
+                ["A"] = "add",
+                ["d"] = "git_unstage_file",
+                ["D"] = "delete",
                 ["<C-d>"] = "git_revert_file",
                 ["<S-Left>"] = "prev_source",
                 ["<S-Right>"] = "next_source"
