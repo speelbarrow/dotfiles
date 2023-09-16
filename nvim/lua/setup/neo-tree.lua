@@ -87,6 +87,16 @@ function M.setup()
             use_libuv_file_watcher = true,
             follow_current_file = {
                 enabled = true
+            },
+            filtered_items = {
+                hide_gitignored = true,
+                hide_by_name = {
+                    "node_modules",
+                },
+                always_show = {
+                    ".gitignore",
+                    ".github",
+                },
             }
         },
         event_handlers = {
