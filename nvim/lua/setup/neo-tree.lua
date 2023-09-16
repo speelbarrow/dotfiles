@@ -82,7 +82,8 @@ function M.setup()
                 ["D"] = "delete",
                 ["<C-d>"] = "git_revert_file",
                 ["<S-Left>"] = "prev_source",
-                ["<S-Right>"] = "next_source"
+                ["<S-Right>"] = "next_source",
+                ["<C-x>"] = "noop",
             }
         },
         filesystem = {
