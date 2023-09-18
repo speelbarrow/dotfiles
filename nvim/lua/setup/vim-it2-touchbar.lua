@@ -7,8 +7,8 @@ local keylabels = {
     "Code Action",
     "Go to Definition",
     "Diagnostic",
+    "Copilot: Off",
     "Clear Highlight",
-    "Copilot: Off"
 }
 
 function M.touchbar()
@@ -19,7 +19,7 @@ end
 
 -- Helper function for updating Copilot key label
 local function update_copilot_key()
-    keylabels[#keylabels] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On" or "Copilot: Off"
+    keylabels[#keylabels-1] = (vim.fn["copilot#Enabled"]() ~= 0) and "Copilot: On" or "Copilot: Off"
     vim.schedule(vim.fn["it2touchbar#RegenKeys"])
 end
 

@@ -20,7 +20,6 @@ local function_maps = {
     vim.lsp.buf.code_action,
     vim.lsp.buf.definition,
     vim.diagnostic.open_float,
-    vim.cmd.noh,
     function()
         if vim.fn["copilot#Enabled"]() == 1 then
             vim.cmd "Copilot disable"
@@ -28,7 +27,8 @@ local function_maps = {
             vim.cmd "Copilot enable"
         end
         vim.api.nvim_exec_autocmds("User", { pattern = "CopilotToggled" })
-    end
+    end,
+    vim.cmd.noh,
 }
 
 for index, mapping in ipairs(function_maps) do
