@@ -154,5 +154,11 @@ return {
         lspconfig.taplo.setup {
             capabilities = capabilities
         }
+
+        -- Python LSP
+        -- `pip install "python-lsp-server[all]"`
+        lspconfig.pylsp.setup {
+            capabilities = capabilities
+        }
     end
 }
