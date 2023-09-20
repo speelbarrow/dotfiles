@@ -1,5 +1,10 @@
 local M = {}
 
+---@return integer
+local function calculate_width()
+    return math.min(49, vim.o.co - vim.bo.textwidth - 6)
+end
+
 function M.setup()
     vim.fn.sign_define("DiagnosticSignError" ,{text = " ", texthl = "DiagnosticSignError"})
     vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
@@ -71,7 +76,7 @@ function M.setup()
             }
         },
         window = {
-            width = 49,
+            width = math.min(49, vim.o.columns - vim.o.textwidth - 5),
             mappings = {
                 ["<Tab>"] = function()
                     vim.cmd.wincmd 'w'
@@ -109,6 +114,19 @@ function M.setup()
             }
         },
     }
+
+    vim.api.nvim_create_autocmd({ "BufEnter", "VimResized" }, {
+        callback = function(args)
+            if vim.bo[args.buf].filetype == "neo-tree" then return end
+
+            local state = M.get_state()
+            if state ~= nil then
+                local width = calculate_width()
+                state.window.width = width
+                vim.api.nvim_win_set_width(state.winid, width)
+            end
+        end
+    })
 
     vim.keymap.set('n', '<Tab>', '<Cmd>Neotree action=focus source=last<CR>')
     vim.keymap.set('n', '<S-Tab>', function()
