@@ -158,7 +158,16 @@ return {
         -- Python LSP
         -- `pip install "python-lsp-server[all]"`
         lspconfig.pylsp.setup {
-            capabilities = capabilities
+            capabilities = capabilities,
+            settings = {
+                pylsp = {
+                    plugins = {
+                        rope_autoimport = {
+                            enabled = true
+                        }
+                    }
+                }
+            }
         }
     end
 }
