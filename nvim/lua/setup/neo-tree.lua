@@ -39,7 +39,7 @@ function M.setup()
         close_if_last_window = true,
         default_component_configs = {
             indent = {
-                indent_size = 1,
+                indent_size = 2,
                 padding = 0,
             },
             icon = {
