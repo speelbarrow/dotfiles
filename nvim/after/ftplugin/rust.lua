@@ -48,4 +48,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
         end
     end
 })
-single()
+
+if vim.lsp.get_active_clients({ name = "rust_analyzer" }) ~= nil then
+    workspace()
+else
+    single()
+end
