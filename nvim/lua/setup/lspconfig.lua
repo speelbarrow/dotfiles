@@ -156,7 +156,7 @@ return {
         }
 
         -- Python LSP
-        -- `pip install "python-lsp-server[all]"`
+        -- `pip install "python-lsp-server[all]" mypy pylsp-mypy`
         lspconfig.pylsp.setup {
             capabilities = capabilities,
             settings = {
