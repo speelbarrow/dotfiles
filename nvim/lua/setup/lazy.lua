@@ -42,6 +42,7 @@ require 'lazy'.setup {
                 "nvim-lua/plenary.nvim",
                 "nvim-tree/nvim-web-devicons",
                 "MunifTanjim/nui.nvim",
+                "miversen33/netman.nvim"
             },
             config = function() require'setup.neo-tree'.setup() end,
         },

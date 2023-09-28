@@ -6,6 +6,9 @@ local function calculate_width()
 end
 
 function M.setup()
+    -- Load Netman
+    require'netman'
+
     vim.fn.sign_define("DiagnosticSignError" ,{text = " ", texthl = "DiagnosticSignError"})
     vim.fn.sign_define("DiagnosticSignWarn", {text = " ", texthl = "DiagnosticSignWarn"})
     vim.fn.sign_define("DiagnosticSignInfo", {text = " ", texthl = "DiagnosticSignInfo"})
@@ -55,6 +58,12 @@ function M.setup()
                 required_width = 32
             },
         },
+        sources = {
+            "filesystem",
+            "buffers",
+            "git_status",
+            "netman.ui.neo-tree"
+        },
         source_selector = {
             winbar = true,
             content_layout = "center",
@@ -73,6 +82,10 @@ function M.setup()
                     source = "git_status",
                     display_name = "󰊢"
                 },
+                {
+                    source = "remote",
+                    display_name = "󰱠"
+                }
             }
         },
         window = {
