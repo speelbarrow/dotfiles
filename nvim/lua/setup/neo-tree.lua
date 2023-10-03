@@ -2,7 +2,7 @@ local M = {}
 
 ---@return integer
 local function calculate_width()
-    return math.min(50, vim.o.co - vim.bo.textwidth - 6)
+    return math.min(50, vim.o.co - vim.bo.textwidth - 7)
 end
 
 function M.setup()
@@ -89,7 +89,7 @@ function M.setup()
             }
         },
         window = {
-            width = math.min(50, vim.o.columns - vim.o.textwidth - 5),
+            width = calculate_width(),
             mappings = {
                 ["<Tab>"] = function()
                     vim.cmd.wincmd 'w'
