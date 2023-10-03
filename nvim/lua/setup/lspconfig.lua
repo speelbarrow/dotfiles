@@ -164,7 +164,10 @@ return {
                     plugins = {
                         rope_autoimport = {
                             enabled = true
-                        }
+                        },
+                        ruff = {
+                            lineLength = 79
+                        },
                     }
                 }
             }
