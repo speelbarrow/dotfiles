@@ -24,7 +24,8 @@ local function single()
 end
 
 local function workspace()
-    local outpath = "target/debug/"..vim.json.decode(vim.fn.system("cargo read-manifest")).name
+    local outpath = "target/debug/"..vim.json.decode(vim.fn.system("(cd "..vim.fn.expand("%:p:h")
+    .." && cargo read-manifest)")).name
 
     dispatch.configure_buffer {
         compiler = "cargo",
