@@ -9,7 +9,8 @@ return {
                             enable = true
                         },
                         checkOnSave = {
-                            command = "clippy"
+                            command = "clippy",
+                            allTargets = false,
                         },
                         diagnostics = {
                             disabled = {
