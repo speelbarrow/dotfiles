@@ -29,7 +29,7 @@ local function workspace()
 
     dispatch.configure_buffer {
         compiler = "cargo",
-        run = dispatch.build_and_run("-wait=always cargo r"..outpath),
+        run = dispatch.build_and_run("-wait=always cargo r"),
         debug = debug(outpath),
         test = "t",
         build = "b",
