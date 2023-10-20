@@ -12,10 +12,7 @@ local function calculate_width()
     vim.fn.system("git ls-files --error-unmatch "..expanded)
     local shell2 = vim.v.shell_error
     if shell1 ~= 0 or shell2 ~= 0 then
-        SHELLED = true
         width = width - 1
-    else
-        SHELLED = false
     end
 
     return width
