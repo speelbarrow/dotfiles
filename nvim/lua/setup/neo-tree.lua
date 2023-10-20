@@ -12,7 +12,10 @@ local function calculate_width()
     vim.fn.system("git ls-files --error-unmatch "..expanded)
     local shell2 = vim.v.shell_error
     if shell1 ~= 0 or shell2 ~= 0 then
+        SHELLED = true
         width = width - 1
+    else
+        SHELLED = false
     end
 
     return width
@@ -143,7 +146,8 @@ function M.setup()
 
     vim.api.nvim_create_autocmd({ "BufEnter", "VimResized" }, {
         callback = function(args)
-            if vim.bo[args.buf].filetype == "neo-tree" then return end
+            if vim.bo[args.buf].filetype == "neo-tree" or
+                vim.api.nvim_win_get_config(vim.api.nvim_get_current_win()).relative ~= "" then return end
 
             local state = M.get_state()
             if state ~= nil then
