@@ -2,7 +2,20 @@ local M = {}
 
 ---@return integer
 local function calculate_width()
-    return math.min(50, vim.o.co - vim.bo.textwidth - 7)
+    local width = vim.o.co - vim.bo.textwidth - 4
+    width = width - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()))
+
+    -- Check if file is modified/untracked by Git because if so we need to account for the Gitsigns column
+    local expanded = vim.fn.expand "%:p"
+    vim.fn.system("git diff --quiet --exit-code "..expanded)
+    local shell1 = vim.v.shell_error
+    vim.fn.system("git ls-files --error-unmatch "..expanded)
+    local shell2 = vim.v.shell_error
+    if shell1 ~= 0 or shell2 ~= 0 then
+        width = width - 1
+    end
+
+    return width
 end
 
 function M.setup()
@@ -135,24 +148,37 @@ function M.setup()
             local state = M.get_state()
             if state ~= nil then
                 local width = calculate_width()
+
+                if width < 32 then
+                    vim.cmd "Neotree close"
+                    return
+                end
+
                 state.window.width = width
                 vim.api.nvim_win_set_width(state.winid, width)
             end
         end
     })
 
-    vim.keymap.set('n', '<Tab>', '<Cmd>Neotree action=focus source=last<CR>')
+    vim.keymap.set('n', '<Tab>', function()
+        if calculate_width() >= 32 then
+            vim.cmd "Neotree action=focus source=last"
+        end
+    end)
     vim.keymap.set('n', '<S-Tab>', function()
-        if M.get_state() ~= nil then
-            vim.cmd.Neotree "close"
-        else
-            vim.cmd.Neotree "show"
+        if calculate_width() >= 32 then
+            if M.get_state() ~= nil then
+                vim.cmd.Neotree "close"
+            else
+                vim.cmd.Neotree "show"
+            end
         end
     end)
 
     vim.api.nvim_create_autocmd("BufEnter", {
         callback = function(args)
-            if M.get_state() == nil and require'project_nvim.project'.get_project_root() ~= nil then
+            if M.get_state() == nil and require'project_nvim.project'.get_project_root() ~= nil and calculate_width()
+                >= 32 then
                 for _, filetype in ipairs({ "help", "gitcommit", "git", "neo-tree" }) do
                     if vim.bo[args.buf].filetype == filetype then
                         return
