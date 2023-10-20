@@ -14,7 +14,6 @@ function M.setup()
         end
     })
 
-    local projects = require'project_nvim'.get_recent_projects()
     startup.setup {
         header = (function()
             local r = require'startup.themes.startify'.header
@@ -52,11 +51,7 @@ function M.setup()
             highlight = "DraculaPurpleBold",
             content = {
                 M.last_file(),
-                {
-                    "Reopen Last Project ("..vim.fn.fnamemodify(projects[#projects], ":t")..")",
-                    "cd "..projects[#projects].." | wincmd w",
-                    "pp"
-                }
+                M.last_project(),
             }
         },
         mapping_area = {
@@ -98,6 +93,17 @@ function M.last_file()
                 "ff"
             }
         end
+    end
+end
+
+function M.last_project()
+    local projects = require'project_nvim'.get_recent_projects()
+    if #projects > 0 then
+        return {
+            "Reopen Last Project ("..vim.fn.fnamemodify(projects[#projects], ":t")..")",
+            "e "..projects[#projects].." | e",
+            "pp"
+        }
     end
 end
 

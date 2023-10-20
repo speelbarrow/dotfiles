@@ -124,10 +124,14 @@ function M.setup()
                 hide_gitignored = true,
                 hide_by_name = {
                     "node_modules",
+                    "Cargo.lock",
+                    "target",
+                    "cmake-build-debug",
                 },
                 always_show = {
                     ".gitignore",
                     ".github",
+                    ".cargo"
                 },
             }
         },
