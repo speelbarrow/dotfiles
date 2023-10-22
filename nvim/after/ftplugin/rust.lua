@@ -1,5 +1,8 @@
 local dispatch = require'setup.dispatch'
 
+-- Fix an issue where Copilot's filetyping mechanism causes this script to be called
+if vim.bo.filetype == "copilot.rust" then return end
+
 ---@param outpath string
 ---@param after string?
 ---@param build_args string?
