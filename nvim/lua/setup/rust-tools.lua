@@ -5,19 +5,22 @@ return {
                 standalone = true,
                 settings = {
                     ["rust-analyzer"] = {
+                        cargo = {
+                            allTargets = true,
+                        },
                         procMacro = {
                             enable = true
                         },
                         checkOnSave = {
                             command = "clippy",
-                            allTargets = false,
+                            allTargets = true,
                         },
                         diagnostics = {
                             disabled = {
                                 "inactive-code"
                             }
                         }
-                    }
+                    },
                 }
             },
         })
