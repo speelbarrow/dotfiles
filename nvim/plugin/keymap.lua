@@ -29,6 +29,12 @@ local function_maps = {
         vim.api.nvim_exec_autocmds("User", { pattern = "CopilotToggled" })
     end,
     vim.cmd.noh,
+    function()
+        if vim.bo.filetype ~= "neo-tree" then
+            vim.cmd "sp | term"
+            vim.api.nvim_feedkeys("i", 'n', true)
+        end
+    end
 }
 
 for index, mapping in ipairs(function_maps) do

@@ -13,7 +13,7 @@ return {
                         },
                         checkOnSave = {
                             command = "clippy",
-                            allTargets = true,
+                            allTargets = false,
                         },
                         diagnostics = {
                             disabled = {

@@ -2,7 +2,7 @@ local M = {}
 
 ---@return integer
 local function calculate_width()
-    local width = vim.o.co - vim.bo.textwidth - 4
+    local width = vim.o.co - vim.bo.textwidth - 5
     width = width - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()))
 
     -- Check if file is modified/untracked by Git because if so we need to account for the Gitsigns column
