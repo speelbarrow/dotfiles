@@ -14,6 +14,7 @@ for key, value in pairs({
 	tabstop			= 4,
 	termguicolors 	= true,
 	textwidth		= 119,
+    signcolumn      = "yes",
 }) do
 	vim.o[key] = value
 end

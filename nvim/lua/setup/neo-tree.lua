@@ -2,20 +2,7 @@ local M = {}
 
 ---@return integer
 local function calculate_width()
-    local width = vim.o.co - vim.bo.textwidth - 5
-    width = width - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()))
-
-    -- Check if file is modified/untracked by Git because if so we need to account for the Gitsigns column
-    local expanded = vim.fn.expand "%:p"
-    vim.fn.system("git diff --quiet --exit-code "..expanded)
-    local shell1 = vim.v.shell_error
-    vim.fn.system("git ls-files --error-unmatch "..expanded)
-    local shell2 = vim.v.shell_error
-    if shell1 ~= 0 or shell2 ~= 0 then
-        width = width - 1
-    end
-
-    return width
+    return vim.o.co - vim.bo.textwidth - 6 - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf()))
 end
 
 function M.setup()
