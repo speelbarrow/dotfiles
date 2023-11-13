@@ -8,5 +8,12 @@ require'setup.dispatch'.configure_buffer({
         end
     end,
     test = true,
-    build = true,
+    build = function()
+        if vim.fn.filereadable("./package.json") == 1 then
+            vim.cmd("Start -wait=always bun run build")
+        else
+            vim.cmd("Start -wait=always bun build %")
+        end
+    end,
+    clean = "run clean"
 })
