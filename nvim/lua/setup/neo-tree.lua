@@ -2,7 +2,7 @@ local M = {}
 
 ---@return integer
 local function calculate_width()
-    return math.min(vim.o.co - vim.bo.textwidth - 6 - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf())), vim.o.co / 3)
+    return math.min(vim.o.co - vim.bo.textwidth - 6 - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf())), math.floor(vim.o.co / 3))
 end
 
 function M.setup()
