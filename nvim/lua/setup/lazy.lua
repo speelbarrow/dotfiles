@@ -113,23 +113,12 @@ require 'lazy'.setup {
             priority = 1000,
 		},
 
-		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
-		{
-			'fatih/vim-go',
-			ft = { 'go', 'gohtmltmpl', 'gomod' },
-            build = ":GoUpdateBinaries",
-            config = function() require'setup.vim-go'.setup() end,
-		},
-
 		-- Automatically close HTML/XML tags
 		{
 			'alvan/vim-closetag',
 			ft = { 'html', 'xml', 'gohtmltmpl' },
 			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml' end,
 		},
-
-        -- Syntax highlighting for Kitty configuration files
-        'fladson/vim-kitty',
 
 		-- Close buffers better
 		'famiu/bufdelete.nvim',
@@ -154,15 +143,9 @@ require 'lazy'.setup {
             lazy = true,
         },
 
-        -- Better highlighting for GNU Assembler files
-        {
-            "shirk/vim-gas",
-            ft = "asm,gas",
-        },
-
-		--				   --
-		-- LANGUAGE SERVER --
-		--				   --
+		--				                          --
+		-- LANGUAGE SERVERS & SYNTAX HIGHLIGHTING --
+		--				                          --
 
 		-- GitHub Copilot
 		{
@@ -237,6 +220,23 @@ require 'lazy'.setup {
             'b0o/SchemaStore.nvim',
             lazy = true
         },
+
+		-- Provides syntax highlighting for go.mod and Go template files (amongst other things)
+		{
+			'fatih/vim-go',
+			ft = { 'go', 'gohtmltmpl', 'gomod' },
+            build = ":GoUpdateBinaries",
+            config = function() require'setup.vim-go'.setup() end,
+		},
+
+        -- Better highlighting for GNU Assembler files
+        {
+            "shirk/vim-gas",
+            ft = "asm,gas",
+        },
+
+        -- Syntax highlighting for Kitty configuration files
+        'fladson/vim-kitty',
 
         --       --
         -- LOCAL --
