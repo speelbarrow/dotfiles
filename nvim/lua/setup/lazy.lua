@@ -236,7 +236,16 @@ require 'lazy'.setup {
         },
 
         -- Syntax highlighting for Kitty configuration files
-        'fladson/vim-kitty',
+        {
+            'fladson/vim-kitty',
+            ft = 'kitty',
+        },
+
+        -- Syntax highlighting for Rhai scripting language
+        {
+            'rhaiscript/vim-rhai',
+            ft = 'rhai',
+        },
 
         --       --
         -- LOCAL --
