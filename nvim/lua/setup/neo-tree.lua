@@ -5,6 +5,16 @@ local function calculate_width()
     return math.min(vim.o.co - vim.bo.textwidth - 6 - #tostring(vim.api.nvim_buf_line_count(vim.api.nvim_get_current_buf())), math.floor(vim.o.co / 3))
 end
 
+local netman = require'lazy.core.config'.plugins['miversen33/netman.nvim'] ~= nil
+
+---@generic T : any
+---@param always T[]
+---@param optional T[]
+---@return T[]
+local function if_netman(always, optional)
+    return netman and { table.unpack(always), table.unpack(optional) } or always
+end
+
 function M.setup()
     -- Load Netman
     require'netman'
@@ -58,18 +68,17 @@ function M.setup()
                 required_width = 32
             },
         },
-        sources = {
+        sources = if_netman({
             "filesystem",
             "buffers",
-            "git_status",
-            "netman.ui.neo-tree"
-        },
+            "git_status"
+        }, {  "netman" }),
         source_selector = {
             winbar = true,
             content_layout = "center",
             tabs_layout = "equal",
             show_seperator_on_edge = true,
-            sources = {
+            sources = if_netman({
                 {
                     source = "filesystem",
                     display_name = "󰉓"
@@ -82,11 +91,12 @@ function M.setup()
                     source = "git_status",
                     display_name = "󰊢"
                 },
+            }, {
                 {
                     source = "remote",
                     display_name = "󰱠"
                 }
-            }
+            })
         },
         window = {
             width = calculate_width(),

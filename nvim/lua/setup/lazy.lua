@@ -42,7 +42,11 @@ require 'lazy'.setup {
                 "nvim-lua/plenary.nvim",
                 "nvim-tree/nvim-web-devicons",
                 "MunifTanjim/nui.nvim",
-                "miversen33/netman.nvim"
+                {
+                    "miversen33/netman.nvim",
+                    cond = vim.fn.executable("docker") == 1 and vim.fn.executable("ssh") == 1 and
+                            vim.fn.executable("sftp") == 1,
+                }
             },
             config = function() require'setup.neo-tree'.setup() end,
         },
@@ -142,6 +146,9 @@ require 'lazy'.setup {
             },
             lazy = true,
         },
+
+        -- Auto pairs
+        'LunarWatcher/auto-pairs',
 
 		--				                          --
 		-- LANGUAGE SERVERS & SYNTAX HIGHLIGHTING --
