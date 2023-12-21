@@ -131,7 +131,7 @@ return {
         }
 
         -- GoPLS
-        -- `go get golang.org/x/tools/gopls@latest`
+        -- `go install golang.org/x/tools/gopls@latest`
         lspconfig.gopls.setup {
             capabilities = capabilities
         }
