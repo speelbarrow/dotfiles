@@ -90,7 +90,6 @@ require 'lazy'.setup {
 			build = ":call mkdp#util#install()"
 		},
 
-
 		-- 	  	     	   --
 		-- QUALITY OF LIFE --
 		-- 	  			   --
@@ -132,7 +131,6 @@ require 'lazy'.setup {
             'startup-nvim/startup.nvim',
             dependencies = {
                 "nvim-telescope/telescope.nvim",
-                "nvim-lua/plenary.nvim"
             },
             event = "VimEnter",
             config = function() require'setup.startup'.setup() end,
@@ -142,6 +140,7 @@ require 'lazy'.setup {
         {
             "nvim-telescope/telescope.nvim",
             dependencies = {
+                "nvim-telescope/telescope-ui-select.nvim",
                 "nvim-lua/plenary.nvim",
             },
             lazy = true,
