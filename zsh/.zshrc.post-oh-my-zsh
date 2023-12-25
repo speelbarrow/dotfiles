@@ -48,14 +48,11 @@ alias cdgr='cd $(git rev-parse --show-toplevel)'
 
 function z {
 	local ignore=".git|Icon"
-	if [ -e .gitignore ]; then
-		ignore+="|$(grep -Ev -e '^#' .gitignore | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/(^|\|)\//\1/g' | sed -E 's/\|$//')"
-	fi
-        if [ -e $HOME/.exaignore ]; then
+        if [ -e $HOME/.ezaignore ]; then
             ignore+="|$(cat $HOME/.ezaignore | grep -Ev -e '^#' | grep -Ev '^( |\t)*$' | tr '\n' '|' | sed -E 's/\/\|/|/g' | sed -E 's/(^|\|)\//\1/g' | sed -E 's/\|$//')"
         fi
 
-	eza -l --git --icons --header --ignore-glob="$ignore" $@
+	eza -l --git --icons --header --git-ignore --ignore-glob="$ignore" $@
 }
 alias za='z -a'
 alias zaa='z -a --ignore-glob " "'
