@@ -177,9 +177,7 @@ function M.setup()
     -- Arduino LSP
     -- `go install github.com/arduino/arduino-language-server@latest`
     -- (Requires `clangd` and `arduino-cli`)
-    --
-    -- (Only set up if the sketch file is present, otherwise wait for pop-up)
-    local arduino_config = {
+    lspconfig.arduino_language_server.setup {
         -- Don't override capabilities, as this LSP doesn't support them
         cmd = {
             "arduino-language-server",
@@ -188,14 +186,6 @@ function M.setup()
             vim.fn.expand('~/.arduino.yaml')
         }
     }
-
-    if vim.fn.filereadable(
-        (require'lspconfig.util'.root_pattern("*.ino")(vim.fn.expand("%:p")) or "")
-        .."/sketch.yaml") == 1 then
-        lspconfig.arduino_language_server.setup(arduino_config)
-    else
-        M.arduino = arduino_config
-    end
 end
 
 return M

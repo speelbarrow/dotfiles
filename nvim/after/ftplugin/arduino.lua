@@ -1,35 +1,3 @@
-local boards = {
-    ["esp32:esp32:lolin32"] = 115200,
-    ["teensy:avr:teensy41"] = 0,
-}
-
-local keys = {}
-for k, _ in pairs(boards) do
-    table.insert(keys, k)
-end
-
-if vim.fn.filereadable(vim.fn.expand("%:p:h").."/sketch.yaml") == 0 then
-    vim.api.nvim_create_autocmd("UIEnter", {
-        once = true,
-        callback = function()
-            require'telescope'.load_extension("ui-select")
-            vim.ui.select(
-                { "esp32:esp32:lolin32", "teensy:avr:teensy41" },
-                {
-                    prompt = "Sketch Bootstrap",
-                },
-                function (item, _)
-                    if item ~= nil then
-                        vim.fn.system(
-                            "arduino-cli board attach -p /dev/cu.usbserial-0001 -b "..item.." "..vim.fn.expand("%"))
-                        require'lspconfig'.arduino_language_server.setup(require'setup.lspconfig'.arduino)
-                        vim.cmd.LspStart()
-                    end
-                end
-            )
-        end,
-    })
-end
 local dispatch = require'setup.dispatch'
 
 dispatch.configure_buffer {
