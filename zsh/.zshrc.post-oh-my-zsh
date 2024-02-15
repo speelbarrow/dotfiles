@@ -59,6 +59,9 @@ alias zaa='z -a --ignore-glob " "'
 alias zz='za --tree --level 5'
 alias zza='zz --ignore-glob " "'
 
+# Add completion to expand aliases
+zstyle ':completion:*' completer _expand_alias _complete _ignored
+
 # Set KiTTY ssh alias if we're in KiTTY
 [ -n "$KITTY_PID" ] && alias ssh="kitty +kitten ssh"
 
