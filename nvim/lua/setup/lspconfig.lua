@@ -186,6 +186,12 @@ function M.setup()
             vim.fn.expand('~/.arduino.yaml')
         }
     }
+
+    -- Swift LSP (install Swift toolchain)
+    lspconfig.sourcekit.setup {
+        capabilities = capabilities,
+        filetypes = { "swift" }
+    }
 end
 
 return M
