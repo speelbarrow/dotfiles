@@ -1,12 +1,12 @@
 require'setup.dispatch'.configure_buffer {
     compiler = "swift",
     run = {
-        true,
+        cmd = true,
         interactive = true,
         persist = true,
     },
     debug = {
-        "run --debugger",
+        cmd = "run --debugger",
         interactive = true,
     },
     test = true,

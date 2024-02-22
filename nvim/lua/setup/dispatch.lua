@@ -2,7 +2,7 @@ local M = {}
 
 ---@alias Dispatch.Handler.String string | true
 ---@alias Dispatch.Handler.Function fun(): nil
----@alias Dispatch.Handler.Interactive { [1]: Dispatch.Handler.String, interactive: true, persist?: true }
+---@alias Dispatch.Handler.Interactive { cmd: Dispatch.Handler.String, interactive: true, persist?: true }
 ---@alias Dispatch.Handler Dispatch.Handler.String | Dispatch.Handler.Function | Dispatch.Handler.Interactive
 
 ---@class Dispatch.Config
@@ -41,16 +41,16 @@ function M.setup()
 
                 if type(handler) == "function" then
                     handler()
-                elseif type(handler) == "string" or (type(handler) == "table" and handler[1] ~= nil
-                    and (type(handler[1]) == "string" or handler[1] == true) and handler.interactive) then
+                elseif type(handler) == "string" or (type(handler) == "table" and handler.cmd ~= nil
+                    and (type(handler.cmd) == "string" or handler.cmd == true) and handler.interactive) then
 
                     local cmd_prefix = "Dispatch"
                     if type(handler) == "table" then
                         cmd_prefix = "Start"..(handler.persist and " -wait=always" or "")
-                        handler = handler[1]
+                        handler = handler.cmd
                     end
 
-                    vim.cmd(cmd_prefix.." "..(vim.b.dispatch_config.compiler or "").." "..handler.." "..
+                    vim.cmd(cmd_prefix.." "..(vim.b.dispatch_config.compiler or "").." "..(handler == true and action or handler).." "..
                         (args.args or ""))
                 else
                     vim.notify("Invalid handler for the '" .. action .. "' action", vim.log.levels.ERROR)
@@ -83,9 +83,9 @@ function M.build_and_run(run, build_args)
 
         if type(run) == "string" then
             handler = function() vim.cmd("Dispatch "..run) end
-        elseif type(run) == "table" and run[1] ~= nil and (type(run[1]) == "string" or run[1] == true)
+        elseif type(run) == "table" and run.cmd ~= nil and (type(run.cmd) == "string" or run.cmd == true)
             and run.interactive then
-            handler = function() vim.cmd("Start"..(run.persist and " -wait=always" or "").." "..run[1]) end
+            handler = function() vim.cmd("Start"..(run.persist and " -wait=always" or "").." "..run.cmd) end
         else
             vim.notify("Invalid handler for the 'build and run' action", vim.log.levels.ERROR)
             return

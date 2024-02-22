@@ -14,7 +14,7 @@ zstyle ':omz:update' enable auto
 COMPLETION_WAITING_DOTS="true"
 
 # Load OMZ plugins
-plugins=(colored-man-pages colorize git zsh-autosuggestions zsh-syntax-highlighting)
+plugins+=(colored-man-pages colorize git zsh-autosuggestions zsh-syntax-highlighting)
 if [ `uname` = "Darwin" ]; then
 	plugins+=(brew macos)
 
