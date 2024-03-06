@@ -85,7 +85,7 @@ function M.build_and_run(run, build_args)
             handler = function() vim.cmd("Dispatch "..run) end
         elseif type(run) == "table" and run.cmd ~= nil and (type(run.cmd) == "string" or run.cmd == true)
             and run.interactive then
-            handler = function() vim.cmd("Start"..(run.persist and " -wait=always" or "").." "..run.cmd) end
+            handler = function() vim.cmd("Start"..(run.persist and " -wait=always" or "").." "..(run.cmd or "run")) end
         else
             vim.notify("Invalid handler for the 'build and run' action", vim.log.levels.ERROR)
             return

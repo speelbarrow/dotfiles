@@ -7,20 +7,31 @@ if vim.bo.filetype == "copilot.rust" then return end
 ---@param after string?
 ---@param build_args string?
 local function debug(outpath, after, build_args)
-    return dispatch.build_and_run(function()
-        local debugger = dispatch.get_debugger()
-        if debugger == nil then return end
+    local debugger = dispatch.get_debugger()
+    if debugger == nil then
+        return function() vim.notify("No debugger found", vim.log.levels.WARN) end
+    end
 
-        vim.cmd("Start rust-"..debugger.." "..outpath.."; "..(after or ""))
-    end, build_args)
+    return dispatch.build_and_run({
+        cmd = "rust-"..debugger.." "..outpath.."; "..(after or ""),
+        interactive = true
+    }, build_args)
 end
 
 local function single()
     dispatch.configure_buffer {
         compiler = "rustc",
-        run = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./%:r; rm %:r"),
+        run = dispatch.build_and_run({
+            cmd = "trap ':' SIGINT; ./%:r; rm %:r",
+            interactive = true,
+            persist = true,
+        }),
         debug = debug("%:r", "rm %:r; { [ -e %:r.dSYM ] && rm -r %:r.dSYM; return 0 }", "-g"),
-        test = dispatch.build_and_run("-wait=always trap ':' SIGINT; ./%:r; rm %:r", "--test"),
+        test = dispatch.build_and_run({
+            cmd = "trap ':' SIGINT; ./%:r; rm %:r",
+            interactive = true,
+            persist = true,
+        }, "--test"),
         build = "%",
         clean = function() vim.cmd "silent !rm -r %:r %:r.dSYM" end
     }
@@ -32,9 +43,17 @@ local function workspace()
 
     dispatch.configure_buffer {
         compiler = "cargo",
-        run = dispatch.build_and_run("-wait=always cargo r"),
+        run = {
+            cmd = "r",
+            interactive = true,
+            persist = true
+        },
         debug = debug(outpath),
-        test = "t",
+        test = {
+            cmd = "t",
+            interactive = true,
+            persist = true
+        },
         build = "b",
         clean = true
     }
