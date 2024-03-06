@@ -9,7 +9,7 @@ function M.setup()
             if args.file == "" and not require'neo-tree.ui.renderer'.tree_is_visible(
                 require'neo-tree.sources.manager'.get_state("filesystem")
             ) then
-                startup.display()
+                vim.schedule(startup.display)
             end
         end
     })

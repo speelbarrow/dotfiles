@@ -186,7 +186,7 @@ function M.setup()
                         return
                     end
                 end
-                vim.cmd.Neotree "show"
+                vim.schedule(function() vim.cmd.Neotree "show" end)
             end
         end
     })

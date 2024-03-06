@@ -119,9 +119,9 @@ require 'lazy'.setup {
 		-- Automatically close HTML/XML tags
 		{
 			'alvan/vim-closetag',
-			ft = { 'html', 'xml', 'gohtmltmpl' },
-			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml' end,
-		},
+			ft = { 'html', 'xml', 'gohtmltmpl', 'svg' },
+			init = function() vim.g.closetag_filenames = '*.html,*.xml,*.gohtml,*.svg' end,
+        },
 
 		-- Close buffers better
 		'famiu/bufdelete.nvim',
@@ -251,6 +251,12 @@ require 'lazy'.setup {
         {
             'rhaiscript/vim-rhai',
             ft = 'rhai',
+        },
+
+        -- Syntax and indents for Swift
+        {
+            'keith/swift.vim',
+            ft = 'swift',
         },
 
         --       --
