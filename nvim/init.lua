@@ -1,4 +1,5 @@
-vim.o.rtp = vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h')..','..vim.o.rtp
+vim.env.DOTFILES = vim.fn.fnamemodify(vim.fn.resolve(vim.env.MYVIMRC), ':h')
+vim.o.rtp = vim.env.DOTFILES..','..vim.o.rtp
 
 -- Global editor settings (`:set` commands)
 for key, value in pairs({

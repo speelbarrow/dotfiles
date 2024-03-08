@@ -1,3 +1,5 @@
+vim.bo.textwidth = 119
+
 vim.lsp.start({
     name = "rhai-lsp",
     cmd = {"rhai", "lsp", "stdio"},

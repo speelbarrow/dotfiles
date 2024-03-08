@@ -194,19 +194,16 @@ require 'lazy'.setup {
 		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
 		'folke/neodev.nvim',
 
-		-- Rust LSP and other goodies
-		{
-			'speelbarrow/rust-tools.nvim',
-			ft = 'rust',
-			dependencies = {
-				-- Better syntax highlighting
-				'rust-lang/rust.vim',
-
-                -- Crate version resolution
+		--Rust LSP and other goodies
+        {
+            'mrcjkb/rustaceanvim',
+            ft = 'rust',
+            dependencies = {
+                'rust-lang/rust.vim',
                 'Saecki/crates.nvim',
-			},
-			config = function() require'setup.rust-tools'.setup() end,
-		},
+            },
+            config = function() require'setup.rustaceanvim'.setup() end,
+        },
 
 		-- Not exactly a language server but close enough, provides better experience in Cargo.toml files
 		{
@@ -215,7 +212,7 @@ require 'lazy'.setup {
 				'nvim-lua/plenary.nvim',
 
                 -- Rust LSP and other goodies
-                'speelbarrow/rust-tools.nvim'
+                'mrcjkb/rustaceanvim'
 			},
 			event = "BufRead Cargo.toml",
 			config = function() require'setup.crates'.setup() end,

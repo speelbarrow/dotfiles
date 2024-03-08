@@ -1,29 +1,23 @@
 return {
     setup = function()
-        require 'rust-tools'.setup({
+        vim.g.rustaceanvim = {
             server = {
                 standalone = true,
                 settings = {
                     ["rust-analyzer"] = {
-                        cargo = {
-                            allTargets = true,
-                        },
                         procMacro = {
                             enable = true
                         },
-                        checkOnSave = {
-                            command = "clippy",
-                            allTargets = false,
-                        },
+                        checkOnSave = true,
                         diagnostics = {
                             disabled = {
                                 "inactive-code"
                             }
                         }
                     },
-                }
+                },
             },
-        })
+        }
 
         -- Disable recommended styles provided by rust.vim, but enable RustFmt on save
         vim.g.rust_recommended_style = 0
