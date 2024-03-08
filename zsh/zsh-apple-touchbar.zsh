@@ -19,7 +19,7 @@ function default_view() {
 	done
 
 	create_key 1 'status' 'git status' '-s'
-	create_key 2 'commit all and push' 'git commit -a; git push' '-s'
+	create_key 2 'commit all and push' 'git add .; git commit; git push' '-s'
 	create_key 3 'commit and push' 'git commit; git push' '-s'
 	local_touchbar 4
 }
