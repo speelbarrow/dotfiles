@@ -113,7 +113,7 @@ require 'lazy'.setup {
 
 			-- Set up the touchbar labels/actions
 			config = function() require'setup.vim-it2-touchbar'.setup() end,
-            priority = 1000,
+            priority = 999,
 		},
 
 		-- Automatically close HTML/XML tags
@@ -188,11 +188,14 @@ require 'lazy'.setup {
 			config = function() require'setup.nvim-cmp'.setup() end,
 
 			-- Load early
-			priority = 500,
+			priority = 998,
 		},
 
 		-- Hacks LuaLS and provides syntax awareness for Neovim libraries when editing Neovim configuration files
-		'folke/neodev.nvim',
+        {
+            'folke/neodev.nvim',
+            lazy = true,
+        },
 
 		--Rust LSP and other goodies
         {

@@ -40,7 +40,7 @@ function M.setup()
             local version = vim.api.nvim_exec2("version", { output = true }).output
 
             -- Add a line with the version to the header
-            table.insert(r.content, "NeoVim "..version:sub(version:find("v[0-9]%.[0-9]%.[0-9]")))
+            table.insert(r.content, "NeoVim "..version:sub(version:find("v[0-9]%.[0-9]+%.[0-9]")))
 
             -- Return the modified header
             return r
