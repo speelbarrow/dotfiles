@@ -5,6 +5,12 @@ function M.setup()
     local default_capabalities = require'cmp_nvim_lsp'.default_capabilities
     local capabilities = default_capabalities()
 
+    -- Enable inlay hints
+    vim.api.nvim_create_autocmd("LspAttach", {
+        once = true,
+        callback = function() vim.lsp.inlay_hint.enable() end
+    })
+
     -- Styling for LSP windows
 
     vim.lsp.handlers['textDocument/hover'] = vim.lsp.with(vim.lsp.handlers.hover, { border = "rounded" })
