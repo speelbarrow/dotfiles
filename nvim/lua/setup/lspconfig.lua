@@ -8,7 +8,7 @@ function M.setup()
     -- Enable inlay hints
     vim.api.nvim_create_autocmd("LspAttach", {
         once = true,
-        callback = function() vim.lsp.inlay_hint.enable() end
+        callback = function(args) vim.lsp.inlay_hint.enable(args.buf) end
     })
 
     -- Styling for LSP windows
