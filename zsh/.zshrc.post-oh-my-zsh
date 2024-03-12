@@ -12,35 +12,46 @@ fi
 # Docker convenience commands
 function docker {
 	case "$1" in
-		"disposable")
+		disposable)
 			command docker run --rm -it --name disposable ${@[@]:2}
 			;;
-		"images-grep")
+		images-grep)
 			command docker images -a --format 'table {{.Repository}}:{{.Tag}} {{.ID}}' | tail -n +2 | sed -nE "s/^$2.* ([A-z0-9]+)$/\\1/p"
 			;;
-		"ps-grep")
+		ps-grep)
 			command docker ps -a --format 'table {{.Names}} {{.ID}}' | tail -n +2 | sed -nE "s/^$2.* ([A-z0-9]+)$/\\1/p"
 			;;
-		"rmi-grep")
+		rmi-grep)
 			command docker rmi $(docker images-grep $2)
 			;;
-		"rm-grep")
+		rm-grep)
 			command docker rm $(docker ps-grep $2)
 			;;
+                *sh)
+                        command docker exec -it ${@[@]:2} $1
+                        ;;
 		*)
 			command docker "$@"
 			;;
 	esac
 }
 
-# Add completion for `docker disposable`
-function _docker-disposable {
+# Add completion for custom docker subcommands
+function _docker-custom {
+        case $words[2] in
+                disposable)
+                        export words=( "docker" "run" "${words[@]:2}" )
+                        ;;
+                *sh)
+                        export words=( "docker" "exec" "-it" "${words[@]:2}" )
+                        ;;
+        esac
 	if [ "${words[2]}" = "disposable" ]; then
 		export words=( "docker" "run" ${words[@]:2} )
 	fi
 	_docker
 }
-compdef _docker-disposable docker
+compdef _docker-custom docker
 
 # Add other aliases/functions (even if the commands aren't there, they won't break anything)
 alias ccmake="ccmake -S . -B build"

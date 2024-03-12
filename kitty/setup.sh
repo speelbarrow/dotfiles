@@ -9,7 +9,6 @@ file ~/.config/kitty
 # Symlink files to ~/.config/kitty directory
 mkdir -p "$HOME/.config/kitty"
 ln -s "$DOTFILES/kitty/*.conf" "$HOME/.config/kitty/"
-ln -s "$DOTFILES/kitty/logo.png" "$HOME/.config/kitty/logo.png"
 
 # Clone and symlink Dracula theme
 git clone git@github.com:dracula/kitty.git "$HOME/.config/kitty/dracula"
