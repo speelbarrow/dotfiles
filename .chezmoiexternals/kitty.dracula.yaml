@@ -1,0 +1,9 @@
+".local/share/kitty/dracula.conf":
+  type: file
+  url: "https://raw.githubusercontent.com/dracula/kitty/master/dracula.conf"
+  refreshPeriod: 720h
+
+".local/share/kitty/diff.conf":
+  type: file
+  url: "https://raw.githubusercontent.com/dracula/kitty/master/diff.conf"
+  refreshPeriod: 720h
