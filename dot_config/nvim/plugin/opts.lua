@@ -12,6 +12,9 @@ local opts = {
 	-- 't' flag autowraps based on textwidth
 	formatoptions = vim.o.formatoptions .. "t",
 
+    -- Enable mouse reporting
+    mouse = "a",
+
 	-- Show line numbers
 	number = true,
 

@@ -1,1 +1,2 @@
-require"plugins.lazy".setup()
+table.unpack = table.unpack or unpack
+require"lazy.setup"
