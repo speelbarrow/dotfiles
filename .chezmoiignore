@@ -1,2 +1,2 @@
 .DS_Store
-.local/share/zsh/oh-my-zsh/cache
+.local/share/zsh/oh-my-zsh/cache/**
