@@ -1,9 +1,1 @@
-vim.api.nvim_create_autocmd({"BufNew", "BufReadPre"}, {
-    pattern = "*.lua",
-    once = true,
-    callback = function()
-        require"neodev".setup {}
-        require"lspconfig".lua_ls.setup {}
-    end
-})
-
+require"util.configure_lsp"("lua_ls", "*.lua", {}, function(_) require"neodev".setup() end)

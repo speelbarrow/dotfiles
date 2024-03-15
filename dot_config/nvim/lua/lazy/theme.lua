@@ -2,7 +2,7 @@ return {
     {
         "Mofiqul/dracula.nvim",
         config = function()
-            require'dracula'.setup {
+            require"dracula".setup {
                 colors = {
                     menu = "none"
                 },
@@ -12,6 +12,9 @@ return {
                 overrides = function (_) return {} end
             }
             vim.cmd.colorscheme "dracula"
+
+            -- Override the `Pmenu` highlight group for coq.nvim
+            vim.cmd.highlight("Pmenu guifg=#969696 guibg=#2f3146")
         end,
         priority = 1000,
     }
