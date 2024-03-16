@@ -16,6 +16,6 @@ return {
             -- Override the `Pmenu` highlight group for coq.nvim
             vim.cmd.highlight("Pmenu guifg=#969696 guibg=#2f3146")
         end,
-        priority = 1000,
+        priority = 500,
     }
 }
