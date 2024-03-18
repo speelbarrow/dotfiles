@@ -1,4 +1,4 @@
-return --[[ @as LazySpec ]] {
+return {
     {
         "nvim-lualine/lualine.nvim",
         dependencies = {
@@ -10,13 +10,14 @@ return --[[ @as LazySpec ]] {
     {
         "rcarriga/nvim-notify",
         priority = 300,
-        config = function()
-            vim.notify = require"notify"
-
-            ---@diagnostic disable-next-line: missing-fields
-            vim.notify.setup {
-                background_colour = require"dracula".colors()["bg"]
-            }
-        end
+        config = function() require"config.notify".setup() end
     },
+    {
+        "nvimdev/dashboard-nvim",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons"
+        },
+        event = "VimEnter",
+        config = function() require"config.dashboard".setup() end
+    }
 }
