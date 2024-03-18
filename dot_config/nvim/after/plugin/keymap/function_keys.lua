@@ -16,17 +16,13 @@ local function_maps = {
     end,
     vim.cmd.noh,
     function()
-        --[[
-        if vim.bo.filetype ~= "neo-tree" then
-            vim.cmd "sp | term"
-            vim.api.nvim_feedkeys("i", 'n', true)
-        end
-        ]]
+        vim.cmd "sp | term"
+        vim.api.nvim_feedkeys("i", 'n', true)
     end
 }
 
 for index, mapping in ipairs(function_maps) do
-	vim.keymap.set({ 'n', 'i', 'v' }, "<F" .. index .. ">", (type(mapping) == "function") and mapping or mapping[1],
+    vim.keymap.set({ 'n', 'i', 'v' }, "<F" .. index .. ">", (type(mapping) == "function") and mapping or mapping[1],
     { noremap = true })
     if type(mapping) == "table" and mapping[2] then
         vim.keymap.set({ 'n', 'i', 'v' }, "<S-F" .. index .. ">", mapping[2], { noremap = true })
