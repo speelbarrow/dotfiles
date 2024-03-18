@@ -3,3 +3,5 @@
   url: "https://github.com/folke/lazy.nvim.git"
   clone:
     args: [ "--filter=blob:none", "--branch=stable" ]
+  pull:
+    args: [ "origin", "stable" ]
