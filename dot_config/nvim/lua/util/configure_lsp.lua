@@ -14,7 +14,7 @@ return function(lsp, pattern, config, pre, post, override_capabilities)
         end
 
         require("lspconfig"
-        )[lsp].setup((not override_capabilities) and require"coq".lsp_ensure_capabilities(config or {}))
+        )[lsp].setup((override_capabilities == false) and config or require"coq".lsp_ensure_capabilities(config or {}))
 
         if post then
             post(args or {})
