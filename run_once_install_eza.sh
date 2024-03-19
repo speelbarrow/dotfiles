@@ -1,7 +1,6 @@
 #!/bin/sh
 
-# function for checking if a command exists on this system
-exists() { [[ -x $(command -v "$1") ]]; }
+. $(chezmoi source-path)/run_helpers.sh
 
 # Install `eza` (if not already present, or if `force` is set)
 if ! exists exa; then
