@@ -1,8 +1,22 @@
 local M = {}
 
-local cargo = vim.fn.executable("cargo") == 1
 
 function M.setup()
+    local cargo = vim.fn.executable("cargo") == 1
+    local center = vim.iter(pairs(require"util.json"(vim.fn.stdpath("data").."/telescope_keys.json") or {})):map(
+    ---@param picker string
+    ---@param key string
+    function(picker, key)
+        return {
+            desc = (" "..picker):gsub("_", " "):gsub(" ([a-z])", function(c) return " "..c:upper() end):sub(2),
+            action = "Telescope "..picker,
+            key = key,
+        }
+    end):totable()
+    table.sort(center, function(a, b) return a.key < b.key end)
+
+
+
     require"dashboard".setup {
         theme = "doom",
         preview = cargo and {
@@ -13,16 +27,7 @@ function M.setup()
         },
         config = {
             header = (not cargo) and vim.fn.readfile(vim.fn.stdpath("data").."/logo.txt"),
-            center = vim.iter(pairs(require"util.json"(vim.fn.stdpath("data").."/telescope_keys.json") or {})):map(
-            ---@param picker string
-            ---@param key string
-            function(picker, key)
-                return {
-                    desc = (" "..picker):gsub("_", " "):gsub(" ([a-z])", function(c) return " "..c:upper() end):sub(2),
-                    action = "Telescope "..picker,
-                    key = key,
-                }
-            end):totable()
+            center = center,
         }
     }
 end
