@@ -5,5 +5,7 @@ vim.keymap.set("i", "<S-BS>", function()
         return "<C-e>"
     elseif copilot.is_visible() then
         copilot.dismiss()
+    else
+        return "<S-BS>"
     end
 end, { expr = true })
