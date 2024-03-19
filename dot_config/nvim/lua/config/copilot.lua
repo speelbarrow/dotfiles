@@ -15,4 +15,7 @@ function M.setup()
     }
 end
 
+-- Configure highlight groups
+vim.cmd.highlight [[ CopilotSuggestion cterm=italic gui=italic guifg=#969696 ]]
+
 return M
