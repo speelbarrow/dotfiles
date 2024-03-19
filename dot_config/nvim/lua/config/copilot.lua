@@ -6,10 +6,10 @@ function M.setup()
             auto_trigger = true,
             hide_during_completion = false,
             keymap = {
-                accept = "<C-Enter>",
-                next = "<C-x>",
-                prev = "<C-z>",
-                dismiss = "<C-e>",
+                accept = "<S-Enter>",
+                next = "<S-Down>",
+                prev = "<S-Up>",
+                dismiss = "<S-BS>",
             },
         },
     }
