@@ -1,6 +1,6 @@
 #!/bin/sh
 
-. $(chezmoi source-path)/run_helpers.sh
+. $(chezmoi source-path)/../zsh/helpers.sh
 
 # Install `eza` (if not already present, or if `force` is set)
 if ! exists exa; then
