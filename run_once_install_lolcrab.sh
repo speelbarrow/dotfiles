@@ -1,8 +1,6 @@
 #!/bin/sh
 
-. $(chezmoi source-path)/../zsh/helpers.sh
-
 # Check for cargo
-if exists cargo; then
+if ! [[ -x $(command -v "cargo") ]]; then
     cargo install lolcrab
 fi

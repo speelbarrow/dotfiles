@@ -1,9 +1,7 @@
 #!/bin/sh
 
-. $(chezmoi source-path)/../zsh/helpers.sh
-
 # Install `eza` (if not already present, or if `force` is set)
-if ! exists exa; then
+if ! [[ -x $(command -v "eza") ]]; then
 	# If cargo is already installed, use that
 	if exists cargo; then
 		cargo install eza
