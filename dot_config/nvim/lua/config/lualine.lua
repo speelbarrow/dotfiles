@@ -17,6 +17,10 @@ function M.setup()
                 {
                     "buffers",
                     show_filename_only = false,
+                    buffers_color = {
+                        active = "lualine_b_normal",
+                        inactive = "lualine_c_normal",
+                    },
                     symbols = {
                         alternate_file = "",
                         directory = "󰉖 ",
