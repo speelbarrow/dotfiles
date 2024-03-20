@@ -33,4 +33,36 @@ return {
         "folke/neodev.nvim",
         lazy = true,
     },
+
+    -- Rust LSP and other goodies
+    {
+        "mrcjkb/rustaceanvim",
+        dependencies = {
+            "rust-lang/rust.vim",
+            {
+                "Saecki/crates.nvim",
+                dependencies = {
+                    "nvim-lua/plenary.nvim",
+                },
+            },
+        },
+        -- Configuration found in `lsp/rust.lua`
+        ft = "rust",
+    },
+    {
+        "Saecki/crates.nvim",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+
+            -- Loads `rustaceanvim` for the non-LSP features it provides
+            {
+                "mrcjkb/rustaceanvim",
+                dependencies = {
+                    "rust-lang/rust.vim"
+                },
+            }
+        },
+        event = "BufRead *Cargo.toml",
+        config = true
+    },
 }
