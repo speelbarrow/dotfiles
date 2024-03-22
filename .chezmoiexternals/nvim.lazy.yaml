@@ -4,4 +4,4 @@
   clone:
     args: [ "--filter=blob:none", "--branch=stable" ]
   pull:
-    args: [ "origin", "stable" ]
+    args: [ "-tf", "origin", "stable" ]
