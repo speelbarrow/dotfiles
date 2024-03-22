@@ -8,7 +8,7 @@
 # Dracula theme files
 ".local/share/zsh/oh-my-zsh/custom/themes/dracula.zsh-theme":
   type: file
-  url: "https://raw.githubusercontent.com/dracula/zsh/master/dracula.zsh-theme"
+  url: "https://raw.githubusercontent.com/speelbarrow/dracula-zsh/master/dracula.zsh-theme"
   refreshPeriod: 720h
 ".local/share/zsh/oh-my-zsh/custom/themes/lib/async.zsh":
   type: file
