@@ -1,0 +1,38 @@
+#!/bin/sh
+
+# Originally retrieved from: 
+# https://raw.githubusercontent.com/TheLocehiliosan/yadm/master/contrib/bootstrap/bootstrap-in-dir
+#
+# Modifications have been made.
+
+set -eu
+
+for cmd in curl git; do
+    if ! command -v $cmd >/dev/null 2>&1; then
+        echo "Error: \`$cmd\` not found. Please install it, then run \`yadm bootstrap\` again." >&2
+        exit 1
+    fi
+done
+
+# Directory to look for bootstrap executables in
+BOOTSTRAP_D="$(readlink -f "$0").d"
+export UTIL="$(dirname $BOOTSTRAP_D)/util.sh"
+
+if ! [ -d "$BOOTSTRAP_D" ]; then
+    echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2
+    exit 1
+fi
+
+. "$(dirname $BOOTSTRAP_D)/util.sh"
+
+find -L "$BOOTSTRAP_D" -type f -iname "*.sh" | sort | while IFS= read -r bootstrap; do
+    if [ -x "$bootstrap" ]; then
+        if ! "$bootstrap"; then
+            echo "Error: bootstrap '$bootstrap' failed" >&2
+            exit 1
+        fi
+    else
+        echo "Skipping non-executable '.sh' file \`$bootstrap\`" >&2
+        exit 1
+    fi
+done
