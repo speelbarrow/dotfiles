@@ -2,7 +2,7 @@ local M = {}
 
 
 function M.setup()
-    local cargo = vim.fn.executable("cargo") == 1
+    local lolcrab = vim.fn.executable("lolcrab") == 1
     local center = vim.iter(pairs(require"util.json"(vim.fn.stdpath("data").."/telescope_keys.json") or {})):map(
     ---@param picker string
     ---@param key string
@@ -19,14 +19,14 @@ function M.setup()
 
     require"dashboard".setup {
         theme = "doom",
-        preview = cargo and {
+        preview = lolcrab and {
             command = "lolcrab -g cool",
             file_path = vim.fn.stdpath("data").."/logo.txt",
             file_width = 69,
             file_height = 8,
         },
         config = {
-            header = (not cargo) and vim.fn.readfile(vim.fn.stdpath("data").."/logo.txt"),
+            header = (not lolcrab) and vim.fn.readfile(vim.fn.stdpath("data").."/logo.txt"),
             center = center,
         }
     }
