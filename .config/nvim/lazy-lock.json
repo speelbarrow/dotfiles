@@ -5,4 +5,5 @@
   "crates.nvim": { "branch": "main", "commit": "b4f4987ccdb1cc3899ee541ef4375c73c48c4570" },
   "dashboard-nvim": { "branch": "master", "commit": "92c94c8c3c92ddd29e1181a0aebcc22f2fe96f71" },
   "dracula.nvim": { "branch": "main", "commit": "8d8bddb8814c3e7e62d80dda65a9876f97eb699c" },
+  "dressing.nvim": { "branch": "master", "commit": "18e5beb3845f085b6a33c24112b37988f3f93c06" },
   "gitsigns.nvim": { "branch": "main", "commit": "078041e9d060a386b0c9d3a8c7a7b019a35d3fb0" },

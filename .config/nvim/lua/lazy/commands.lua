@@ -17,7 +17,7 @@ return {
         cmd = "Telescope file_browser",
         config = function() require"telescope".load_extension "file_browser" end,
     },
-    {
+    --[[{
         "nvim-telescope/telescope-ui-select.nvim",
         init = function()
             local save = vim.ui.select
@@ -29,5 +29,5 @@ return {
             end
         end,
         lazy = true,
-    },
+    },]]
 }

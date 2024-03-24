@@ -1,6 +1,6 @@
 local function_maps = {
     vim.lsp.buf.hover,
-    vim.lsp.buf.rename,
+    function() vim.api.nvim_feedkeys(":IncRename ", "n", true) end,
     vim.lsp.buf.code_action,
     {
         function() require"telescope.builtin".lsp_definitions(require"telescope.themes".get_cursor({})) end
