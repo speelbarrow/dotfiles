@@ -12,12 +12,13 @@ return {
         "ms-jpq/coq.nvim",
         lazy = true,
         init = function()
-            vim.g.coq_settings = { auto_start = true }
+            vim.g.coq_settings = vim.tbl_deep_extend("keep", vim.g.coq_settings or {}, {
+                auto_start = true,
+            })
         end,
         build = function()
             vim.cmd "COQdeps"
         end,
-        -- config runs in `util.configure_lsp`
     },
 
     -- Copilot

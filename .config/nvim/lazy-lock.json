@@ -1,7 +1,7 @@
 {
   "bufdelete.nvim": { "branch": "master", "commit": "f6bcea78afb3060b198125256f897040538bcb81" },
   "copilot.lua": { "branch": "master", "commit": "f7612f5af4a7d7615babf43ab1e67a2d790c13a6" },
-  "coq.nvim": { "branch": "coq", "commit": "a290446adad540d780e87d7fa8ef86bb2fdc2951" },
+  "coq.nvim": { "branch": "coq", "commit": "c6f4505074674c5d7fdd3afbbd6164323fe20fd7" },
   "crates.nvim": { "branch": "main", "commit": "b4f4987ccdb1cc3899ee541ef4375c73c48c4570" },
   "dashboard-nvim": { "branch": "master", "commit": "92c94c8c3c92ddd29e1181a0aebcc22f2fe96f71" },
   "dracula.nvim": { "branch": "main", "commit": "8d8bddb8814c3e7e62d80dda65a9876f97eb699c" },
