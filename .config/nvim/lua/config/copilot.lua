@@ -9,7 +9,9 @@ function M.setup()
                 accept = "<S-Enter>",
                 next = "<S-Down>",
                 prev = "<S-Up>",
-                dismiss = "<S-BS>",
+
+                -- See `after/plugin/keymap/coq.lua`
+                -- dismiss = "<S-BS>",
             },
         },
     }
