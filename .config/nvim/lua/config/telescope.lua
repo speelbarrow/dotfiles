@@ -9,9 +9,9 @@ function M.setup()
             }
         }
     }
-    for _, extension in ipairs({"file_browser", "ui-select", "projects"}) do
+    --[[for _, extension in ipairs({"file_browser", "ui-select", "projects"}) do
         telescope.load_extension(extension)
-    end
+    end]]
 end
 
 return M

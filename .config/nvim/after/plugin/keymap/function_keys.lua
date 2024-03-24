@@ -1,14 +1,9 @@
-local telescope = {
-    builtin = require"telescope.builtin",
-    themes = require"telescope.themes",
-}
-
 local function_maps = {
     vim.lsp.buf.hover,
     vim.lsp.buf.rename,
     vim.lsp.buf.code_action,
     {
-        function() telescope.builtin.lsp_definitions(telescope.themes.get_cursor({})) end
+        function() require"telescope.builtin".lsp_definitions(require"telescope.themes".get_cursor({})) end
     },
     vim.diagnostic.open_float,
     function()

@@ -14,6 +14,16 @@ function M.setup()
         }
     end):totable()
     table.sort(center, function(a, b) return a.key < b.key end)
+    table.insert(center, {
+        desc = "Lazy",
+        action = "Lazy",
+        key = "l",
+    })
+    table.insert(center, {
+        desc = "Update",
+        action = "Lazy update",
+        key = "u",
+    })
 
 
 
