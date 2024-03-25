@@ -6,11 +6,11 @@ function M.setup()
             auto_trigger = true,
             hide_during_completion = false,
             keymap = {
-                accept = "<S-Enter>",
                 next = "<S-Down>",
                 prev = "<S-Up>",
+                accept = "<S-Enter>",
 
-                -- See `after/plugin/keymap/coq.lua`
+                -- See `after/plugin/keymap/lsp.lua`
                 -- dismiss = "<S-BS>",
             },
         },

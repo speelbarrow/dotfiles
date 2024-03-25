@@ -12,7 +12,6 @@ end, { expr = true })
 
 vim.g.coq_settings = vim.tbl_deep_extend("keep", vim.g.coq_settings or {}, {
     keymap = {
-        bigger_preview = "<S-Enter>",
         jump_to_mark = "<M-c>",
     }
 })
