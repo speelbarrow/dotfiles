@@ -16,7 +16,8 @@ done
 
 # Directory to look for bootstrap executables in
 BOOTSTRAP_D="$(readlink -f "$0").d"
-export UTIL="$(dirname $BOOTSTRAP_D)/util.sh"
+export YADM_DIR="$(dirname $BOOTSTRAP_D)"
+export UTIL="$YADM_DIR/util.sh"
 
 if ! [ -d "$BOOTSTRAP_D" ]; then
     echo "Error: bootstrap directory '$BOOTSTRAP_D' not found" >&2

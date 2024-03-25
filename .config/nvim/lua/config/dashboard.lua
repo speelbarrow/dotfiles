@@ -3,29 +3,6 @@ local M = {}
 
 function M.setup()
     local lolcrab = vim.fn.executable("lolcrab") == 1
-    local center = vim.iter(pairs(require"util.json"(vim.fn.stdpath("data").."/telescope_keys.json") or {})):map(
-    ---@param picker string
-    ---@param key string
-    function(picker, key)
-        return {
-            desc = (" "..picker):gsub("_", " "):gsub(" ([a-z])", function(c) return " "..c:upper() end):sub(2),
-            action = "Telescope "..picker,
-            key = key,
-        }
-    end):totable()
-    table.sort(center, function(a, b) return a.key < b.key end)
-    table.insert(center, {
-        desc = "Lazy",
-        action = "Lazy",
-        key = "l",
-    })
-    table.insert(center, {
-        desc = "Update",
-        action = "Lazy update",
-        key = "u",
-    })
-
-
 
     require"dashboard".setup {
         theme = "doom",
@@ -37,7 +14,38 @@ function M.setup()
         },
         config = {
             header = (not lolcrab) and vim.fn.readfile(vim.fn.stdpath("data").."/logo.txt"),
-            center = center,
+            center = {
+                {
+                    desc = "Recent Files",
+                    action = "Telescope oldfiles",
+                    key = "o",
+                },
+                {
+                    desc = "Recent Projects",
+                    action = "Telescope projects",
+                    key = "p",
+                },
+                {
+                    desc = "File Browser",
+                    action = "Telescope file_browser",
+                    key = "f",
+                },
+                {
+                    desc = "Show Plugins",
+                    action = "Lazy",
+                    key = "l",
+                },
+                {
+                    desc = "Update Plugins",
+                    action = "Lazy update",
+                    key = "u",
+                },
+                {
+                    desc = "Exit Neovim",
+                    action = "qa",
+                    key = "q",
+                },
+            },
         }
     }
 end

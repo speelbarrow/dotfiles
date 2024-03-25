@@ -17,7 +17,17 @@ return {
         cmd = "Telescope file_browser",
         config = function() require"telescope".load_extension "file_browser" end,
     },
-    --[[{
+    {
+        "smjonas/inc-rename.nvim",
+        dependencies = {
+            "stevearc/dressing.nvim",
+        },
+        opts = {
+            input_buffer_type = "dressing",
+        },
+        lazy = true,
+    },
+    {
         "nvim-telescope/telescope-ui-select.nvim",
         init = function()
             local save = vim.ui.select
@@ -29,5 +39,5 @@ return {
             end
         end,
         lazy = true,
-    },]]
+    },
 }

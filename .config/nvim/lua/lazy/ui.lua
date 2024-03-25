@@ -29,32 +29,4 @@ return {
         end,
         config = function() require"config.gitsigns".setup() end
     },
-    --[[{
-        "stevearc/dressing.nvim",
-        dependencies = {
-            {
-                "smjonas/inc-rename.nvim",
-                opts = {
-                    input_buffer_type = "dressing",
-                },
-            },
-        },
-        priority = 100,
-    },]]
-    {
-        "folke/noice.nvim",
-        event = "VeryLazy",
-        dependencies = {
-            "MunifTanjim/nui.nvim",
-            {
-                "rcarriga/nvim-notify",
-                config = function() require"config.notify".setup() end
-            },
-            {
-                "smjonas/inc-rename.nvim",
-                config = true,
-            },
-        },
-        config = function() require"config.noice".setup() end,
-    },
 }
