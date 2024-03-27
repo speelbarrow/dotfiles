@@ -3,5 +3,5 @@
 . "$UTIL"
 
 if fs_exists "$HOME/.zshrc"; then
-    ln -s "$HOME/.config/zsh/zshrc.zsh" "$HOME/.zshrc"
+        ln -s "$HOME/.config/zsh/zshrc.zsh" "$HOME/.zshrc"
 fi
