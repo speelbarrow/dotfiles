@@ -5,7 +5,8 @@ for key, picker in pairs({
     f = "file_browser",
     o = "oldfiles",
     p = "projects",
-    n = "notify"
+    n = "notify",
+    h = "highlights",
 }) do
     vim.keymap.set({"n", "i", "v"}, prefix..key, "<Cmd>Telescope "..picker.."<CR>")
 end

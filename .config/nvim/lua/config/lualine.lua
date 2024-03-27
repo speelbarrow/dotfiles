@@ -10,22 +10,17 @@ function M.setup()
         },
         sections = {
             lualine_b = {
-                "branch",
-                "diff"
-            },
-            lualine_c = {
                 {
                     "buffers",
                     show_filename_only = false,
-                    buffers_color = {
-                        active = "lualine_b_normal",
-                        inactive = "lualine_c_normal",
-                    },
                     symbols = {
                         alternate_file = "",
                         directory = "󰉖 ",
                     },
                 }
+            },
+            lualine_c = {
+                require"lsp-progress".progress,
             },
             lualine_x = {
                 {
@@ -49,10 +44,20 @@ function M.setup()
             },
             lualine_z = {
                 "progress",
-                "location"
+                "location",
+                "branch",
+                "diff",
             }
         },
     }
+
+    -- listen lsp-progress event and refresh lualine
+    vim.api.nvim_create_augroup("lualine_augroup", { clear = true })
+    vim.api.nvim_create_autocmd("User", {
+        group = "lualine_augroup",
+        pattern = "LspProgressStatusUpdated",
+        callback = require("lualine").refresh,
+    })
 end
 
 return M
