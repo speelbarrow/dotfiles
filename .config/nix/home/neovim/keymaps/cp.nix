@@ -1,4 +1,4 @@
-{ modifier, ... }: let
+{ lib, modifier, ... }: let
   paste = "<${modifier}-v>";
 in [
   {
@@ -7,13 +7,18 @@ in [
     mode = "v";
   }
   {
-    action = ''"*p'';
+    action = ''<Cmd>normal "*p<CR>'';
     key = paste;
-    mode = ["n" "v"];
+    mode = ["n" "i" "v"];
   }
   {
-    action = ''<Esc>"*pa'';
+    action = ''<C-\><C-n>"*pa'';
     key = paste;
-    mode = "i";
-  } 
+    mode = "t";
+  }
+  {
+    action = ''<Cmd>normal "*P<CR>'';
+    key = lib.toUpper paste;
+    mode = ["n" "i" "v"];
+  }
 ]

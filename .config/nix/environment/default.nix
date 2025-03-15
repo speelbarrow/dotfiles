@@ -44,6 +44,7 @@
       za = "eza -a";
       zz = "z --tree";
       zza = "za --tree";
+      ccmake = "ccmake -S . -B build";
     };
 
     systemPackages = with pkgs; [
@@ -53,41 +54,18 @@
       cargo-generate
       clang
       clang-tools
+      cmake
+      cmakeCurses
       curl
       docker
-      espflash
-      espup
-      (
-        let
-          mozilla = rec {
-            source = builtins.fetchTarball {
-              url = "https://github.com/mozilla/nixpkgs-mozilla/archive/master.tar.gz";
-            };
-            overlay = callPackage "${source}/package-set.nix" {};
-          };
-          rust = (mozilla.overlay.rustChannelOf { 
-            channel = "stable";
-            date = "2025-01-09"; # 1.84.0
-          }).rust;
-        in (makeRustPlatform {
-          cargo = rust;
-          rustc = rust // { inherit (rustc) badTargetPlatforms targetPlatforms; }; 
-        }).buildRustPackage rec {
-        pname = "esp-generate";
-        version = "v0.2.2";
-        cargoHash = "sha256-KHrgUqZ4UyI3aWlEKJ3AMvAenDaZmwN+em3ywOfBsaM=";
-        src = fetchFromGitHub {
-          owner = "esp-rs";
-          repo = pname;
-          rev = version;
-          hash = "sha256-qDlEI9cav2RSsYinIlW4VqmCtUW+vAgFJOE2miFAVVo=";
-        };
-      })
       eza
       git
+      google-chrome
       gnumake
       nix-output-monitor
+      probe-rs-tools
       python3
+      radare2
       ripgrep
       rustup
       sl
@@ -95,5 +73,76 @@
       wireguard-tools
       yadm
     ];
+
+    variables = {
+      CMAKE_EXPORT_COMPILE_COMMANDS="on";
+    };
   };
+  nixpkgs.overlays = with pkgs; [
+    (final: prev: {
+      probe-rs-tools = rustPlatform.buildRustPackage rec {
+        pname = "probe-rs-tools";
+        version = "0.27.0";
+
+        src = fetchFromGitHub {
+          owner = "probe-rs";
+          repo = "probe-rs";
+          rev = "v${version}";
+          sha256 = "xtUaGJyzr0uQUb/A+7RmOVVgrXIctr2I9gLPU2/rXso=";
+        };
+
+        cargoHash = "sha256-gYJVuVpNoFOoIvskAvo/gI9DeR2wva8SIg7yHNt/iMQ=";
+
+        buildAndTestSubdir = pname;
+
+        nativeBuildInputs = [
+          cmake
+          gitMinimal
+          pkg-config
+        ];
+
+        buildInputs = [
+          libusb1
+          openssl
+        ];
+
+        checkFlags = [
+          "--skip=cmd::dap_server::server::debugger::test::attach_request"
+          "--skip=cmd::dap_server::server::debugger::test::attach_with_flashing"
+          "--skip=cmd::dap_server::server::debugger::test::disassemble::instructions_after_and_not_including_the_ref_address"
+          "--skip=cmd::dap_server::server::debugger::test::disassemble::instructions_before_and_not_including_the_ref_address_multiple_locations"
+          "--skip=cmd::dap_server::server::debugger::test::disassemble::instructions_including_the_ref_address_location_cloned_from_earlier_line"
+          "--skip=cmd::dap_server::server::debugger::test::disassemble::negative_byte_offset_of_exactly_one_instruction_aligned_"
+          "--skip=cmd::dap_server::server::debugger::test::disassemble::positive_byte_offset_that_lands_in_the_middle_of_an_instruction_unaligned_"
+          "--skip=cmd::dap_server::server::debugger::test::launch_and_threads"
+          "--skip=cmd::dap_server::server::debugger::test::launch_with_config_error"
+          "--skip=cmd::dap_server::server::debugger::test::test_initalize_request"
+          "--skip=cmd::dap_server::server::debugger::test::test_launch_and_terminate"
+          "--skip=cmd::dap_server::server::debugger::test::test_launch_no_probes"
+          "--skip=cmd::dap_server::server::debugger::test::wrong_request_after_init"
+          "--skip=util::cargo::test::get_binary_artifact_with_cargo_config"
+          "--skip=util::cargo::test::get_binary_artifact_with_cargo_config_toml"
+          "--skip=util::cargo::test::get_binary_artifact"
+          "--skip=util::cargo::test::library_with_example_specified"
+          "--skip=util::cargo::test::multiple_binaries_in_crate_select_binary"
+          "--skip=util::cargo::test::workspace_binary_package"
+          "--skip=util::cargo::test::workspace_root"
+        ];
+
+        meta = with lib; {
+          description = "CLI tool for on-chip debugging and flashing of ARM chips";
+          homepage = "https://probe.rs/";
+          changelog = "https://github.com/probe-rs/probe-rs/blob/v${version}/CHANGELOG.md";
+          license = with licenses; [
+            asl20 # or
+            mit
+          ];
+          maintainers = with maintainers; [
+            xgroleau
+            newam
+          ];
+        };
+      };
+    })
+  ];
 }

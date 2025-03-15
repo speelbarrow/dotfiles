@@ -19,20 +19,12 @@ in lib.mkIf isDarwin {
           hash = "sha256-syhnX1volDBPcvwuqDkDLavrI3znjwlT4SXFq//OLdY=";
         };
       })
-
-      # Gets rid of the 'install command line tools' pop-up
-      llvmPackages.llvm
       xcbuild
     ];
-    variables = rec {
-      LIBRARY_PATH = "${darwin.libiconv}/lib";
-      RUSTFLAGS = "-L ${LIBRARY_PATH}";
-    };
+    variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
   nixpkgs.overlays = [
-    (final: prev: with casks; {
-      inherit ghostty neovide;
-    })
+    (final: prev: with casks; { inherit ghostty neovide; })
   ];
   security.pam.enableSudoTouchIdAuth = true;
 }

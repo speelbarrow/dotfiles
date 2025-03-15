@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   home = let 
     user = import ../user.nix pkgs.stdenv.isDarwin;
   in {

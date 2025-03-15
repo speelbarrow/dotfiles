@@ -8,6 +8,14 @@
       vim.notify(root, vim.log.levels.DEBUG)
       return root
     end'';
-    settings.cargo.targetDir = true;
+    settings = {
+      cachePriming = {
+        enable = true;
+        numThreads = "logical";
+      };
+      cargo = {
+        targetDir = true;
+      };
+    };
   };
 }

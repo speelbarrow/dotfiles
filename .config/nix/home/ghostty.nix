@@ -8,7 +8,6 @@
       font-style-bold-italic = "ExtraBold-Italic";
       font-size = 14;
       font-synthetic-style = false;
-      adjust-underline-thickness = "200%";
       theme = "Dracula+";
       cursor-style = "underline";
       cursor-click-to-move = true;
