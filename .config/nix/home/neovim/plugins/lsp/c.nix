@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: {
+{ pkgs, ... }: {
   arduino_language_server = {
     enable = true;
     extraOptions = {
