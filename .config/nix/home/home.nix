@@ -7,7 +7,8 @@
     homeDirectory = user.home;
 
     packages = with pkgs; [
-      fritzing
+      # fritzing
+      wireshark
     ];
   };
   programs.home-manager.enable = true;

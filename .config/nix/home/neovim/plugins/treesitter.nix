@@ -5,8 +5,6 @@
     enable = true;
     lazyLoad.enable = false;
 
-    gccPackage = null;
-
     settings = {
       indent.enable = true;
       highlight.enable = true;

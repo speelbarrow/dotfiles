@@ -1,13 +1,16 @@
-{ config, lib, pkgs, ... }: let
-in {
+{ config, lib, pkgs, ... }: {
   cmp = let
     makeMapping = mode: maps: builtins.mapAttrs (n: v: "{ ${mode} = ${v} }") ({
       "<CR>" = "cmp.mapping.confirm({ select = ${if mode != "c" then "true" else "false"} })";
       "<S-BS>" = ''function()
         if cmp.visible_docs() then
           cmp.close_docs()
-        else
+        elseif cmp.visible() then
           cmp.abort()
+        elseif copilot.is_visible() then
+          copilot.dismiss()
+        else
+          fallback()
         end
       end'';
     } // maps);
@@ -20,7 +23,9 @@ in {
     end'';
   in {
     enable = true;
-    lazyLoad.settings.event = ["User FileOpened" "CmdlineEnter"];
+    luaConfig.pre = ''
+      local copilot = require "copilot.suggestion";
+    '';
 
     settings = {
       sources = [
@@ -44,7 +49,11 @@ in {
           cmp.scroll_docs(${if prev then "-1" else "1"})
         elseif cmp.visible() then
         '') "fallback()" prev;
-        tabs = prev: selectors (prev: "if cmp.visible() then") "fallback()" prev;
+        tabs_base = elze: prev: selectors (prev: "if cmp.visible() then") elze prev;
+        copilot = prev: tabs_base ''
+          copilot.${if prev then "prev" else "next"}()
+        '' prev;
+        tabs = tabs_base "fallback()";
       in makeMapping "i" {
         "<Up>" = arrows true;
         "<Down>" = arrows false;
@@ -52,8 +61,8 @@ in {
         "<ScrollWheelDown>" = arrows false;
         "<Tab>" = tabs false;
         "<S-Tab>" = tabs true;
-        "<S-Up>" = tabs true;
-        "<S-Down>" = tabs false;
+        "<S-Up>" = copilot true;
+        "<S-Down>" = copilot false;
         "<S-ScrollWheelUp>" = tabs true;
         "<S-ScrollWheelDown>" = tabs false;
         "<S-CR>" = ''function()
@@ -61,6 +70,8 @@ in {
             cmp.close_docs()
           elseif cmp.visible() then
             cmp.open_docs()
+          elseif copilot.is_visible() then
+            copilot.accept()
           else
             cmp.complete()
           end
@@ -154,6 +165,44 @@ in {
     ];
   };
 
+  copilot-lua = {
+    enable = true;
+    luaConfig.post = ''
+      vim.api.nvim_set_hl(0, "CopilotSuggestion", { fg = "#969696", italic = true })
+
+      vim.api.nvim_create_autocmd("BufEnter", {
+        pattern = "copilot://*",
+        callback = function(args)
+          for _, key in ipairs { "q", "<C-c>" } do
+            vim.keymap.set("n", key, "<Cmd>q<CR>", { buffer = args.buf })
+          end
+        end
+      })
+    '';
+    settings = {
+      filetypes = {
+        markdown = true;
+        yaml = true;
+      };
+      panel.keymap = {
+        accept = "<S-Enter>";
+        jump_next = "<S-Down>";
+        jump_prev = "<S-Up>";
+        refresh = "<S-BS>";
+      };
+      suggestion = {
+        hide_during_completion = false;
+        keymap = {
+          accept = "<S-Enter>";
+          dismiss = "<S-BS>";
+          next = "<S-Down>";
+          prev = "<S-Up>";
+        };
+      };
+      server_opts_overrides.settings.advanced.inlineSuggestCount = 3;
+    };
+  };
+
   lsp = {
     enable = true;
     lazyLoad.settings.event = "User FileOpened";
@@ -190,7 +239,7 @@ in {
         end'';
         "<F5>".__raw = "vim.lsp.buf.implementation";
         "<F6>".__raw = "vim.diagnostic.open_float";
-        # F10: noh -> home/neovim/keymaps/noh.nix
+        "<F10>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
         "<F11>".__raw = "function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end";
         "<F12>".__raw = "function() vim.wo.spell = not vim.wo.spell end";
       };

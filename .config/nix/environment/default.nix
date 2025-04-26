@@ -20,6 +20,7 @@
                 then "sysctl -n hw.ncpu"
                 else "nproc --all";
       in "${command} switch --cores $(${cores}) --max-jobs $(${cores}) |& nom";
+
       eza = "command eza -l --header --git --icons";
       z = let
         ignore = builtins.concatStringsSep "|" ([
@@ -59,6 +60,7 @@
       curl
       docker
       eza
+      ffmpeg
       git
       google-chrome
       gnumake
@@ -91,7 +93,7 @@
           sha256 = "xtUaGJyzr0uQUb/A+7RmOVVgrXIctr2I9gLPU2/rXso=";
         };
 
-        cargoHash = "sha256-gYJVuVpNoFOoIvskAvo/gI9DeR2wva8SIg7yHNt/iMQ=";
+        cargoHash = "sha256-acGLTbWI0SHspFISWw5Lj+sqn5HE4du5jTC3NS5zzh8=";
 
         buildAndTestSubdir = pname;
 

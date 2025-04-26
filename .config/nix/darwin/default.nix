@@ -11,7 +11,7 @@ in lib.mkIf isDarwin {
       (rustPlatform.buildRustPackage rec {
         pname = "folderify";
         version = "v4.0.1";
-        cargoHash = "sha256-vMESB9VTUQI66dWtWAeL0Zo3RH4V8Zv/zjSTnKKEW1Y=";
+        cargoHash = "sha256-gFC8AII65hQlQtwhMQhAN9PekclgF0gPU5ASe046NYc=";
         src = fetchFromGitHub {
           owner = "lgarron";
           repo = pname;
@@ -19,12 +19,11 @@ in lib.mkIf isDarwin {
           hash = "sha256-syhnX1volDBPcvwuqDkDLavrI3znjwlT4SXFq//OLdY=";
         };
       })
-      xcbuild
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
   nixpkgs.overlays = [
     (final: prev: with casks; { inherit ghostty neovide; })
   ];
-  security.pam.enableSudoTouchIdAuth = true;
+  security.pam.services.sudo_local.touchIdAuth = true;
 }

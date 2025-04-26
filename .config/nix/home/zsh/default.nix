@@ -31,8 +31,10 @@
       (mkIf pkgs.stdenv.isLinux { DEBIAN_PREVENT_KEYBOARD_CHANGES = "yes"; })
     ];
 
-    initExtraBeforeCompInit = init ./before;
-    initExtra = init ./after;
+    initContent = lib.mkMerge [
+      (lib.mkOrder 550 (init ./before))
+      (lib.mkOrder 1000 (init ./after))
+    ];
 
     plugins = [
       {

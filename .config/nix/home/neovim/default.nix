@@ -11,9 +11,8 @@ in {
   
   programs.nixvim = let
     plugins = import ./plugins { inherit config lib pkgs; };
-    spLauncher = import ./spLauncher { inherit config lib pkgs; };
   in lib.mkMerge [
-    spLauncher
+    (import ./spLauncher { inherit config lib pkgs; })
     {
       enable = true;
       nixpkgs = { inherit pkgs; };
@@ -30,6 +29,8 @@ in {
           show_end_of_buffer = true;
         };
       };
+
+      dependencies.gcc.enable = false;
       
       luaLoader.enable = true;
 

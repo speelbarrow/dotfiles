@@ -1,4 +1,4 @@
-{ pkgs, ... }: {
+{ lib, pkgs, ... }: {
   arduino_language_server = {
     enable = true;
     extraOptions = {
@@ -30,12 +30,12 @@
     package = pkgs.buildGoModule rec {
       name = src.repo;
       src = pkgs.fetchFromGitHub {
-        owner = "speelbarrow";
+        owner = "arduino";
         repo = "arduino-language-server";
-        rev = "ee17a87081a38ebcd0ca3dc0fb2b1f040811925e";
-        sha256 = "3XwfU9qPQiLg95x7xI08GLn/Ln6b05N2YAM4uwJ8QT4=";
+        tag = "0.7.7";
+        sha256 = "twTbJ5SFbL4AIX+ffB0LdOYXUxh4SzmZguJSRdEo1lQ=";
       };
-      vendorHash = "sha256-Mu9W92f8ZEaTfJ8YkhKpOvFMB/QzqoxfWkSGWlU/yVM=";
+      vendorHash = "sha256-wXArVPzYmuiivx+8M86rrvfKsvCMtkN3WgXQByr5fC4=";
     };
   };
 
@@ -55,7 +55,7 @@
       ])
     ];
     enable = true;
-    rootDir.__raw = ''function(fname)
+    /*rootDir.__raw = ''function(fname)
       local root_files = {
         "CMakeLists.txt",
         ".clangd",
@@ -68,7 +68,7 @@
       return vim.fs.root(fname, unpack(root_files))
           or require "lspconfig.util".find_git_ancestor(fname)
           or vim.fn.expand "%:p:h"
-    end'';
+    end'';*/
     extraOptions.capabilities.offsetEncoding = "utf-8";
   };
 
