@@ -11,20 +11,12 @@
       in [
         "arduino-language-server"
         "-cli-config"
-        { __raw = "vim.env.HOME .. '/${config}/arduino-cli.yaml'"; }
+        { __raw = ''vim.env.HOME .. "/${config}/arduino-cli.yaml"''; }
         "-format-conf-path"
-        { __raw = "vim.env.HOME .. '/.clang-format'"; }
+        { __raw = ''vim.env.HOME .. "/.clang-format"''; }
         "-jobs"
-        { __raw = "tostring(#vim.uv.cpu_info())"; }
-      ]; /*''{
-        "arduino-language-server",
-        "-cli-config",
-        vim.env.HOME .. "/${config}/arduino-cli.yaml",
-        "-format-conf-path",
-        vim.env.HOME .. "/.clang-format",
-        "-jobs",
-        tostring(#vim.uv.cpu_info())
-      }'';*/
+        "0"
+      ];
     };
     filetypes = ["arduino"];
     package = pkgs.buildGoModule rec {

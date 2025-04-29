@@ -1,5 +1,10 @@
 # TODO: Make this better
 { ... }: {
+  "after/ftplugin/arduino.lua".text = ''
+    vim.o.shiftwidth = 4
+    vim.o.softtabstop = 4
+    vim.o.tabstop = 4
+  '';
   "after/ftplugin/markdown.lua".text = ''
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2
