@@ -245,7 +245,11 @@
       };
     };
 
-    onAttach = "require'otter'.activate(nil, true, false, nil)";
+    onAttach = ''
+      if client and client.name ~= "copilot" then
+        require'otter'.activate(nil, true, false, nil)
+      end
+    '';
 
     servers = import ../../../../mkDir.nix {
       args = { inherit config lib pkgs; };
@@ -261,6 +265,7 @@
   otter = {
     enable = true;
     lazyLoad.settings.event = "LspAttach";
+    autoActivate = false;
   };
   
   imports = [(pkgs.vimUtils.buildVimPlugin {

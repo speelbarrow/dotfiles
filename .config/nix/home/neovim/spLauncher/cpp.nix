@@ -36,6 +36,12 @@
         end,
         build = "",
       }
+    elseif vim.fs.root(0, { 'Makefile' }) ~= nil then
+      vim.b.spLauncherActionMap = {
+        base = "make",
+        run = " run",
+        build = "",
+      }
     end
   '';
 }

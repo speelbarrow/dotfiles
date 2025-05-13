@@ -4,7 +4,10 @@
     vim.o.shiftwidth = 4
     vim.o.softtabstop = 4
     vim.o.tabstop = 4
+    vim.o.textwidth = 120
   '';
+  "after/ftplugin/c.lua".text = "vim.o.textwidth = 120";
+  "after/ftplugin/cpp.lua".text = "vim.o.textwidth = 120";
   "after/ftplugin/markdown.lua".text = ''
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2

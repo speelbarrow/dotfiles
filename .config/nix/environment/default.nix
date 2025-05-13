@@ -65,6 +65,7 @@
       google-chrome
       gnumake
       nix-output-monitor
+      platformio-core
       probe-rs-tools
       python3
       radare2
