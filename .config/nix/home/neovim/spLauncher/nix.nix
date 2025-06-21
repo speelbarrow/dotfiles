@@ -1,6 +1,6 @@
 { pkgs, ... }: {
   base = if pkgs.stdenv.isDarwin 
-         then "darwin-rebuild"
+         then "sudo darwin-rebuild"
          else if builtins.pathExists /etc/nixos
          then "nixos-rebuild"
          else "home-manager";

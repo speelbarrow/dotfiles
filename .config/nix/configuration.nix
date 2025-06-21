@@ -1,7 +1,7 @@
-{ lib, pkgs, ... }: let
+{ config, lib, pkgs, ... }: let
 in import ./mkDir.nix {
   args = {
-    inherit lib pkgs;
+    inherit config lib pkgs;
     isDarwin = lib.hasSuffix "darwin" builtins.currentSystem;
   };
   extra = [{ nixpkgs.config.allowUnfree = true; }];

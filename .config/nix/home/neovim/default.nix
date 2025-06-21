@@ -39,7 +39,7 @@ in {
         expandtab = true;
         mouse = "a";
         number = true;
-        scrolloff = 20;
+        # scrolloff = 20;
         shell = "zsh --login"; # required to get all the sourcings just right
         shiftwidth = 4;
         showmode = false;

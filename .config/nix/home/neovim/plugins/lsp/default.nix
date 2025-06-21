@@ -237,6 +237,9 @@
         "<F4>".__raw = ''function()
           require "telescope.builtin".lsp_definitions(require "telescope.themes".get_cursor {})
         end'';
+        "<S-F4>".__raw = ''function()
+          require "telescope.builtin".lsp_type_definitions(require "telescope.themes".get_cursor {})
+        end'';
         "<F5>".__raw = "vim.lsp.buf.implementation";
         "<F6>".__raw = "vim.diagnostic.open_float";
         "<F10>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";

@@ -1,5 +1,6 @@
-{ isDarwin, ... }: {
+{ config, isDarwin, ... }: {
   nix.nixPath = let
     prefix = if isDarwin then "darwin" else "nixos";
-  in ["${prefix}-config=$HOME/.config/nix/configuration.nix"];
+    home = if isDarwin then "Users" else "home";
+  in ["${prefix}-config=/${home}/${config.system.primaryUser}/.config/nix/configuration.nix"];
 }

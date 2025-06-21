@@ -102,6 +102,7 @@
           cmake
           gitMinimal
           pkg-config
+          zsh
         ];
 
         buildInputs = [

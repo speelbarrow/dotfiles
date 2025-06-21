@@ -1,4 +1,4 @@
-{ lib, pkgs, ... } @ args: import ../../../mkDir.nix {
+{ lib, ... } @ args: import ../../../mkDir.nix {
   inherit args lib;
   path = ./.;
   extra = [{
