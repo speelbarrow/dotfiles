@@ -3,7 +3,7 @@
 in lib.mkIf isDarwin {
   environment = with pkgs; {
     systemPackages = [
-      casks.docker
+      casks.docker-desktop
       casks.onyx
       darwin.libiconv
       imagemagick # required for folderify

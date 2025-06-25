@@ -15,6 +15,6 @@ in lib.mkIf pkgs.stdenv.isDarwin {
   programs.ghostty.package = casks.ghostty // {
     meta.mainProgram = "ghostty";
   };
-  programs.neovide.package = casks.neovide;
+  programs.neovide.package = casks.neovide-app;
   programs.zsh.shellAliases.python = "python3";
 }
