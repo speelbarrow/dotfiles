@@ -12,9 +12,9 @@
     shellAliases = {
       rebuild = let
         command = if isDarwin
-                  then "darwin-rebuild"
+                  then "sudo darwin-rebuild"
                   else if builtins.pathExists "/etc/nixos"
-                  then "nixos-rebuild"
+                  then "sudo nixos-rebuild"
                   else "home-manager";
         cores = if isDarwin
                 then "sysctl -n hw.ncpu"

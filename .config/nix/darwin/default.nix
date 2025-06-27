@@ -2,6 +2,9 @@
   casks = import ./casks.nix pkgs;
 in lib.mkIf isDarwin ({
   environment = with pkgs; {
+    interactiveShellInit = ''  
+      export PATH="${casks.docker-desktop.outPath}/Applications/Docker.app/Contents/Resources/bin:$PATH"
+    '';
     systemPackages = [
       casks.docker-desktop
       casks.onyx
@@ -21,6 +24,7 @@ in lib.mkIf isDarwin ({
         };
       })
       tun2proxy
+      utm
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };

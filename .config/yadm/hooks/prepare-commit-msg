@@ -20,7 +20,11 @@ while read line; do
         fi
 
         if [ "$MESSAGE" != "" ]; then
-                MESSAGE="$MESSAGE\n\n"
+                if [ $(uname) = Darwin ]; then
+                        MESSAGE="$MESSAGE\n\n"
+                else
+                        MESSAGE="$MESSAGE\r\r"
+                fi
         fi
 
         PROCESSING=`echo "$line" | sed 's/^#\t\(.*\)$/\1/'`
