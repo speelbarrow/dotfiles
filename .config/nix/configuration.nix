@@ -4,7 +4,14 @@ in import ./mkDir.nix {
     inherit config lib pkgs;
     isDarwin = lib.hasSuffix "darwin" builtins.currentSystem;
   };
-  extra = [{ nixpkgs.config.allowUnfree = true; }];
+  extra = [
+    { nixpkgs.config.allowUnfree = true; }
+    (
+      if builtins.pathExists "/etc/nixos/configuration.nix" 
+      then ((import /etc/nixos/configuration.nix) { inherit config pkgs; })
+      else {}
+    )
+  ];
   filter = ["configuration.nix" "home" "mkDir.nix" "shell" "user.nix" "version.nix"];
   inherit lib;
   path = ./.;

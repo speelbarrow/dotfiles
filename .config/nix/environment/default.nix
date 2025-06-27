@@ -62,7 +62,6 @@
       eza
       ffmpeg
       git
-      google-chrome
       gnumake
       nix-output-monitor
       platformio-core

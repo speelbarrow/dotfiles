@@ -5,9 +5,23 @@ cmd_exists() {
         return $?
 }
 
+sudo_if() {
+        CONDITION=$1
+        shift 1
+        if (( CONDITION == 0 )); then
+                sudo $@
+        else
+                $@
+        fi
+}
+
+cmd_exists nixos-rebuild
+IS_NIXOS=$?
+
 set -e
 
 VERSION=$(cat "$HOME/.config/nix/version.nix" | sed s/\"//g)
+
 
 for command in curl sudo tar; do
 	! cmd_exists $COMMAND && {
@@ -30,6 +44,7 @@ if [ -e $SINGLE_SRC ]; then
 fi
 PATH="/nix/var/nix/profiles/default/bin:$PATH"
 
+
 NIX_DARWIN="https://github.com/LnL7/nix-darwin/archive/nix-darwin-${VERSION}.tar.gz"
 PKGS=$(if [ $(uname) = Darwin ]; then
 	nix-channel --add $NIX_DARWIN darwin
@@ -38,9 +53,9 @@ else
 	printf "nixos-$VERSION"
 fi)
 
-nix-channel --add "https://channels.nixos.org/${PKGS}" nixpkgs
-nix-channel --add "https://github.com/nix-community/home-manager/archive/release-${VERSION}.tar.gz" home-manager
-nix-channel --update
+sudo_if $IS_NIXOS nix-channel --add "https://channels.nixos.org/${PKGS}" nixpkgs
+sudo_if $IS_NIXOS nix-channel --add "https://github.com/nix-community/home-manager/archive/release-${VERSION}.tar.gz" home-manager
+sudo_if $IS_NIXOS nix-channel --update
 
 if [ $(uname) = Darwin ]; then
 	TMPDIR=$(mktemp -d)
@@ -51,7 +66,7 @@ if [ $(uname) = Darwin ]; then
 	cd -
 	rm -rf $TMPDIR
 elif cmd_exists nixos-rebuild; then
-	nixos-rebuild switch -I nixos-config=$HOME/.config/nix/configuration.nix
+	sudo nixos-rebuild switch -I nixos-config=$HOME/.config/nix/configuration.nix
 else
 	nix-shell '<home-manager>' -A install
 fi

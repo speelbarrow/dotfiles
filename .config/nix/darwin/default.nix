@@ -1,11 +1,12 @@
 { lib, isDarwin, pkgs, ... }: let
   casks = import ./casks.nix pkgs;
-in lib.mkIf isDarwin {
+in lib.mkIf isDarwin ({
   environment = with pkgs; {
     systemPackages = [
       casks.docker-desktop
       casks.onyx
       darwin.libiconv
+      google-chrome
       imagemagick # required for folderify
       raycast
       (rustPlatform.buildRustPackage rec {
@@ -27,5 +28,6 @@ in lib.mkIf isDarwin {
     (final: prev: with casks; { inherit ghostty neovide; })
   ];
   security.pam.services.sudo_local.touchIdAuth = true;
+} // lib.optionalAttrs isDarwin {
   system.primaryUser = "speelbarrow";
-}
+})
