@@ -1,6 +1,5 @@
 #!/bin/sh
 
-
 FOUND_CHANGES=0
 MESSAGE=""
 
