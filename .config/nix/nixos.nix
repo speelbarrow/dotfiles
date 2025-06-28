@@ -1,13 +1,4 @@
-{ lib, pkgs, ... }: let
-  isNixos = builtins.pathExists "/etc/nixos/configuration.nix";
-in lib.optionalAttrs isNixos ({
-  services = {
-    xserver = {
-      desktopManager.pantheon.enable = true;
-      enable = true;
-    };
-  };
-} // (lib.optionalAttrs (isNixos && pkgs.stdenv.isAarch64) {
+{ lib, ... }: lib.optionalAttrs (builtins.pathExists "/etc/nixos/configuration.nix") {
   fileSystems = {
     "/rosetta" = {
       device = "rosetta";
@@ -19,4 +10,10 @@ in lib.optionalAttrs isNixos ({
       ];
     };
   };
-}))
+  services = {
+    xserver = {
+      desktopManager.pantheon.enable = true;
+      enable = true;
+    };
+  };
+}
