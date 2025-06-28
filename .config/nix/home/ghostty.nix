@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   programs.ghostty = {
     enable = true;
     enableZshIntegration = true;
@@ -6,7 +6,7 @@
       font-family = "JetBrainsMono Nerd Font";
       font-style-bold = "ExtraBold";
       font-style-bold-italic = "ExtraBold-Italic";
-      font-size = 14;
+      font-size = if pkgs.stdenv.isDarwin then 14 else 10;
       font-synthetic-style = false;
       theme = "Dracula+";
       cursor-style = "underline";

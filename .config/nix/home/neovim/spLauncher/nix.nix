@@ -2,7 +2,7 @@
   base = if pkgs.stdenv.isDarwin 
          then "sudo darwin-rebuild"
          else if builtins.pathExists /etc/nixos
-         then "nixos-rebuild"
+         then "sudo nixos-rebuild"
          else "home-manager";
   run = {
     handler = "switch |& nom";

@@ -4,8 +4,7 @@ in {
   imports = let
     nixvim = import (builtins.fetchGit {
       url = "https://github.com/nix-community/nixvim";
-      #ref = "nixos-${import ../../version.nix}";
-      ref = "main";
+      ref = "nixos-${import ../../version.nix}";
     });
   in [nixvim.homeManagerModules.nixvim];
   
@@ -85,12 +84,11 @@ in {
 
   programs.neovide = {
     enable = true;
-    settings = {
-      frame = "transparent";
+    settings = ({
       font = let
         family = "JetBrainsMono Nerd Font";
       in {
-        size = 14;
+        size = if pkgs.stdenv.isDarwin then 14 else 10;
         normal = [{
           inherit family;
           style = "Normal";
@@ -108,6 +106,8 @@ in {
           style = "ExtraBold-Italic";
         }];
       };
-    };
+    } // lib.optionalAttrs pkgs.stdenv.isDarwin {
+      frame = "transparent";
+    });
   };
 }

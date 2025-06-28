@@ -23,7 +23,9 @@ while read line; do
                 if [ $(uname) = Darwin ]; then
                         MESSAGE="$MESSAGE\n\n"
                 else
-                        MESSAGE="$MESSAGE\r\r"
+                        MESSAGE="$MESSAGE
+
+"
                 fi
         fi
 
