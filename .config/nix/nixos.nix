@@ -1,5 +1,14 @@
-{ lib, pkgs, ... }: lib.mkIf (builtins.pathExists "/etc/nixos/configuration.nix") {
-  fileSystems = {} // lib.optionalAttrs pkgs.stdenv.isAarch64 {
+{ lib, pkgs, ... }: let
+  isNixos = builtins.pathExists "/etc/nixos/configuration.nix";
+in lib.optionalAttrs isNixos ({
+  services = {
+    xserver = {
+      desktopManager.pantheon.enable = true;
+      enable = true;
+    };
+  };
+} // (lib.optionalAttrs (isNixos && pkgs.stdenv.isAarch64) {
+  fileSystems = {
     "/rosetta" = {
       device = "rosetta";
       fsType = "virtiofs";
@@ -10,10 +19,4 @@
       ];
     };
   };
-  services = {
-    xserver = {
-      desktopManager.pantheon.enable = true;
-      enable = true;
-    };
-  };
-}
+}))
