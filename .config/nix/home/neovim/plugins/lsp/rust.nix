@@ -17,6 +17,7 @@
         features = "all";
         targetDir = true;
       };
+      semanticHighlighting.strings.enable = false;
     };
   };
 }

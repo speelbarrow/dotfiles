@@ -6,8 +6,10 @@
     lazyLoad.enable = false;
 
     settings = {
+      incremental_selection.enable = true;
       indent.enable = true;
       highlight.enable = true;
+      textobjects.enable = true;
     };
   };
   treesitter-context = {

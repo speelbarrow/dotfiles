@@ -19,7 +19,11 @@
         cores = if isDarwin
                 then "sysctl -n hw.ncpu"
                 else "nproc --all";
-      in "${command} switch --cores $(${cores}) --max-jobs $(${cores}) |& nom";
+        sudo = if isDarwin || builtins.pathExists "/etc/nixos" then "sudo" else "";
+      in ''
+        ${sudo} nix-channel --update
+        ${sudo} ${command} switch --cores $(${cores}) --max-jobs $(${cores}) |& nom
+      '';
 
       eza = "command eza -l --header --git --icons";
       z = let
@@ -58,7 +62,6 @@
       cmake
       cmakeCurses
       curl
-      docker
       eza
       ffmpeg
       git
