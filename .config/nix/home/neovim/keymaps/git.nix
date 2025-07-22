@@ -72,7 +72,7 @@ in lib.mapAttrsToList mkAction {
   P = warn "force push" "Git push -f";
   R = warn "reset buffer" "Gitsigns reset_buffer";
   S = fallback "stash" "stash list";
-  X = warn "amend commit and push" { __raw = ''function()
+  X = warn "amend commit and force push" { __raw = ''function()
     vim.cmd "Git commit --amend"
     vim.api.nvim_create_autocmd("User", {
       pattern = "FugitiveChanged",

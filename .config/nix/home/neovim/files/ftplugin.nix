@@ -28,4 +28,9 @@
     vim.o.softtabstop = 8
     vim.o.tabstop = 8
   '';
+  "after/ftplugin/sql.lua".text = ''
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.tabstop = 2
+  '';
 }

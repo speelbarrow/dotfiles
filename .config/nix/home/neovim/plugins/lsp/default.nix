@@ -9,8 +9,11 @@
           cmp.abort()
         elseif copilot.is_visible() then
           copilot.dismiss()
-        else
+        elseif fallback ~= nil then
           fallback()
+        else
+          vim.api.nvim_feedkeys(
+            vim.api.nvim_replace_termcodes("<S-BS>", true, false, true), "n", false)
         end
       end'';
     } // maps);
@@ -38,7 +41,7 @@
           group_index = 2;
         }
         {
-          name = "treesitter";
+   name = "treesitter";
           group_index = 3;
         }
       ];
@@ -232,6 +235,7 @@
             vim.lsp.buf.hover()
           end
         end''; 
+        "<S-F1>" = "<Cmd>checkhealth vim.lsp<CR>";
         # F2: smartRename -> home/neovim/plugins/treesitter.nix
         "<F3>".__raw = "vim.lsp.buf.code_action";
         "<F4>".__raw = ''function()
@@ -264,6 +268,7 @@
   lsp-format = {
     enable = true;
     lazyLoad.settings.event = "LspAttach";
+    settings.sql.exclude = ["sqls"];
   };
   otter = {
     enable = true;

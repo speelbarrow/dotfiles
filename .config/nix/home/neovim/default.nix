@@ -33,6 +33,7 @@ in {
       
       luaLoader.enable = true;
 
+      globals.health.style = "float";
       opts = {
         colorcolumn = "+1";
         expandtab = true;
