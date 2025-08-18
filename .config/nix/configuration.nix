@@ -1,4 +1,4 @@
-{ config, lib, pkgs, ... }: let
+{ config, lib, modulesPath, pkgs, ... }: let
 in import ./mkDir.nix {
   args = {
     inherit config lib pkgs;
@@ -8,7 +8,7 @@ in import ./mkDir.nix {
     { nixpkgs.config.allowUnfree = true; }
     (
       if builtins.pathExists "/etc/nixos/configuration.nix" 
-      then ((import /etc/nixos/configuration.nix) { inherit config pkgs; })
+      then ((import /etc/nixos/configuration.nix) { inherit config lib modulesPath pkgs; })
       else {}
     )
   ];
