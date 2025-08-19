@@ -8,5 +8,4 @@
       enable = true;
     };
   };
-  virtualisation.rosetta.enable = true;
 }
