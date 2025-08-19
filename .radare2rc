@@ -1,0 +1,30 @@
+# Assembly
+e asm.bytes=false
+e asm.cmt.right=false
+e asm.flags.offset=true
+e asm.invhex=true
+e asm.lines.fcn=true
+e asm.lines.width=5
+e asm.sub.names=true
+e asm.symbol=true
+e asm.xrefs=false
+
+# Clippy
+e cfg.fortunes.clippy=true
+e cfg.fortunes.type=fun,tips,nsfw
+
+# Misc
+e bin.relocs.apply=true
+e dbg.bpinmaps=false
+e hex.align=true
+e hex.comments=true
+e hex.offset=true
+e scr.utf8=true
+e scr.utf8.curvy=true
+e scr.color=1
+
+# Aliases
+"$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stackq=pxaq `dr rbp`-`dr rsp` @ `dr rsp`"
+"$print=!echo -n "
+"$println=!echo "
