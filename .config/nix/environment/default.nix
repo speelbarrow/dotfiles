@@ -70,7 +70,6 @@
       platformio-core
       probe-rs-tools
       python3
-      radare2
       ripgrep
       rustup
       sl

@@ -9,7 +9,7 @@ in lib.mkIf isDarwin ({
       fi
     '';
     systemPackages = [
-      casks.onyx
+        # casks.onyx
       darwin.libiconv
       google-chrome
       imagemagick # required for folderify
@@ -30,9 +30,6 @@ in lib.mkIf isDarwin ({
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
-  nixpkgs.overlays = [
-    (final: prev: with casks; { inherit ghostty neovide; })
-  ];
   security.pam.services.sudo_local.touchIdAuth = true;
 } // lib.optionalAttrs isDarwin {
   system = {
