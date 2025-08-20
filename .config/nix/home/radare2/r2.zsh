@@ -40,8 +40,13 @@ function r2new {
 
 
         echo "fs *" > "$NEWDIR/flags"
-        echo "CC-*" > "$NEWDIR/comments"
         echo "db-*" > "$NEWDIR/breakpoints"
+
+        cat > "$NEWDIR/comments" <<EOF
+CC-*
+
+# "CC " @ main+
+EOF
 
         cat > "$NEWDIR/r2" <<EOF
 . flags
