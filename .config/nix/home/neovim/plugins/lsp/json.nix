@@ -1,0 +1,3 @@
+{ ... }: {
+  jsonls.enable = true;
+}

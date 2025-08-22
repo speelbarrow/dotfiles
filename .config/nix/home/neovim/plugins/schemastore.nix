@@ -1,0 +1,5 @@
+{ ... }: {
+  schemastore = {
+    enable = true;
+  };
+}

@@ -29,11 +29,14 @@
         run = function()
           local stripped = root:gsub("/Cargo%.toml$", "")
           local path = (vim.fn.expand "%:p"):gsub("^" .. stripped, "")
-          local name, count = path:gsub("^/examples/", "")
-          if count == 0 then
-            return "r"
+          local bin_name, bin_count = path:gsub("^/src/bin/", "")
+          local examples_name, examples_count = path:gsub("^/examples/", "")
+          if bin_count > 0 then
+            return "r --bin=" .. bin_name:gsub("%.rs$", "")
+          elseif examples_count > 0 then
+            return "r --example=" .. examples_name:gsub("%.rs$", "")
           else
-            return "r --example=" .. name:gsub("%.rs$", "")
+            return "r"
           end
         end,
         debug = "d",

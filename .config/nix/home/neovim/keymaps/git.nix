@@ -53,6 +53,7 @@ in lib.mapAttrsToList mkAction {
   c = "Git commit";
   d.withV = "Gitsigns preview_hunk";
   l = fallback "commits" "log";
+  n = "Gitsigns next_hunk";
   p = "Git push | Git push --tags";
   r.withV = warn "reset hunk" "Gitsigns reset_hunk";
   s = fallback "status" "status";
@@ -69,6 +70,7 @@ in lib.mapAttrsToList mkAction {
   A = "Gitsigns stage_buffer";
   C = warn "amend commit" "Git commit --amend";
   L = fallback "bcommits" "log %";
+  N = "Gitsigns prev_hunk";
   P = warn "force push" "Git push -f";
   R = warn "reset buffer" "Gitsigns reset_buffer";
   S = fallback "stash" "stash list";

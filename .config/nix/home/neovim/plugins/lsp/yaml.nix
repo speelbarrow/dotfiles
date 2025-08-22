@@ -1,0 +1,3 @@
+{ ... }: {
+  yamlls.enable = true;
+}
