@@ -15,7 +15,6 @@ function r2 {
                 command r2 $@
         fi
 }
-alias r2d="r2 -e bin.relocs.apply=false -d"
 function r2new {
         if [ -z "$1" ]
         then
