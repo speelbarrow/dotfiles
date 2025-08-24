@@ -44,7 +44,7 @@ function r2new {
         cat > "$NEWDIR/comments" <<EOF
 CC-*
 
-# "CC " @ main+
+#"CC " @ main+
 EOF
 
         cat > "$NEWDIR/r2" <<EOF

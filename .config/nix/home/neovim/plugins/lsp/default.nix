@@ -268,7 +268,10 @@
   lsp-format = {
     enable = true;
     lazyLoad.settings.event = "LspAttach";
-    settings.sql.exclude = ["sqls"];
+    settings = {
+      lua.exclude = ["lua_ls"];
+      sql.exclude = ["sqls"];
+    };
   };
   otter = {
     enable = true;
