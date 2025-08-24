@@ -25,6 +25,6 @@ e scr.color=1
 
 # Aliases
 "$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
-"$stackq=pxaq `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stackq=pxq `dr rbp`-`dr rsp` @ `dr rsp`"
 "$print=!echo -n "
 "$println=!echo "
