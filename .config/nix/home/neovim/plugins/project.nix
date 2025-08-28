@@ -15,6 +15,7 @@
     };
     settings = {
       ignore_lsp = [
+        "clangd"
         "copilot"
         "lua_ls"
         "rust_analyzer"

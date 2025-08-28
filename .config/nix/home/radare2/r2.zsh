@@ -37,31 +37,27 @@ function r2new {
                 mkdir "$NEWDIR"
         fi
 
-
+        echo "af @ main" > "$NEWDIR/functions"
         echo "fs *" > "$NEWDIR/flags"
-        echo "db-*" > "$NEWDIR/breakpoints"
-
         cat > "$NEWDIR/comments" <<EOF
 CC-*
 
 #"CC " @ main+
 EOF
-
+        echo "db-*" > "$NEWDIR/breakpoints"
         cat > "$NEWDIR/r2" <<EOF
+. functions
 . flags
 . comments
 . breakpoints
 
 s main
-af
 pdf
 EOF
-        
         cat > "$NEWDIR/profile.rr2" <<EOF
 #!/usr/bin/rarun2
 
 stdin=./txt
 EOF
-
         touch "$NEWDIR/txt"
 }

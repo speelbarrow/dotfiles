@@ -21,6 +21,6 @@
     filetypes = ["arduino"];
   };
 
-  ccls.enable = true;
+  clangd.enable = true;
   cmake.enable = true;
 }
