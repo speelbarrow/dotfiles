@@ -10,7 +10,7 @@ function r2 {
                 then
                         CMD+=("-r" "./profile.rr2")
                 fi
-                ${CMD[@]} -e bin.relocs.apply=true $@ ./executable
+                ${CMD[@]} $@ ./executable
         else
                 command r2 $@
         fi

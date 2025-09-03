@@ -14,7 +14,6 @@ e cfg.fortunes.clippy=true
 e cfg.fortunes.type=fun,tips,nsfw
 
 # Misc
-e bin.relocs.apply=true
 e dbg.bpinmaps=false
 e hex.align=true
 e hex.comments=true
@@ -26,7 +25,6 @@ e scr.prompt.flag=true
 e scr.prompt.mode=true
 e scr.prompt.vi=true
 e scr.scrollbar=1
-e scr.theme=iaito
 e scr.utf8=true
 e scr.utf8.curvy=true
 e scr.wheel=true
@@ -34,7 +32,8 @@ e scr.wheel=true
 . ~/.config/radare2/dracula.r2
 
 # Aliases
-"$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stack=px `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stackw=pxw `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackq=pxq `dr rbp`-`dr rsp` @ `dr rsp`"
 "$print=!echo -n "
 "$println=!echo "
