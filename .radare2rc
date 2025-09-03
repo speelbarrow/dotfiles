@@ -20,17 +20,18 @@ e hex.align=true
 e hex.comments=true
 e hex.offset=true
 e scr.analbar=true
-e scr.color=1
+e scr.color=3
 e scr.prompt.code=true
 e scr.prompt.flag=true
 e scr.prompt.mode=true
 e scr.prompt.vi=true
-e scr.rainbow=true
 e scr.scrollbar=1
 e scr.theme=iaito
 e scr.utf8=true
 e scr.utf8.curvy=true
 e scr.wheel=true
+
+. ~/.config/radare2/dracula.r2
 
 # Aliases
 "$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
