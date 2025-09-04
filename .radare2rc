@@ -15,7 +15,6 @@ e cfg.fortunes.type=fun,tips,nsfw
 
 # Misc
 e dbg.bpinmaps=false
-e hex.align=true
 e hex.comments=true
 e hex.offset=true
 e scr.analbar=true
@@ -32,7 +31,7 @@ e scr.wheel=true
 . ~/.config/radare2/dracula.r2
 
 # Aliases
-"$stack=px `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackw=pxw `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackq=pxq `dr rbp`-`dr rsp` @ `dr rsp`"
 "$print=!echo -n "
