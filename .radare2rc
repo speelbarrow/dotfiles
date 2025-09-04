@@ -27,6 +27,7 @@ e scr.scrollbar=1
 e scr.utf8=true
 e scr.utf8.curvy=true
 e scr.wheel=true
+e scr.wheel.speed=1
 
 . ~/.config/radare2/dracula.r2
 
