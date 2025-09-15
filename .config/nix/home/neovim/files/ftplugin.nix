@@ -1,5 +1,13 @@
 # TODO: Make this better
-{ ... }: {
+{ ... }: let
+  javascript = {
+    text = ''
+      vim.o.shiftwidth = 2
+      vim.o.softtabstop = 2
+      vim.o.tabstop = 2
+    '';
+  };
+in {
   "after/ftplugin/arduino.lua".text = ''
     vim.o.shiftwidth = 4
     vim.o.softtabstop = 4
@@ -33,6 +41,7 @@
     vim.o.softtabstop=2
     vim.o.tabstop=2
   '';
+  "after/ftplugin/javascript.lua" = javascript;
   "after/ftplugin/sh.lua".text = ''
     vim.o.shiftwidth = 8
     vim.o.softtabstop = 8
@@ -43,4 +52,5 @@
     vim.o.softtabstop = 2
     vim.o.tabstop = 2
   '';
+  "after/ftplugin/typescript.lua" = javascript;
 }

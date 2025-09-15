@@ -35,5 +35,5 @@ e scr.wheel.speed=1
 "$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackw=pxw `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackq=pxq `dr rbp`-`dr rsp` @ `dr rsp`"
-"$print=!echo -n "
+"$print=!printf "
 "$println=!echo "
