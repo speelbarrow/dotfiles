@@ -13,17 +13,23 @@ e asm.xrefs=false
 e cfg.fortunes.clippy=true
 e cfg.fortunes.type=fun,tips,nsfw
 
-# Misc
-e dbg.bpinmaps=false
+# Hexdump
 e hex.comments=true
 e hex.offset=true
-e scr.analbar=true
-e scr.color=3
+
+# Visual mode
+e scr.scrollbar=1
+
+# Prompt
 e scr.prompt.code=true
 e scr.prompt.flag=true
 e scr.prompt.mode=true
 e scr.prompt.vi=true
-e scr.scrollbar=1
+
+# Misc
+e dbg.bpinmaps=false
+e scr.analbar=true
+e scr.color=3
 e scr.utf8=true
 e scr.utf8.curvy=true
 e scr.wheel=true
