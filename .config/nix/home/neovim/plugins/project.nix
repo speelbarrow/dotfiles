@@ -24,6 +24,7 @@
       patterns = [
         ".git"
         "Cargo.toml"
+        "CMakeLists.txt"
         "pyproject.toml"
         "package.json"
         ">.config"

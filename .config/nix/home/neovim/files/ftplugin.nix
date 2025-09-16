@@ -20,6 +20,11 @@ in {
     vim.o.tabstop = 8
   '';
   "after/ftplugin/c.lua".text = "vim.o.textwidth = 120";
+  "after/ftplugin/cmake.lua".text = ''
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.tabstop = 2
+  '';
   "after/ftplugin/cpp.lua".text = "vim.o.textwidth = 120";
   "after/ftplugin/markdown.lua".text = ''
     vim.o.shiftwidth = 2
