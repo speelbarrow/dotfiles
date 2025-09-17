@@ -1,5 +1,5 @@
 { ... }: [{
   action = "<Cmd>noh<CR>";
   key = "<A-h>";
-  mode = ["n" "i" "v"];
+  mode = ["n" "i" "v" "t"];
 }]

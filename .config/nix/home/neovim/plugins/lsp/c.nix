@@ -21,6 +21,10 @@
     filetypes = ["arduino"];
   };
 
-  clangd.enable = true;
+  clangd = rec {
+    enable = true;
+    rootMarkers = ["CMakeLists.txt"];
+    settings.root_markers = rootMarkers;
+  };
   cmake.enable = true;
 }

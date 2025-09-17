@@ -49,17 +49,27 @@
       za = "eza -a";
       zz = "z --tree";
       zza = "za --tree";
+
       ccmake = "ccmake -S . -B build";
+
+      nix-shell = "nix-shell --run $SHELL";
+      nom-shell = "nom-shell --run $SHELL";
     };
 
     systemPackages = with pkgs; [
+      # The order is important!
+      cmake
+      llvmPackages.lldb
+      clang-tools
+      llvmPackages.libstdcxxClang
+      llvmPackages.libllvm
+      llvmPackages.libcxx
+
       arduino-cli
       avrdude
       cargo-expand
       cargo-generate
       clang
-      clang-tools
-      cmake
       cmakeCurses
       curl
       eza
