@@ -52,14 +52,13 @@
 
       ccmake = "ccmake -S . -B build";
 
-      nix-shell = "nix-shell --run $SHELL";
-      nom-shell = "nom-shell --run $SHELL";
+      nix-zsh = ''nix-shell --run "$SHELL --login"'';
+      nom-zsh = ''nom-shell --run "$SHELL --login"'';
     };
 
     systemPackages = with pkgs; [
       # The order is important!
       cmake
-      llvmPackages.lldb
       clang-tools
       llvmPackages.libstdcxxClang
       llvmPackages.libllvm

@@ -27,6 +27,7 @@ in lib.mkIf isDarwin ({
       })
       tun2proxy
       utm
+      xquartz
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };

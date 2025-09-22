@@ -22,9 +22,9 @@
   };
 
   clangd = rec {
+    cmd = ["clangd" "--compile-commands-dir=build"];
     enable = true;
-    rootMarkers = ["CMakeLists.txt"];
-    settings.root_markers = rootMarkers;
+    settings.cmd = cmd;
   };
   cmake.enable = true;
 }
