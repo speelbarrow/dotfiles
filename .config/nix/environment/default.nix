@@ -75,7 +75,6 @@
       ffmpeg
       git
       gnumake
-      mosh
       nix-output-monitor
       platformio-core
       probe-rs-tools
