@@ -23,9 +23,11 @@
 
     localVariables = with lib; mkMerge [
       {
+        DRACULA_ARROW_ICON = "-> ";
         DRACULA_DISPLAY_CONTEXT = 1;
         DRACULA_DISPLAY_FULL_CWD = 1;
-        DRACULA_ARROW_ICON = "-> ";
+        DRACULA_DISPLAY_TIME = 1;
+        DRACULA_TIME_FORMAT = "%-I:%M:%S %p";
         ZSH_THEME = "dracula";
       }
       (mkIf pkgs.stdenv.isLinux { DEBIAN_PREVENT_KEYBOARD_CHANGES = "yes"; })

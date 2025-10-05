@@ -66,6 +66,7 @@
 
       arduino-cli
       avrdude
+      bun
       cargo-expand
       cargo-generate
       clang

@@ -26,6 +26,16 @@ in {
     vim.o.tabstop = 2
   '';
   "after/ftplugin/cpp.lua".text = "vim.o.textwidth = 120";
+  "after/ftplugin/css.lua".text = ''
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.tabstop = 2
+  '';
+  "after/ftplugin/html.lua".text = ''
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.tabstop = 2
+  '';
   "after/ftplugin/markdown.lua".text = ''
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2
@@ -53,6 +63,11 @@ in {
     vim.o.tabstop = 8
   '';
   "after/ftplugin/sql.lua".text = ''
+    vim.o.shiftwidth = 2
+    vim.o.softtabstop = 2
+    vim.o.tabstop = 2
+  '';
+  "after/ftplugin/toml.lua".text = ''
     vim.o.shiftwidth = 2
     vim.o.softtabstop = 2
     vim.o.tabstop = 2

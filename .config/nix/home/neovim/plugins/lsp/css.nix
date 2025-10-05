@@ -1,0 +1,3 @@
+{ ... }: {
+  cssls.enable = true;
+}

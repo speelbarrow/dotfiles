@@ -13,7 +13,6 @@ in lib.mkIf isDarwin ({
       darwin.libiconv
       google-chrome
       imagemagick # required for folderify
-      raycast
       (rustPlatform.buildRustPackage rec {
         pname = "folderify";
         version = "v4.1.0";
@@ -25,6 +24,7 @@ in lib.mkIf isDarwin ({
           sha256 = "eunyn8uUL77J6xnt/2iofT4+qRmkP8eNGx/4DsDh6u0=";
         };
       })
+      terminal-notifier
       tun2proxy
       utm
       xquartz
