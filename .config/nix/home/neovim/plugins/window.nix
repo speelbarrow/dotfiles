@@ -1,4 +1,4 @@
-{ ... }: {
+{ pkgs, ... }: {
   barbar.enable = true;
   scope = {
     enable = true;
@@ -13,4 +13,14 @@
       end'';
     };
   };
+  imports = [pkgs.vimPlugins.windows-nvim];
+  lz-n.plugins = [
+    {
+      __unkeyed-1 = "windows";
+      event = "WinNew";
+      after.__raw = ''function()
+        require "windows".setup {}
+      end'';
+    }
+  ];
 }

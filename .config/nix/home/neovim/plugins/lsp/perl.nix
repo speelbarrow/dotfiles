@@ -1,0 +1,3 @@
+{ ... }: {
+  perlnavigator.enable = true;
+}

@@ -23,7 +23,7 @@
         }
       }
     '';
-  }// (with builtins; lib.mapAttrs' 
+  } // (with builtins; lib.mapAttrs' 
     (name: _: let     
       actionMap = import ./${name} { inherit lib pkgs; };
     in {
