@@ -37,7 +37,7 @@ e scr.wheel.speed=1
 . ~/.config/radare2/dracula.r2
 
 # Aliases
-"$stack=pxa `dr rbp`-`dr rsp` @ `dr rsp`"
+"$stack=px `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackw=pxw `dr rbp`-`dr rsp` @ `dr rsp`"
 "$stackq=pxq `dr rbp`-`dr rsp` @ `dr rsp`"
 "$print=!printf "
