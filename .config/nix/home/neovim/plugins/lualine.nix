@@ -52,13 +52,16 @@
             cond.__raw = "function() return vim.b.copilot_suggestion_auto_trigger == true end";
           }
           {
-            __unkeyed-1 = "'󱗢'";
-            cond.__raw = "function() return not vim.diagnostic.is_enabled() end";
-            color.fg.__raw = "colors.white";
+            __unkeyed-1 = "' '";
+            cond.__raw = "require'treesitter-context'.enabled";
           }
           {
-            __unkeyed-1 = "vim.wo.spell and '󱍓' or '󰏯'";
-            color.__raw = ''function() return vim.wo.spell and {} or { fg = colors["white"] } end'';
+            __unkeyed-1 = "'󰔨 '";
+            cond.__raw = "function() return vim.diagnostic.is_enabled() end";
+          }
+          {
+            __unkeyed-1 = "'󱍓 '";
+            cond.__raw = "function() return vim.wo.spell end";
           }
           "o:shiftwidth" "filetype" 
         ];

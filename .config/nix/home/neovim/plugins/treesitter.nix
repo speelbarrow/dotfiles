@@ -3,7 +3,6 @@
 } // v) {
   treesitter = {
     enable = true;
-    lazyLoad.enable = false;
 
     settings = {
       incremental_selection.enable = true;
@@ -13,7 +12,6 @@
     };
   };
   treesitter-context = {
-    lazyLoad.settings.event = "User FileOpened";
     settings = {
       mode = "topline";
       multiwindow = true;
@@ -21,12 +19,12 @@
     };
   };
   treesitter-refactor = {
-    smartRename = {
+    settings.smart_rename = {
       enable = true;
-      keymaps.smartRename = "<F2>";
+      keymaps.smart_rename = "<F2>";
     };
   };
-  treesitter-textobjects.lspInterop.enable = true;
+  treesitter-textobjects.settings.lsp_interop.enable = true;
   ts-autotag.lazyLoad.settings.event = "User FileOpened";
   ts-comments.lazyLoad.settings.event = "User FileOpened";
 }

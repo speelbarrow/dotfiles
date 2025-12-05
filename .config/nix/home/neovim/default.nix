@@ -6,7 +6,7 @@ in {
       url = "https://github.com/nix-community/nixvim";
       ref = "nixos-${import ../../version.nix}";
     });
-  in [nixvim.homeManagerModules.nixvim];
+  in [nixvim.homeModules.nixvim];
   
   programs.nixvim = let
     plugins = import ./plugins { inherit config lib pkgs; };

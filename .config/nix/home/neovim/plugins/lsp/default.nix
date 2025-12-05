@@ -188,10 +188,10 @@
         yaml = true;
       };
       panel.keymap = {
-        accept = "<S-Enter>";
-        jump_next = "<S-Down>";
-        jump_prev = "<S-Up>";
-        refresh = "<S-BS>";
+        accept = "<Enter>";
+        jump_next = "<Down>";
+        jump_prev = "<Up>";
+        refresh = "<BS>";
       };
       suggestion = {
         hide_during_completion = false;
@@ -246,7 +246,8 @@
         end'';
         "<F5>".__raw = "vim.lsp.buf.implementation";
         "<F6>".__raw = "vim.diagnostic.open_float";
-        "<F10>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
+        "<F9>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
+        "<F10>".__raw = "require'treesitter-context'.toggle";
         "<F11>".__raw = "function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end";
         "<F12>".__raw = "function() vim.wo.spell = not vim.wo.spell end";
       };

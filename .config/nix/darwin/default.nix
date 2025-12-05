@@ -1,6 +1,4 @@
-{ config, lib, isDarwin, pkgs, ... }: let
-  casks = import ./casks.nix pkgs;
-in lib.mkIf isDarwin ({
+{ lib, isDarwin, pkgs, ... }: lib.mkIf isDarwin ({
   environment = with pkgs; {
     interactiveShellInit = ''
       command -v container >/dev/null 2>&1
@@ -27,22 +25,9 @@ in lib.mkIf isDarwin ({
       terminal-notifier
       tun2proxy
       utm
-      xquartz
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
   security.pam.services.sudo_local.touchIdAuth = true;
-} // lib.optionalAttrs isDarwin {
-  system = {
-    primaryUser = "speelbarrow";
-    activationScripts.applications.text = let
-      source = "${config.system.build.applications}/Applications/";
-      destination = "/Applications/Nix";
-    in ''
-      echo "Copying .app bundles to ${destination}" >&2
-      mkdir -p "${destination}"
-      ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete \
-        "${source}" "${destination}"
-    '';
-  };
+  system.primaryUser = "speelbarrow";
 })

@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ pkgs, ... }: {
   home = let 
     user = import ../user.nix pkgs.stdenv.isDarwin;
   in {
@@ -7,7 +7,6 @@
     homeDirectory = user.home;
 
     packages = with pkgs; [
-      fritzing
       wireshark
     ];
   };

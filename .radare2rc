@@ -15,7 +15,6 @@ e cfg.fortunes.type=fun,tips,nsfw
 
 # Hexdump
 e hex.comments=true
-e hex.offset=true
 
 # Visual mode
 e scr.scrollbar=1

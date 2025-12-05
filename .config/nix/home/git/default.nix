@@ -1,12 +1,17 @@
 { pkgs, ... }: {
   programs.git = {
     enable = true;
-    
-    extraConfig = {
+
+    settings = {
       core.editor = "nvim";
       init.defaultBranch = "main";
       push.autoSetupRemote = true;
+      user = {
+        name = "Noah Friedman";
+        email = "speelbarrow@speely.net";
+      };
     };
+    
     ignores = if pkgs.stdenv.isDarwin
               then [".DS_Store"]
               else [];
@@ -14,8 +19,6 @@
       key = null;
       signByDefault = true;
     };
-    userEmail = "speelbarrow@speely.net";
-    userName = "Noah Friedman";
   };
 
   programs.gpg = {

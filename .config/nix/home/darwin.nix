@@ -1,15 +1,6 @@
-{ config, lib, pkgs, ... }: let
+{ lib, pkgs, ... }: let
   casks = import ../darwin/casks.nix pkgs;
 in lib.mkIf pkgs.stdenv.isDarwin {
-  home.activation.apps = let
-    source = "$genProfilePath/home-path/Applications/";
-    destination = "./Applications/Nix";
-  in lib.hm.dag.entryAfter ["writeBoundary"] ''
-      echo "Copying .app bundles to ${destination}" >&2
-      mkdir -p "${destination}"
-      ${pkgs.rsync}/bin/rsync --archive --checksum --chmod=-w --copy-unsafe-links --delete \
-        "${source}" "${destination}"
-  '';
   programs.ghostty.settings = {
     font-thicken = true;
     background-blur-radius = 50;
