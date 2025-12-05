@@ -29,5 +29,6 @@
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
   security.pam.services.sudo_local.touchIdAuth = true;
+} // lib.optionalAttrs isDarwin {
   system.primaryUser = "speelbarrow";
 })

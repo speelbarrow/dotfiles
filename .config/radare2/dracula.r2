@@ -11,6 +11,7 @@ ec flow rgb:ff79c6
 ec flow2 rgb:bd93f9
 ec prompt rgb:ff79c6 . bold
 ec bgprompt rgb:282a36
+ec addr rgb:ff79c6
 ec input rgb:f8f8f2
 ec invalid rgb:ff5555 . bold
 ec other rgb:bd93f9

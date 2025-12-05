@@ -3,8 +3,8 @@
     docker
   ];
   services = {
+    desktopManager.pantheon.enable = true;
     xserver = {
-      desktopManager.pantheon.enable = true;
       enable = true;
     };
   };
