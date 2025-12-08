@@ -8,6 +8,7 @@
 
     packages = with pkgs; [
       wireshark
+      typst
     ];
   };
   programs.home-manager.enable = true;

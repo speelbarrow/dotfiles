@@ -3,4 +3,5 @@
     enable = true;
     settings.theme = "dark";
   };
+  typst-preview.enable = true;
 }

@@ -12,5 +12,6 @@
     };
     lz-n.enable = true;
     web-devicons.enable = true;
+    schemastore.yaml.enable = false;
   }];
 }

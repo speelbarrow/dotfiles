@@ -31,4 +31,5 @@ in {
   "after/ftplugin/sql.lua".text = two;
   "after/ftplugin/toml.lua".text = two;
   "after/ftplugin/typescript.lua".text = two;
+  "after/ftplugin/typst.lua".text = two;
 }
