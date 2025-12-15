@@ -2,5 +2,7 @@
   home.packages = with pkgs; [
     vesktop
   ];
-  programs.nixvim.plugins.cord.enable = true;
+  programs.nixvim.plugins.cord = {
+    enable = true;
+  };
 }
