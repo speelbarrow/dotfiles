@@ -14,9 +14,14 @@
       background-opacity = 0.9;
       window-padding-balance = true;
       quit-after-last-window-closed = true;
-      shell-integration-features = "no-cursor";
+      shell-integration-features = "no-cursor,ssh-terminfo";
       bold-is-bright = true;
       auto-update = "off";
+      keybind = [
+        "f1=set_font_size:10"
+        "f2=set_font_size:14"
+        "f3=set_font_size:18"
+      ];
     };
   };
 }

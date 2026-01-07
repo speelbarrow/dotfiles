@@ -1,4 +1,4 @@
-{ lib, pkgs, ... }: {
+{ ... }: {
   project-nvim = {
     enable = true;
     enableTelescope = true;

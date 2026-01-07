@@ -7,7 +7,6 @@
       fi
     '';
     systemPackages = [
-        # casks.onyx
       darwin.libiconv
       google-chrome
       imagemagick # required for folderify

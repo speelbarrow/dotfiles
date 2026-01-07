@@ -40,6 +40,7 @@ in {
         mouse = "a";
         number = true;
         # scrolloff = 20;
+        sessionoptions.__raw = "vim.o.sessionoptions .. ',globals'"; # required for `projections`
         shell = "zsh --login"; # required to get all the sourcings just right
         shiftwidth = 4;
         showmode = false;

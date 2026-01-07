@@ -244,7 +244,8 @@
         "<S-F4>".__raw = ''function()
           require "telescope.builtin".lsp_type_definitions(require "telescope.themes".get_cursor {})
         end'';
-        "<F5>".__raw = "vim.lsp.buf.implementation";
+        "<F5>".__raw = "vim.lsp.buf.references";
+        "<S-F5>".__raw = "vim.lsp.buf.implementation";
         "<F6>".__raw = "vim.diagnostic.open_float";
         "<F9>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
         "<F10>".__raw = "require'treesitter-context'.toggle";

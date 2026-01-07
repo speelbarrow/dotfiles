@@ -1,5 +1,4 @@
 { lib, pkgs, ... }: let
-  casks = import ../darwin/casks.nix pkgs;
 in lib.mkIf pkgs.stdenv.isDarwin {
   programs.ghostty.settings = {
     font-thicken = true;
@@ -12,9 +11,6 @@ in lib.mkIf pkgs.stdenv.isDarwin {
     macos-icon-ghost-color = "green";
     macos-icon-screen-color = "red";
   };
-  programs.ghostty.package = casks.ghostty // {
-    meta.mainProgram = "ghostty";
-  };
-  programs.neovide.package = casks.neovide-app;
+  programs.ghostty.package = pkgs.ghostty-bin; 
   programs.zsh.shellAliases.python = "python3";
 }
