@@ -27,6 +27,37 @@
     ];
     variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
   };
+  nixpkgs.overlays = [(final: prev: with pkgs; {
+    godot = let
+      version = "4.6";
+      flavour = "stable";
+      fullVersion = "${version}-${flavour}";
+      name = "Godot_v${fullVersion}_macos.universal.zip";
+    in stdenv.mkDerivation {
+      inherit (prev.godot) pname;
+      version = fullVersion;
+
+      src = fetchurl {
+        inherit name;
+        url = "https://downloads.godotengine.org/?version=${version}&flavor=${flavour}&slug=macos.universal.zip&platform=macos.universal";
+        hash = "sha256-/BXOtigEIPEXq072IzJlTbAIgHj67rkCXdgUJ2GF7Ts=";
+      };
+      man = null;
+      nativeBuildInputs = [ unzip ];
+      sourceRoot = ".";
+      installPhase = ''
+        runHook preInstall
+        # unzip ${name}
+        mkdir -p $out/Applications
+        cp -R Godot.app $out/Applications
+        runHook postInstall
+      '';
+
+      meta = prev.godot.meta // {
+        platforms = lib.platforms.darwin;
+      };
+    };
+  })];
   security.pam.services.sudo_local.touchIdAuth = true;
 } // lib.optionalAttrs isDarwin {
   system.primaryUser = "speelbarrow";

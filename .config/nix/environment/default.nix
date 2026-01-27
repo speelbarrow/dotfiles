@@ -67,6 +67,7 @@
       arduino-cli
       avrdude
       bun
+      chatterino7
       cargo-expand
       cargo-generate
       clang
@@ -76,6 +77,7 @@
       ffmpeg
       git
       gnumake
+      godot
       nix-output-monitor
       platformio-core
       probe-rs-tools

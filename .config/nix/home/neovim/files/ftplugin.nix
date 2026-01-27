@@ -10,7 +10,7 @@
   eight = make "8";
 in {
   "after/ftplugin/arduino.lua".text = four + ''
-    vim.o.textwidth = 120
+    vim.bo.textwidth = 120
   '';
   "after/ftplugin/asm.lua".text = eight;
   "after/ftplugin/c.lua".text = "vim.o.textwidth = 120";
@@ -31,5 +31,8 @@ in {
   "after/ftplugin/sql.lua".text = two;
   "after/ftplugin/toml.lua".text = two;
   "after/ftplugin/typescript.lua".text = two;
-  "after/ftplugin/typst.lua".text = two;
+  "after/ftplugin/typst.lua".text = two + ''
+    vim.o.spell = true
+    vim.bo.textwidth = 0
+  '';
 }

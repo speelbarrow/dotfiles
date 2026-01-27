@@ -6,6 +6,7 @@
         for option, value in pairs {
           number = disable ~= true,
           wrap = disable ~= true,
+          spell = disable ~= true,
         } do
           if winid ~= nil and vim.wo[winid] ~= nil then
             vim.wo[winid][option] = value
