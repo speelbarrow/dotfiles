@@ -47,7 +47,6 @@
       sourceRoot = ".";
       installPhase = ''
         runHook preInstall
-        # unzip ${name}
         mkdir -p $out/Applications
         cp -R Godot.app $out/Applications
         runHook postInstall

@@ -3,7 +3,9 @@
     enable = true;
     settings = {
       formatterMode = "typstyle";
-      formatterPrintWidth = 100;
+      formatterPrintWidth = 80;
+      formatterProseWrap = true;
+      lint.enabled = true;
     };
   };
 }

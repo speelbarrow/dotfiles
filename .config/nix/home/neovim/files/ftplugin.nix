@@ -32,7 +32,7 @@ in {
   "after/ftplugin/toml.lua".text = two;
   "after/ftplugin/typescript.lua".text = two;
   "after/ftplugin/typst.lua".text = two + ''
-    vim.o.spell = true
-    vim.bo.textwidth = 0
+    vim.wo.spell = true
+    vim.bo.textwidth = 80
   '';
 }
