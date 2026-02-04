@@ -1,4 +1,5 @@
 { lib, pkgs, ... }: {
+  /*
   arduino_language_server = {
     enable = true;
     extraOptions = {
@@ -20,11 +21,18 @@
     };
     filetypes = ["arduino"];
   };
+  */
 
-  clangd = rec {
-    cmd = ["clangd" "--compile-commands-dir=build"];
+  clangd = let
+    clang-tools = pkgs.clang-tools.override {
+      clang = pkgs.llvmPackages.clang-unwrapped;
+    };
+  in {
+    cmd = ["${clang-tools.outPath}/bin/clangd" 
+      "--query-driver=/**/.platformio/**/*-g++"
+    ];
     enable = true;
-    settings.cmd = cmd;
+    package = clang-tools;
   };
   cmake.enable = true;
 }

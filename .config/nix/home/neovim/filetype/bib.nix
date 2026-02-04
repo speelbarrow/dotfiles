@@ -1,5 +1,3 @@
 { ... }: {
-  extension = {
-    bib = "yaml";
-  };
+  extension.bib = "yaml";
 }

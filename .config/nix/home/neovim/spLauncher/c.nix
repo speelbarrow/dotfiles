@@ -1,5 +1,5 @@
 { ... }: {
-  base = "clang";
+  base.__raw = ''if vim.bo.filetype == "cpp" then "clang++" else "clang" end'';
   run.__raw = ''function()
     local temp = vim.fn.tempname()
     return "-o " .. temp .. " % && " .. temp
@@ -42,6 +42,8 @@
         run = " run",
         build = "",
       }
+    elseif vim.fs.root(0, { 'platformio.ini' }) ~= nil then
+      ${import ./platformio.nix}
     end
   '';
 }

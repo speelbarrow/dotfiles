@@ -34,30 +34,40 @@
       fullVersion = "${version}-${flavour}";
       name = "Godot_v${fullVersion}_macos.universal.zip";
     in stdenv.mkDerivation {
-      inherit (prev.godot) pname;
-      version = fullVersion;
+        inherit (prev.godot) pname;
+        version = fullVersion;
 
-      src = fetchurl {
-        inherit name;
-        url = "https://downloads.godotengine.org/?version=${version}&flavor=${flavour}&slug=macos.universal.zip&platform=macos.universal";
-        hash = "sha256-/BXOtigEIPEXq072IzJlTbAIgHj67rkCXdgUJ2GF7Ts=";
-      };
-      man = null;
-      nativeBuildInputs = [ unzip ];
-      sourceRoot = ".";
-      installPhase = ''
+        src = fetchurl {
+          inherit name;
+          url = "https://downloads.godotengine.org/?version=${version}&flavor=${flavour}&slug=macos.universal.zip&platform=macos.universal";
+          hash = "sha256-/BXOtigEIPEXq072IzJlTbAIgHj67rkCXdgUJ2GF7Ts=";
+        };
+        man = null;
+        nativeBuildInputs = [ unzip ];
+        sourceRoot = ".";
+        installPhase = ''
         runHook preInstall
         mkdir -p $out/Applications
         cp -R Godot.app $out/Applications
         runHook postInstall
-      '';
+        '';
 
-      meta = prev.godot.meta // {
-        platforms = lib.platforms.darwin;
+        meta = prev.godot.meta // {
+          platforms = lib.platforms.darwin;
+        };
       };
-    };
+
+    /*
+godot = ((callPackage ((fetchFromGitHub {
+owner = "NixOS";
+repo = "nixpkgs";
+rev = "46d304577ab3fbb7a0242bca9824045aa8bb51fe";
+hash = "sha256-QecVtt9hWjJ74wn+Rzsk1Az8MTuk1GBBRyRCgMv6b/w=";
+sparseCheckout = ["pkgs/development/tools/godot"];
+}).outPath + "/pkgs/development/tools/godot")) {}).godot_4_5;
+*/
   })];
   security.pam.services.sudo_local.touchIdAuth = true;
 } // lib.optionalAttrs isDarwin {
-  system.primaryUser = "speelbarrow";
-})
+    system.primaryUser = "speelbarrow";
+  })

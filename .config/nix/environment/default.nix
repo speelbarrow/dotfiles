@@ -59,7 +59,6 @@
     systemPackages = with pkgs; [
       # The order is important!
       cmake
-      clang-tools
       llvmPackages.libstdcxxClang
       llvmPackages.libllvm
       llvmPackages.libcxx

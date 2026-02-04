@@ -215,7 +215,7 @@
       extra = lib.mapAttrsToList (n: v: {
         action = v;
         key = n;
-        mode = ["n" "i" "v"];
+        mode = ["n" "i" "v" "t"];
       }) {
         "<F1>".__raw = ''function()
 

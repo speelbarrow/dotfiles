@@ -33,8 +33,10 @@
                    (if actionMap ? __raw then actionMap.__raw else "");
     })
     (
-      lib.filterAttrs (name: value: 
-        name != "default.nix" && (
+      lib.filterAttrs (name: value: let
+          skip = ["default.nix" "platformio.nix"];
+      in
+        (builtins.all (x: name != x) skip) && (
           lib.warnIf (value != "regular") "skipping non-regular file '${value}'" value
         ) == "regular"
       ) (readDir ./.)
