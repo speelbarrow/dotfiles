@@ -1,7 +1,5 @@
 CompileFlags:
   BuiltinHeaders: QueryDriver
-  Add:
-    - -nostdlibinc
 InlayHints:
   BlockEnd: true
   DefaultArguments: true
