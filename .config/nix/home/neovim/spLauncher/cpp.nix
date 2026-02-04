@@ -1,1 +1,1 @@
-c.nix
+import ./c.nix
