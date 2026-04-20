@@ -2,11 +2,12 @@
   home.packages = [
     (if pkgs.stdenv.isDarwin then 
       (with pkgs; stdenv.mkDerivation {
-        inherit (vesktop) meta pname version;
+        inherit (vesktop) meta pname;
+        version = "1.6.5";
         src = fetchurl {
           name = "Vesktop.dmg";
           url = "https://vencord.dev/download/vesktop/universal/dmg";
-          hash = "sha256-LxX1CAdgg5b0uUgLjqs1vhyLT1J2Tgj4Pz0vEMFFp7o=";
+          hash = "sha256-mmPmovVyU8y0olrHuZBGZUo53HvFXghhmVeZLTSIfpM=";
         };
         nativeBuildInputs = [ undmg ];
         sourceRoot = ".";

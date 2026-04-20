@@ -52,6 +52,10 @@
             cond.__raw = "function() return vim.b.copilot_suggestion_auto_trigger == true end";
           }
           {
+            __unkeyed-1 = "'󰖶 '";
+            cond.__raw = "function() return vim.wo.wrap end";
+          }
+          {
             __unkeyed-1 = "' '";
             cond.__raw = "require'treesitter-context'.enabled";
           }

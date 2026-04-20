@@ -7,6 +7,7 @@
       fi
     '';
     systemPackages = [
+      blueutil
       darwin.libiconv
       google-chrome
       imagemagick # required for folderify
@@ -29,7 +30,7 @@
   };
   nixpkgs.overlays = [(final: prev: with pkgs; {
     godot = let
-      version = "4.6";
+      version = "4.6.2";
       flavour = "stable";
       fullVersion = "${version}-${flavour}";
       name = "Godot_v${fullVersion}_macos.universal.zip";
@@ -40,7 +41,7 @@
         src = fetchurl {
           inherit name;
           url = "https://downloads.godotengine.org/?version=${version}&flavor=${flavour}&slug=macos.universal.zip&platform=macos.universal";
-          hash = "sha256-/BXOtigEIPEXq072IzJlTbAIgHj67rkCXdgUJ2GF7Ts=";
+          hash = "sha256-ZmsqZOS1xZ2w5JdGBbiI63LrfU5g6HDSvmzBlye1CAc=";
         };
         man = null;
         nativeBuildInputs = [ unzip ];
@@ -56,16 +57,6 @@
           platforms = lib.platforms.darwin;
         };
       };
-
-    /*
-godot = ((callPackage ((fetchFromGitHub {
-owner = "NixOS";
-repo = "nixpkgs";
-rev = "46d304577ab3fbb7a0242bca9824045aa8bb51fe";
-hash = "sha256-QecVtt9hWjJ74wn+Rzsk1Az8MTuk1GBBRyRCgMv6b/w=";
-sparseCheckout = ["pkgs/development/tools/godot"];
-}).outPath + "/pkgs/development/tools/godot")) {}).godot_4_5;
-*/
   })];
   security.pam.services.sudo_local.touchIdAuth = true;
 } // lib.optionalAttrs isDarwin {

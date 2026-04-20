@@ -15,6 +15,7 @@
         ".git"
         "Cargo.toml"
         "CMakeLists.txt"
+        "compile_commands.json"
         "package.json"
         "platformio.ini"
         "pyproject.toml"

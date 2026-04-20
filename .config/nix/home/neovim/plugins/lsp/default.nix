@@ -244,10 +244,17 @@
         "<S-F4>".__raw = ''function()
           require "telescope.builtin".lsp_type_definitions(require "telescope.themes".get_cursor {})
         end'';
-        "<F5>".__raw = "vim.lsp.buf.references";
-        "<S-F5>".__raw = "vim.lsp.buf.implementation";
+        "<F5>".__raw = ''function() 
+          require "telescope.builtin".lsp_references(require "telescope.themes".get_cursor {})
+        end'';
+        "<S-F5>".__raw = ''function()
+          require "telescope.builtin".lsp_implementations(require "telescope.themes".get_cursor {})
+        end'';
         "<F6>".__raw = "vim.diagnostic.open_float";
-        "<F9>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
+        "<F7>".__raw = "function() vim.lsp.buf.format { async = true } end";
+        "<F8>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
+        "<S-F8>".__raw = "require'copilot.suggestion'.toggle_auto_trigger";
+        "<F9>".__raw = "function() vim.wo.wrap = not vim.wo.wrap end";
         "<F10>".__raw = "require'treesitter-context'.toggle";
         "<F11>".__raw = "function() vim.diagnostic.enable(not vim.diagnostic.is_enabled()) end";
         "<F12>".__raw = "function() vim.wo.spell = not vim.wo.spell end";
@@ -281,12 +288,14 @@
     autoActivate = false;
   };
   
-  imports = [(pkgs.vimUtils.buildVimPlugin {
-    name = "nvim-lsp-endhints";
-    src = builtins.fetchTarball {
-      url = "https://github.com/chrisgrieser/nvim-lsp-endhints/archive/main.tar.gz"; 
-    };
-  })];
+  imports = [
+    (pkgs.vimUtils.buildVimPlugin {
+      name = "nvim-lsp-endhints";
+      src = builtins.fetchTarball {
+        url = "https://github.com/chrisgrieser/nvim-lsp-endhints/archive/main.tar.gz"; 
+      };
+    })
+  ];
   lz-n.plugins = [
     {
       __unkeyed-1 = "nvim-lsp-endhints";

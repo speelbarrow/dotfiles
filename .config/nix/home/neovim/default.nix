@@ -112,18 +112,5 @@ in {
       frame = "transparent";
     });
   } // (lib.optionalAttrs pkgs.stdenv.hostPlatform.isDarwin {
-      package = pkgs.neovide.overrideAttrs (final: prev: {
-        postFixup = let 
-          lines = lib.splitString "\n" prev.postFixup;
-        in lib.concatLines (
-            lib.take (
-              lib.lists.findFirstIndex (
-                line: lib.hasPrefix "wrapProgram" line
-              )
-              null lines
-            )
-          lines
-        );
-      });
   });
 }

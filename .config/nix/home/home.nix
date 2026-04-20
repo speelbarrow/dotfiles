@@ -7,6 +7,7 @@
     homeDirectory = user.home;
 
     packages = with pkgs; [
+      fritzing
       wireshark
       typst
     ];

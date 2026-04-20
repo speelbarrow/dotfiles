@@ -1,3 +1,22 @@
+If:
+  PathMatch:
+    - .*\.c
+CompileFlags:
+  Add: -std=c17
+---
+If:
+  PathExclude:
+    - .*\.c
+    - .*\.h
+    - .*\.ino
+CompileFlags:
+  Add: -std=c++17
+
+---
+If:
+  PathMatch:
+    - .*\.ino
+---
 CompileFlags:
   BuiltinHeaders: QueryDriver
 InlayHints:

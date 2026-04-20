@@ -1,3 +1,5 @@
+path+=("$HOME/.local/share/radare2/prefix/bin")
+
 function r2 {
         if [ -x "./executable" ]
         then

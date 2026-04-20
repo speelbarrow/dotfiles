@@ -13,9 +13,13 @@ in {
     vim.bo.textwidth = 120
   '';
   "after/ftplugin/asm.lua".text = eight;
-  "after/ftplugin/c.lua".text = "vim.o.textwidth = 120";
+  "after/ftplugin/c.lua".text = four + ''
+    vim.o.textwidth = 120
+  '';
   "after/ftplugin/cmake.lua".text = two;
-  "after/ftplugin/cpp.lua".text = "vim.o.textwidth = 120";
+  "after/ftplugin/cpp.lua".text = four + ''
+    vim.o.textwidth = 120
+  '';
   "after/ftplugin/cs.lua".text = four;
   "after/ftplugin/css.lua".text = two; 
   "after/ftplugin/cucumber.lua".text = two;

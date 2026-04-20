@@ -25,6 +25,7 @@
         ${sudo} ${command} switch --cores $(${cores}) --max-jobs $(${cores}) |& nom
       '';
 
+      cat = "bat";
       eza = "command eza -l --header --git --icons";
       z = let
         ignore = builtins.concatStringsSep "|" ([
@@ -59,17 +60,17 @@
     systemPackages = with pkgs; [
       # The order is important!
       cmake
-      llvmPackages.libstdcxxClang
+      llvmPackages.libcxxClang
       llvmPackages.libllvm
       llvmPackages.libcxx
 
       arduino-cli
       avrdude
+      bat
       bun
       chatterino7
       cargo-expand
       cargo-generate
-      clang
       cmakeCurses
       curl
       eza
@@ -77,13 +78,16 @@
       git
       gnumake
       godot
+      musescore
       nix-output-monitor
       platformio-core
       probe-rs-tools
       python3
       ripgrep
       rustup
+      rust-bindgen
       sl
+      virtualenv
       wget
       wireguard-tools
       yadm

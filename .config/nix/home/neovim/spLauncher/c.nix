@@ -1,5 +1,5 @@
 { ... }: {
-  base.__raw = ''vim.bo.filetype == "cpp" and "clang++" or "clang"'';
+  base.__raw = ''vim.bo.filetype == "c" and "clang" or "clang++"'';
   run.__raw = ''function()
     local temp = vim.fn.tempname()
     return "-o " .. temp .. " % && " .. temp
@@ -39,8 +39,9 @@
     elseif vim.fs.root(0, { 'Makefile' }) ~= nil then
       vim.b.spLauncherActionMap = {
         base = "make",
-        run = " run",
+        run = true,
         build = "",
+        clean = true,
       }
     elseif vim.fs.root(0, { 'platformio.ini' }) ~= nil then
       ${import ./platformio.nix}
