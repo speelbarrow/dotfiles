@@ -144,7 +144,7 @@ in
             family = "JetBrainsMono Nerd Font";
           in
           {
-            size = if pkgs.stdenv.isDarwin then 14 else 10;
+            size = if pkgs.stdenv.isDarwin then 15 else 12;
             normal = [
               {
                 inherit family;
