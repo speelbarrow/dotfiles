@@ -6,6 +6,9 @@
         container system start >/dev/null &>/dev/null
       fi
     '';
+    shellAliases = {
+      notify-done = "terminal-notifier -sound default -message Done";
+    };
     systemPackages = [
       blueutil
       darwin.libiconv

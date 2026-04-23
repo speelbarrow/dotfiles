@@ -1,4 +1,5 @@
-{ ... }: {
+{ ... }:
+{
   lualine = {
     enable = true;
     autoLoad = true;
@@ -21,8 +22,11 @@
 
     settings = {
       sections = {
-        lualine_a = ["mode"];
-        lualine_b = ["branch" "diff"];
+        lualine_a = [ "mode" ];
+        lualine_b = [
+          "branch"
+          "diff"
+        ];
         lualine_c = [
           {
             __unkeyed-1 = "filename";
@@ -38,8 +42,13 @@
           {
             __unkeyed-1 = "diagnostics";
             cond.__raw = "vim.diagnostic.is_enabled";
-            sources = ["nvim_lsp"];
-            sections = ["error" "warn" "info" "hint"];
+            sources = [ "nvim_lsp" ];
+            sections = [
+              "error"
+              "warn"
+              "info"
+              "hint"
+            ];
             symbols = {
               error = "󱎘 ";
               warning = "󱈸 ";
@@ -67,10 +76,17 @@
             __unkeyed-1 = "'󱍓 '";
             cond.__raw = "function() return vim.wo.spell end";
           }
-          "o:shiftwidth" "filetype" 
+          "o:shiftwidth"
+          "filetype"
         ];
-        lualine_y = ["encoding" "fileformat"];
-        lualine_z = ["progress" "location"];
+        lualine_y = [
+          "encoding"
+          "fileformat"
+        ];
+        lualine_z = [
+          "progress"
+          "location"
+        ];
       };
       options = {
         globalstatus = true;
