@@ -1,13 +1,21 @@
-{ lib, isDarwin, pkgs, ... }: {
+{
+  lib,
+  isDarwin,
+  pkgs,
+  ...
+}:
+{
   environment = {
-    extraInit = lib.concatLines (import ../mkDir.nix {
-      args = { inherit pkgs; };
-      inherit lib;
-      path = ./init;
-    });
+    extraInit = lib.concatLines (
+      import ../mkDir.nix {
+        args = { inherit pkgs; };
+        inherit lib;
+        path = ./init;
+      }
+    );
 
     # Required for home-manager.programs.zsh.enableCompletion to work properly.
-    pathsToLink = ["/share/zsh"];
+    pathsToLink = [ "/share/zsh" ];
 
     shellAliases = {
       rebuild = let
@@ -27,26 +35,32 @@
 
       cat = "bat";
       eza = "command eza -l --header --git --icons";
-      z = let
-        ignore = builtins.concatStringsSep "|" ([
-          ".git"
+      z =
+        let
+          ignore = builtins.concatStringsSep "|" (
+            [
+              ".git"
 
-          "build"
-          "out"
+              "build"
+              "out"
 
-          "Cargo.lock"
-          "target"
+              "Cargo.lock"
+              "target"
 
-          "node_modules"
+              "node_modules"
 
-          ".mypy_cache"
-          "__pycache__"
-          ".ropeproject"
-          ".venv"
-        ] ++ lib.optionals isDarwin [".DS_Store"]);
-      in ''eza $([ "$(dirname $PWD)" != "$(dirname $HOME)" ] && echo -n " -a ") \
-            --git-ignore \
-            --ignore-glob="${ignore}"'';
+              ".mypy_cache"
+              "__pycache__"
+              ".ropeproject"
+              ".venv"
+            ]
+            ++ lib.optionals isDarwin [ ".DS_Store" ]
+          );
+        in
+        ''
+          eza $([ "$(dirname $PWD)" != "$(dirname $HOME)" ] && echo -n " -a ") \
+                      --git-ignore \
+                      --ignore-glob="${ignore}"'';
       za = "eza -a";
       zz = "z --tree";
       zza = "za --tree";
@@ -68,9 +82,9 @@
       avrdude
       bat
       bun
-      chatterino7
       cargo-expand
       cargo-generate
+      chatterino7
       cmakeCurses
       curl
       eza
@@ -94,7 +108,7 @@
     ];
 
     variables = {
-      CMAKE_EXPORT_COMPILE_COMMANDS="on";
+      CMAKE_EXPORT_COMPILE_COMMANDS = "on";
     };
   };
   nixpkgs.overlays = with pkgs; [

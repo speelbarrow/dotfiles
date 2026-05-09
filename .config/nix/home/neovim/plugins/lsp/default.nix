@@ -19,6 +19,13 @@
           end
         end
       })
+      -- Without this, `barbar` or `scope` will cache the buffer and it will break after first use
+      vim.api.nvim_create_autocmd("BufHidden", {
+        pattern = "copilot://*",
+        callback = vim.schedule_wrap(function(args)
+          vim.cmd.bw(args.buf)
+        end)
+      })
     '';
     settings = {
       filetypes = {
@@ -34,7 +41,7 @@
       suggestion = {
         hide_during_completion = false;
         keymap = {
-          accept = "<S-Enter>";
+          accept = "<S-CR>";
           dismiss = "<S-BS>";
           next = "<S-Down>";
           prev = "<S-Up>";
@@ -50,77 +57,92 @@
     '';
   };
 
-  blink-cmp = {
-    enable = true;
-    settings = {
-      completion = {
-        documentation.window.border = "rounded";
-        menu = {
-          border = "rounded";
-          draw.treesitter = [ "lsp" ];
-          winblend = 15; # see `home/neovim/files/neovide.nix`
+  blink-cmp =
+    let
+      winblend = {
+        # see `home/neovim/files/neovide.nix`
+        __raw = "vim.g.neovide == true and 15 or vim.o.winblend";
+      };
+    in
+    {
+      enable = true;
+      settings = {
+        enabled.__raw = "function() return vim.bo.filetype ~= 'DressingInput' end";
+        completion = {
+          documentation = {
+            window.border = "rounded";
+            inherit winblend;
+          };
+          menu = {
+            border = "rounded";
+            draw.treesitter = [ "lsp" ];
+            inherit winblend;
+          };
+          trigger.show_on_backspace = true;
         };
-        trigger.show_on_backspace = true;
-      };
-      signature = {
-        enabled = true;
-        window.border = "rounded";
-      };
-      keymap = {
-        preset = "none";
-        "<CR>" = [
-          "accept"
-          "fallback"
-        ];
-        "<Up>" = [
-          "select_prev"
-          "fallback"
-        ];
-        "<ScrollWheelUp>" = [
-          "select_prev"
-          "fallback"
-        ];
-        "<Down>" = [
-          "select_next"
-          "fallback"
-        ];
-        "<ScrollWheelDown>" = [
-          "select_next"
-          "fallback"
-        ];
-        "<Tab>" = [
-          "snippet_forward"
-          "fallback"
-        ];
-        "<S-Tab>" = [
-          "snippet_backward"
-          "fallback"
-        ];
-        "<S-CR>" = [
-          {
-            __raw = ''
-              function()
-                local copilot = require"copilot.suggestion"
-                if copilot.is_visible() then
-                  copilot.accept()
-                  return true
+        signature = {
+          enabled = true;
+          window = {
+            border = "rounded";
+            inherit winblend;
+          };
+        };
+        keymap = {
+          preset = "none";
+          "<CR>" = [
+            "accept"
+            "fallback"
+          ];
+          "<Up>" = [
+            "select_prev"
+            "fallback"
+          ];
+          "<ScrollWheelUp>" = [
+            "select_prev"
+            "fallback"
+          ];
+          "<Down>" = [
+            "select_next"
+            "fallback"
+          ];
+          "<ScrollWheelDown>" = [
+            "select_next"
+            "fallback"
+          ];
+          "<Tab>" = [
+            "snippet_forward"
+            "fallback"
+          ];
+          "<S-Tab>" = [
+            "snippet_backward"
+            "fallback"
+          ];
+          "<S-CR>" = [
+            {
+              __raw = ''
+                function()
+                  local copilot = require"copilot.suggestion"
+                  if copilot.is_visible() == true then
+                    copilot.accept()
+                    return true
+                  end
                 end
-                return false
-              end
-            '';
-          }
-          "show"
-          "hide_documentation"
-          "show_documentation"
-        ];
-        "<S-BS>" = [
-          "hide_documentation"
-          "hide"
-          "fallback_to_mappings"
-        ];
+              '';
+            }
+            "hide_documentation"
+            "show_documentation"
+            "show"
+            "show_signature"
+          ];
+          "<S-BS>" = [
+            "hide_documentation"
+            "hide"
+            "hide_signature"
+            "fallback_to_mappings"
+          ];
+        };
       };
     };
-  };
 
   lsp = {
     enable = true;
