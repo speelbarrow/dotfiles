@@ -241,12 +241,18 @@
   };
 
   imports = [
-    (pkgs.vimUtils.buildVimPlugin {
-      name = "nvim-lsp-endhints";
-      src = builtins.fetchTarball {
-        url = "https://github.com/chrisgrieser/nvim-lsp-endhints/archive/main.tar.gz";
-      };
-    })
+    (
+      with pkgs;
+      vimUtils.buildVimPlugin rec {
+        name = "nvim-lsp-endhints";
+        src = fetchFromGitHub {
+          owner = "chrisgrieser";
+          repo = name;
+          rev = "a86e7ca7a92ef003008d7eb5d153c63bcc89f79c";
+          hash = "sha256-RstC7vzBNkGtd7XohTQA6PrIc2etzFOPK/NBuC9eGrU=";
+        };
+      }
+    )
   ];
   lz-n.plugins = [
     {

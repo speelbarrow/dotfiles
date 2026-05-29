@@ -23,13 +23,13 @@ lib.mkIf isDarwin (
         imagemagick # required for folderify
         (rustPlatform.buildRustPackage rec {
           pname = "folderify";
-          version = "v4.1.0";
-          cargoHash = "sha256-ifeJgv9fAXbEzVsH258/9BVue9Po8CkwrtyhkcGbDs4=";
+          version = "v4.1.3";
+          cargoHash = "sha256-XyNcWwqy4w+b/epvjx6Jt7IBoZgxfowLOWeC6pMvaVo=";
           src = fetchFromGitHub {
             owner = "lgarron";
             repo = pname;
             rev = version;
-            sha256 = "eunyn8uUL77J6xnt/2iofT4+qRmkP8eNGx/4DsDh6u0=";
+            hash = "sha256-Gq6rXqvvnFmAzKxnoJ70x2zLA4h/P0hjMMldNMc6jtI=";
           };
         })
         terminal-notifier
