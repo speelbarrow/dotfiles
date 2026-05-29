@@ -1,10 +1,11 @@
-{ ... }: {
+{ ... }:
+{
   project-nvim = {
     enable = true;
     enableTelescope = true;
-    lazyLoad.settings.event = ["User DeferredUIEnter"];
+    lazyLoad.settings.event = [ "User DeferredUIEnter" ];
     settings = {
-      ignore_lsp = [
+      lsp.ignore = [
         "clangd"
         "copilot"
         "lua_ls"

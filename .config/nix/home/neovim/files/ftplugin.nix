@@ -8,6 +8,9 @@
   two = make "2";
   four = make "4";
   eight = make "8";
+  javascript = two + ''
+    vim.bo.textwidth = 120
+  '';
 in {
   "after/ftplugin/arduino.lua".text = four + ''
     vim.bo.textwidth = 120
@@ -29,12 +32,12 @@ in {
   "after/ftplugin/nix.lua".text = two;
   "after/ftplugin/bindzone.lua".text = eight;
   "after/ftplugin/lua.lua".text = two;
-  "after/ftplugin/javascript.lua".text = two;
+  "after/ftplugin/javascript.lua".text = javascript;
   "after/ftplugin/json.lua".text = two;
   "after/ftplugin/sh.lua".text = eight;
   "after/ftplugin/sql.lua".text = two;
   "after/ftplugin/toml.lua".text = two;
-  "after/ftplugin/typescript.lua".text = two;
+  "after/ftplugin/typescript.lua".text = javascript;
   "after/ftplugin/typst.lua".text = two + ''
     vim.wo.spell = true
     vim.bo.textwidth = 80

@@ -184,6 +184,8 @@
                       end'';
             "<S-F1>" = "<Cmd>checkhealth vim.lsp<CR>";
             # F2: smartRename -> home/neovim/plugins/treesitter.nix
+            # except not anymore because its broken!
+            "<F2>".__raw = "vim.lsp.buf.rename";
             "<F3>".__raw = "vim.lsp.buf.code_action";
             "<F4>".__raw = ''
               function()

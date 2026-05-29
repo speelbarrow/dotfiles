@@ -18,20 +18,23 @@
     pathsToLink = [ "/share/zsh" ];
 
     shellAliases = {
-      rebuild = let
-        command = if isDarwin
-                  then "sudo darwin-rebuild"
-                  else if builtins.pathExists "/etc/nixos"
-                  then "sudo nixos-rebuild"
-                  else "home-manager";
-        cores = if isDarwin
-                then "sysctl -n hw.ncpu"
-                else "nproc --all";
-        sudo = if isDarwin || builtins.pathExists "/etc/nixos" then "sudo" else "";
-      in ''
-        ${sudo} nix-channel --update
-        ${sudo} ${command} switch --cores $(${cores}) --max-jobs $(${cores}) |& nom
-      '';
+      rebuild =
+        let
+          command =
+            if isDarwin then
+              "sudo darwin-rebuild"
+            else if builtins.pathExists "/etc/nixos" then
+              "sudo nixos-rebuild"
+            else
+              "home-manager";
+          cores = if isDarwin then "sysctl -n hw.ncpu" else "nproc --all";
+          sudo = if isDarwin || builtins.pathExists "/etc/nixos" then "sudo" else "";
+        in
+        ''
+          ${sudo} nix-channel --update --log-format internal-json -v |& nom --json
+          ${sudo} ${command} switch --cores $(${cores}) --max-jobs $(${cores}) --log-format \
+            internal-json -v |& nom --json
+        '';
 
       cat = "bat";
       eza = "command eza -l --header --git --icons";

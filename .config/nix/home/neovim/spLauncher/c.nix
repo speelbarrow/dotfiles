@@ -1,14 +1,17 @@
-{ ... }: {
+{ ... }:
+{
   base.__raw = ''vim.bo.filetype == "c" and "clang" or "clang++"'';
-  run.__raw = ''function()
-    local temp = vim.fn.tempname()
-    return "-o " .. temp .. " % && " .. temp
-  end'';
+  run.__raw = ''
+    function()
+        local temp = vim.fn.tempname()
+        return "-o " .. temp .. " % && " .. temp
+      end'';
   debug = {
-    handler.__raw = ''function()
-      local temp = vim.fn.tempname()
-      return "-g -o " .. temp .. " % && lldb " .. temp
-    end'';
+    handler.__raw = ''
+      function()
+            local temp = vim.fn.tempname()
+            return "-g -o " .. temp .. " % && lldb " .. temp
+          end'';
     config = {
       window = {
         focus = "insert";
