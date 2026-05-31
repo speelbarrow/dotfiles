@@ -1,15 +1,14 @@
 { pkgs, ... }:
 let
-  sudo = if pkgs.stdenv.isDarwin || builtins.pathExists /etc/nixos then "sudo " else "";
-  prefix = "HOME=~root ${sudo}";
+  sudo = if pkgs.stdenv.isDarwin || builtins.pathExists /etc/nixos then "HOME=~root sudo " else "";
   suffix = "--log-format internal-json -v |& nom --json";
 in
 {
   base =
     if pkgs.stdenv.isDarwin then
-      "${prefix}nix-channel --update ${suffix} && ${prefix}darwin-rebuild"
+      "${sudo}nix-channel --update ${suffix} && ${sudo}darwin-rebuild"
     else if builtins.pathExists /etc/nixos then
-      "${prefix}nix-channel --update ${suffix} && ${prefix}nixos-rebuild"
+      "${sudo}nix-channel --update ${suffix} && ${sudo}nixos-rebuild"
     else
       "nix-channel --update ${suffix} && home-manager";
   run = {

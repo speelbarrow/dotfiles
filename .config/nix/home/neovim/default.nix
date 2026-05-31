@@ -116,6 +116,24 @@ in
 
   programs.neovide = {
     enable = true;
+
+    package =
+      with pkgs;
+      stdenv.mkDerivation rec {
+        inherit (neovide) name meta version;
+        src = fetchurl {
+          url = "https://github.com/neovide/neovide/releases/download/${version}/Neovide-aarch64-apple-darwin.dmg";
+          hash = "sha256-XrdF6n8gzwBJGo/9jXk8YWnvHG4aD3Wui+QFceZcayY=";
+        };
+        nativeBuildInputs = [ undmg ];
+        sourceRoot = ".";
+        installPhase = ''
+          runHook preInstall
+          mkdir -p $out/Applications
+          cp -R Neovide.app $out/Applications
+          runHook postInstall
+        '';
+      };
     settings = (
       {
         system-native-tabs = true;

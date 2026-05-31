@@ -20,23 +20,23 @@
     shellAliases = {
       rebuild =
         let
+          sudo = if isDarwin || builtins.pathExists "/etc/nixos" then "HOME=~root sudo " else "";
           command =
             if isDarwin then
-              "sudo darwin-rebuild"
+              "${sudo}darwin-rebuild"
             else if builtins.pathExists "/etc/nixos" then
-              "sudo nixos-rebuild"
+              "${sudo}nixos-rebuild"
             else
               "home-manager";
           cores = if isDarwin then "sysctl -n hw.ncpu" else "nproc --all";
-          sudo = if isDarwin || builtins.pathExists "/etc/nixos" then "sudo" else "";
         in
         ''
-          ${sudo} nix-channel --update --log-format internal-json -v |& nom --json
-          ${sudo} ${command} switch --cores $(${cores}) --max-jobs $(${cores}) --log-format \
+          ${sudo}nix-channel --update --log-format internal-json -v |& nom --json
+          ${command} switch --cores $(${cores}) --max-jobs $(${cores}) --log-format \
             internal-json -v |& nom --json
         '';
 
-      cat = "bat";
+      cat = "bat --theme Dracula";
       eza = "command eza -l --header --git --icons";
       z =
         let

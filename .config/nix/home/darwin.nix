@@ -11,6 +11,6 @@ in lib.mkIf pkgs.stdenv.isDarwin {
     macos-icon-ghost-color = "green";
     macos-icon-screen-color = "red";
   };
-  programs.ghostty.package = pkgs.ghostty-bin; 
+  programs.ghostty.package = pkgs.ghostty-bin;
   programs.zsh.shellAliases.python = "python3";
 }
