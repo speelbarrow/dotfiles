@@ -42,7 +42,7 @@
           {
             __unkeyed-1 = "diagnostics";
             cond.__raw = "vim.diagnostic.is_enabled";
-            sources = [ "nvim_lsp" ];
+            sources = [ "nvim_diagnostic" ];
             sections = [
               "error"
               "warn"
@@ -55,6 +55,7 @@
               info = " ";
               hint = "󰙴 ";
             };
+            update_in_insert = true;
           }
           {
             __unkeyed-1 = "' '";
