@@ -55,7 +55,7 @@
             owner = "MichaelAquilina";
             repo = "zsh-autoswitch-virtualenv";
             rev = "3.9.0";
-            hash = "sha256-unPUH3D89gH0j8/kv1Dl+ybR5n8UX0hJ+SuETtgpJOo=";
+            hash = "sha256-j2YX+OcYbvS2G/KUNzcWbJepm9bZlegp1r8ZjcY6Nnw=";
           };
         }
         {
