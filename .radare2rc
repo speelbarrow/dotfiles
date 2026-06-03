@@ -9,6 +9,9 @@ e asm.sub.names=true
 e asm.symbol=true
 e asm.xrefs=false
 
+# Binary relocs
+e bin.relocs.apply=true
+
 # Clippy
 e cfg.fortunes.clippy=true
 e cfg.fortunes.type=fun,tips,nsfw

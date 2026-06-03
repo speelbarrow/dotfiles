@@ -239,6 +239,36 @@
     lazyLoad.settings.event = "LspAttach";
     autoActivate = false;
   };
+  rustaceanvim = {
+    enable = true;
+    settings = {
+      server = {
+        cmd.__raw = ''
+          {
+            "${pkgs.rust-analyzer}/bin/rust-analyzer",
+            "--log-file",
+            vim.env.HOME .. "/.local/state/nvim/rustacean.log"
+          }
+        '';
+        default_settings.rust_analyzer = {
+          cachePriming = {
+            enable = true;
+            numThreads = "logical";
+          };
+          cargo = {
+            features = "all";
+            targetDir = true;
+          };
+          semanticHighlighting.strings.enable = false;
+        };
+      };
+      tools = {
+        enable_clippy = false;
+        enable_nextest = false;
+        hover_actions.replace_builtin_hover = false;
+      };
+    };
+  };
 
   imports = [
     (

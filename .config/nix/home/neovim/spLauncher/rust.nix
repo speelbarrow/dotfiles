@@ -1,14 +1,17 @@
-{ ... }: {
+{ ... }:
+{
   base = "rustc";
-  run.__raw = ''function()
-    local temp = vim.fn.tempname()
-    return "-o " .. temp .. " % && " .. temp
-  end'';
+  run.__raw = ''
+    function()
+        local temp = vim.fn.tempname()
+        return "-o " .. temp .. " % && " .. temp
+      end'';
   debug = {
-    handler.__raw = ''function()
-      local temp = vim.fn.tempname()
-      return "-g -o " .. temp .. " % && rust-lldb " .. temp
-    end'';
+    handler.__raw = ''
+      function()
+            local temp = vim.fn.tempname()
+            return "-g -o " .. temp .. " % && rust-lldb " .. temp
+          end'';
     config = {
       window = {
         focus = "insert";
@@ -16,10 +19,11 @@
       };
     };
   };
-  test.__raw = ''function()
-    local temp = vim.fn.tempname()
-    return "--test -o " .. temp .. " % && " .. temp
-  end'';
+  test.__raw = ''
+    function()
+        local temp = vim.fn.tempname()
+        return "--test -o " .. temp .. " % && " .. temp
+      end'';
   build = "%";
   __raw = ''
     local root = vim.fs.root(0, { 'Cargo.toml' })
@@ -39,14 +43,14 @@
             return "r"
           end
         end,
-        debug = "d",
+        debug = function() vim.cmd "DapNew Debug\\ (+args)" end,
         test = "t",
         build = "b",
         clean = "c",
         Run = function()
           return (vim.b.spLauncherActionMap.run() .. " --release")
         end,
-        Debug = "d --release",
+        Debug = function() vim.cmd "DapNew Debug\\ tests\\ (+args)" end,
         Test = "t --release",
         Build = "b --release",
         Clean = "c --release"

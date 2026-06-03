@@ -2,7 +2,8 @@
 {
   project-nvim = {
     enable = true;
-    enableTelescope = true;
+    # until nvim-telescope/telescope.nvim#3676 is merged
+    enableTelescope = false;
     lazyLoad.settings.event = [ "User DeferredUIEnter" ];
     settings = {
       lsp.ignore = [

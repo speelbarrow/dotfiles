@@ -58,7 +58,7 @@ in
           shell = "zsh --login"; # required to get all the sourcings just right
           shiftwidth = 4;
           showmode = false;
-          signcolumn = "no"; # gitsigns will still change the color of the numbers
+          signcolumn = "yes";
           softtabstop = 4;
           splitbelow = true;
           splitright = true;
@@ -100,6 +100,7 @@ in
                 "c"
               ];
             };
+            filter = ["warn.nix"];
             path = ./keymaps;
           }
         );
