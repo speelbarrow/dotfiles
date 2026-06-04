@@ -41,8 +41,6 @@
       suggestion = {
         hide_during_completion = false;
         keymap = {
-          accept = "<S-CR>";
-          dismiss = "<S-BS>";
           next = "<S-Down>";
           prev = "<S-Up>";
         };
@@ -118,27 +116,27 @@
             "fallback"
           ];
           "<S-CR>" = [
+            "hide_documentation"
             {
               __raw = ''
                 function()
                   local copilot = require"copilot.suggestion"
-                  if copilot.is_visible() == true then
+                  if copilot.is_visible() ~= nil and not require"blink-cmp".is_visible() then
                     copilot.accept()
                     return true
                   end
                 end
               '';
             }
-            "hide_documentation"
-            "show_documentation"
-            "show"
             "show_signature"
+            "show"
+            "show_documentation"
           ];
           "<S-BS>" = [
             "hide_documentation"
             "hide"
             "hide_signature"
-            "fallback_to_mappings"
+            "fallback"
           ];
         };
       };
@@ -165,23 +163,22 @@
           {
             "<F1>".__raw = ''
               function()
-
-                        local buffer = vim.api.nvim_get_current_buf()
-                        local client = vim.lsp.get_clients({ 
-                          name = "otter-ls[" .. buffer .. "]"
-                        })[1]
-                        if client ~= nil 
-                           and lang ~= nil 
-                           and lang ~= vim.api.nvim_buf_get_option(buffer, "filetype") 
-                        then
-                          client.request(
-                            vim.lsp.protocol.Methods.textDocument_hover,
-                            vim.lsp.util.make_position_params()
-                          )
-                        else
-                          vim.lsp.buf.hover()
-                        end
-                      end'';
+                local buffer = vim.api.nvim_get_current_buf()
+                local client = vim.lsp.get_clients({ 
+                  name = "otter-ls[" .. buffer .. "]"
+                })[1]
+                if client ~= nil 
+                   and lang ~= nil 
+                   and lang ~= vim.api.nvim_buf_get_option(buffer, "filetype") 
+                then
+                  client.request(
+                    vim.lsp.protocol.Methods.textDocument_hover,
+                    vim.lsp.util.make_position_params()
+                  )
+                else
+                  vim.lsp.buf.hover()
+                end
+              end'';
             "<S-F1>" = "<Cmd>checkhealth vim.lsp<CR>";
             # F2: smartRename -> home/neovim/plugins/treesitter.nix
             # except not anymore because its broken!
@@ -226,14 +223,6 @@
     };
   };
 
-  lsp-format = {
-    enable = true;
-    lazyLoad.settings.event = "LspAttach";
-    settings = {
-      lua.exclude = [ "lua_ls" ];
-      sql.exclude = [ "sqls" ];
-    };
-  };
   otter = {
     enable = true;
     lazyLoad.settings.event = "LspAttach";
