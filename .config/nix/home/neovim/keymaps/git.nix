@@ -36,10 +36,11 @@ let
   fallback = cmd: fb: {
     __raw = ''
       function()
-            if not pcall(vim.cmd.Telescope, "git_${cmd}") then
-              vim.cmd("Git ${fb}")
-            end
-          end'';
+        if not pcall(vim.cmd.Telescope, "git_${cmd}") then
+          vim.cmd("Git ${fb}")
+        end
+      end
+    '';
   };
   warn = import ./warn.nix;
 in
