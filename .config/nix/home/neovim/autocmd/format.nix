@@ -15,19 +15,24 @@
             excludes = { excludes }
           end
 
-          vim.lsp.buf.format({ 
-            async = true,
-            bufnr = args.buf,
+          local candidates = vim.tbl_map(
             ---@param client vim.lsp.Client
-            filter = function(client)
-              for _, name in ipairs(excludes) do 
-                if client.name == name then
-                  return false
-                end
-              end 
-              return true
-            end,
-          })
+            function(client) return client.id end,
+            vim.tbl_filter(
+              function(client) return not vim.list_contains(excludes, client.name) end, 
+              vim.lsp.get_clients({
+                bufnr = args.buf,
+                method = "textDocument/formatting"
+              })
+            )
+          )
+
+          if not vim.tbl_isempty(candidates) then
+            vim.lsp.buf.format({
+              bufnr = args.buf,
+              filter = function(client) return vim.list_contains(candidates, client.id) end
+            })
+          end
         end
       end
     '';
