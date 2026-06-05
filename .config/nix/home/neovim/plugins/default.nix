@@ -1,17 +1,25 @@
-{ lib, ... } @ args: import ../../../mkDir.nix {
+{ lib, ... }@args:
+import ../../../mkDir.nix {
   inherit args lib;
   path = ./.;
-  extra = [{
-    crates = {
-      enable = true;
-      lazyLoad.settings.event = "BufEnter *Cargo.toml";
-    };
-    indent-blankline = {
-      enable = true;
-      lazyLoad.settings.event = "User FileOpened";
-    };
-    lz-n.enable = true;
-    web-devicons.enable = true;
-    schemastore.yaml.enable = false;
-  }];
+  extra = [
+    {
+      crates = {
+        enable = true;
+        lazyLoad.settings.event = "BufEnter *Cargo.toml";
+      };
+      indent-blankline = {
+        enable = true;
+        lazyLoad.settings.event = "User FileOpened";
+        settings.scope = {
+          show_start = false;
+          show_exact_scope = true;
+          show_end = false;
+        };
+      };
+      lz-n.enable = true;
+      web-devicons.enable = true;
+      schemastore.yaml.enable = false;
+    }
+  ];
 }

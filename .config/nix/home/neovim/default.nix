@@ -46,6 +46,7 @@ in
             current_line = false;
             virt_text_pos = "eol_right_align";
           };
+          update_in_insert = true;
         };
 
         dependencies.gcc.enable = false;
