@@ -14,6 +14,13 @@
       numhl = false;
       preview_config.border = "rounded";
       _on_attach_pre.__raw = "function(_, cb) require 'gitsigns-yadm'.yadm_signs(cb) end";
+      on_attach.__raw = ''
+        function(bufnr)
+          if vim.bo[bufnr].filetype == "gitcommit" then
+            return false
+          end
+        end
+      '';
     };
   };
   imports =
