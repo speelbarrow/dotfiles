@@ -12,15 +12,6 @@
     settings = {
       attach_to_untracked = true;
       numhl = false;
-      /*
-        on_attach.__raw = ''
-          function(bufnr)
-            if vim.b[bufnr].gitsigns_status_dict.gitdir == vim.fn.stdpath "data":gsub("/nvim", "") ..
-              "/yadm/repo.git" and vim.fn["fugitive#Head"]() == "" then
-              vim.schedule_wrap(require 'gitsigns'.detach)(bufnr)
-            end
-          end'';
-      */
       preview_config.border = "rounded";
       _on_attach_pre.__raw = "function(_, cb) require 'gitsigns-yadm'.yadm_signs(cb) end";
     };
