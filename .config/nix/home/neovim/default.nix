@@ -10,12 +10,10 @@ in
 {
   imports =
     let
-      nixvim = import (
-        fetchGit {
-          url = "https://github.com/nix-community/nixvim";
-          ref = "nixos-${import ../../version.nix}";
-        }
-      );
+      nixvim = import (fetchGit {
+        url = "https://github.com/nix-community/nixvim";
+        ref = "nixos-${import ../../version.nix}";
+      });
     in
     [ nixvim.homeModules.nixvim ];
 
@@ -40,6 +38,13 @@ in
             transparent_bg = false;
             italic_comment = true;
             show_end_of_buffer = true;
+          };
+        };
+        diagnostic.settings = {
+          virtual_lines.current_line = true;
+          virtual_text = {
+            current_line = false;
+            virt_text_pos = "eol_right_align";
           };
         };
 
@@ -100,7 +105,7 @@ in
                 "c"
               ];
             };
-            filter = ["warn.nix"];
+            filter = [ "warn.nix" ];
             path = ./keymaps;
           }
         );

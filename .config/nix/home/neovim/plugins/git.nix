@@ -8,7 +8,7 @@
 
     settings = {
       attach_to_untracked = true;
-      numhl = true;
+      numhl = false;
       on_attach.__raw = ''
         function(bufnr)
           if vim.b[bufnr].gitsigns_status_dict.gitdir == vim.fn.stdpath "data":gsub("/nvim", "") ..
