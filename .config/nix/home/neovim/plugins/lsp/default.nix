@@ -243,14 +243,7 @@
           }
         '';
         default_settings.rust-analyzer = {
-          cachePriming = {
-            enable = true;
-            numThreads = "logical";
-          };
-          cargo = {
-            features = "all";
-            targetDir = true;
-          };
+          cargo.features = "all";
           semanticHighlighting.strings.enable = false;
         };
       };
