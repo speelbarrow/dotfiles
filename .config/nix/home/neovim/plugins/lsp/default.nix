@@ -161,24 +161,27 @@
             ];
           })
           {
-            "<F1>".__raw = ''
-              function()
-                local buffer = vim.api.nvim_get_current_buf()
-                local client = vim.lsp.get_clients({ 
-                  name = "otter-ls[" .. buffer .. "]"
-                })[1]
-                if client ~= nil 
-                   and lang ~= nil 
-                   and lang ~= vim.api.nvim_buf_get_option(buffer, "filetype") 
-                then
-                  client.request(
-                    vim.lsp.protocol.Methods.textDocument_hover,
-                    vim.lsp.util.make_position_params()
-                  )
-                else
-                  vim.lsp.buf.hover()
-                end
-              end'';
+            "<F1>".__raw = "function() vim.lsp.buf.hover() end";
+            /*
+              "<F1>".__raw = ''
+                function()
+                  local buffer = vim.api.nvim_get_current_buf()
+                  local client = vim.lsp.get_clients({
+                    name = "otter-ls[" .. buffer .. "]"
+                  })[1]
+                  if client ~= nil
+                     and lang ~= nil
+                     and lang ~= vim.api.nvim_buf_get_option(buffer, "filetype")
+                  then
+                    client.request(
+                      vim.lsp.protocol.Methods.textDocument_hover,
+                      vim.lsp.util.make_position_params()
+                    )
+                  else
+                    vim.lsp.buf.hover()
+                  end
+                end'';
+            */
             "<S-F1>" = "<Cmd>checkhealth vim.lsp<CR>";
             # F2: smartRename -> home/neovim/plugins/treesitter.nix
             # except not anymore because its broken!
@@ -239,7 +242,7 @@
             vim.env.HOME .. "/.local/state/nvim/rustacean.log"
           }
         '';
-        default_settings.rust_analyzer = {
+        default_settings.rust-analyzer = {
           cachePriming = {
             enable = true;
             numThreads = "logical";
@@ -276,10 +279,7 @@
   lz-n.plugins = [
     {
       __unkeyed-1 = "nvim-lsp-endhints";
-      after.__raw = ''
-        function()
-                require'lsp-endhints'.setup()
-              end'';
+      after.__raw = "function() require'lsp-endhints'.setup() end";
       event = "LspAttach";
     }
   ];
