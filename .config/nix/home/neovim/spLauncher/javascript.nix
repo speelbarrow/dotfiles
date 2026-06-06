@@ -1,6 +1,7 @@
 { ... }: {
-  base = "npm run";
-  run = "start";
-  build = true;
+  base = "bun";
+  run = "run %";
+  build = "build %";
   test = true;
+  __raw = import ./web.nix;
 }

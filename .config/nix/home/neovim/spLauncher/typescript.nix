@@ -1,6 +1,1 @@
-{ ... }: {
-  base = "npm run";
-  run = "start";
-  build = true;
-  test = true;
-}
+import ./javascript.nix
