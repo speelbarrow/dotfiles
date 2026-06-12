@@ -116,6 +116,7 @@
             "fallback"
           ];
           "<S-CR>" = [
+            "show_documentation"
             "hide_documentation"
             {
               __raw = ''
@@ -130,7 +131,6 @@
             }
             "show_signature"
             "show"
-            "show_documentation"
           ];
           "<S-BS>" = [
             "hide_documentation"
