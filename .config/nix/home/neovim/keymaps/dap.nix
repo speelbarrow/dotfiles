@@ -38,6 +38,10 @@ map
       action = "DapStepOut";
     }
     {
+      key = "q";
+      action = "DapTerminate";
+    }
+    {
       key = "s";
       action = "DapStepOver";
     }
