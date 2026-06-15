@@ -38,7 +38,7 @@
         };
         dependencies = [ vimPlugins.plenary-nvim ];
       };
-    lazyload.settings = {
+    lazyLoad.settings = {
       cmd = "Telescope";
       keys = [ "<A-v>" ];
     };
