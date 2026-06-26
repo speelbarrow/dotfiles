@@ -39,6 +39,33 @@ lib.mkIf isDarwin (
       variables.LIBRARY_PATH = "${darwin.libiconv}/lib";
     };
     security.pam.services.sudo_local.touchIdAuth = true;
+
+    nixpkgs.overlays = [
+      (self: super: {
+        godot =
+          with pkgs;
+          stdenv.mkDerivation rec {
+            inherit (super.godot)
+              man
+              meta
+              name
+              version
+              ;
+            src = fetchurl {
+              url = "https://godot-releases.nbg1.your-objectstorage.com/${version}/Godot_v${version}_macos.universal.zip";
+              hash = "sha256-MGMPPpsR4Qs1wfkLqIFBhdzsQ/rhpINFFZvnVSxkv+g=";
+            };
+            nativeBuildInputs = [ unzip ];
+            sourceRoot = ".";
+            installPhase = ''
+              runHook preInstall
+              mkdir -p $out/Applications
+              cp -R Godot.app $out/Applications
+              runHook postInstall
+            '';
+          };
+      })
+    ];
   }
   // lib.optionalAttrs isDarwin {
     system.primaryUser = "speelbarrow";
