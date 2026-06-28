@@ -47,13 +47,16 @@ lib.mkIf isDarwin (
           stdenv.mkDerivation rec {
             inherit (super.godot)
               man
-              meta
               name
-              version
               ;
+            version = "4.7-stable";
+            meta = super.godot.meta // {
+              changelog = "https://github.com/godotengine/godot/releases/tag/${version}";
+              name = "godot-${version}";
+            };
             src = fetchurl {
               url = "https://godot-releases.nbg1.your-objectstorage.com/${version}/Godot_v${version}_macos.universal.zip";
-              hash = "sha256-MGMPPpsR4Qs1wfkLqIFBhdzsQ/rhpINFFZvnVSxkv+g=";
+              hash = "sha256-pnCMM29pDg3Yq9PVh9ZhcH9PM+1DaUaj7AANL7SX/Ww=";
             };
             nativeBuildInputs = [ unzip ];
             sourceRoot = ".";

@@ -1,5 +1,6 @@
 # TODO: Make this better
-{ ... }: let
+{ ... }:
+let
   make = offset: ''
     vim.o.shiftwidth = ${offset}
     vim.o.softtabstop = ${offset}
@@ -11,7 +12,8 @@
   javascript = two + ''
     vim.bo.textwidth = 120
   '';
-in {
+in
+{
   "after/ftplugin/arduino.lua".text = four + ''
     vim.bo.textwidth = 120
   '';
@@ -24,7 +26,7 @@ in {
     vim.o.textwidth = 120
   '';
   "after/ftplugin/cs.lua".text = four;
-  "after/ftplugin/css.lua".text = two; 
+  "after/ftplugin/css.lua".text = two;
   "after/ftplugin/cucumber.lua".text = two;
   "after/ftplugin/glsl.lua".text = four;
   "after/ftplugin/html.lua".text = two;
@@ -42,4 +44,5 @@ in {
     vim.wo.spell = true
     vim.bo.textwidth = 80
   '';
+  "after/ftplugin/wgsl.lua".text = four;
 }

@@ -95,8 +95,8 @@
       git
       gnumake
       godot
-      musescore
       nix-output-monitor
+      nix-tree
       platformio-core
       probe-rs-tools
       python3
